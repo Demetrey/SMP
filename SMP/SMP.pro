@@ -8,10 +8,12 @@ CONFIG += c++11
 
 SOURCES += \
         Kernel/initializer.cpp \
+        Kernel/playbackcontroller.cpp \
         main.cpp
 
 HEADERS += \
     Kernel/initializer.h \
+    Kernel/playbackcontroller.h
 
 RESOURCES += qml.qrc
 

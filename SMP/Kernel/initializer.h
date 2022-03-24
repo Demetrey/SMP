@@ -20,6 +20,7 @@ public:
     void setDevice(int device);
     void initFile(const char *fileway);
     void initUrl(const char *url);
+    void freeStream();
     QMap<int, QString> getDevicesInfo();
     HSTREAM* getStream();
 

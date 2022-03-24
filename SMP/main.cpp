@@ -10,6 +10,9 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "Kernel/initializer.h"
+#include "Kernel/playbackcontroller.h"
+
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -35,6 +38,14 @@ int main(int argc, char *argv[]) {
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+    Initializer initializer;
+    PlaybackController pbc;
+    initializer.initDevice();
+    initializer.initFile("C:/Users/JustT/Desktop/The Pioneer.mp3");
+    pbc.setStream(*initializer.getStream());
+    pbc.play();
+    pbc.looping();
 
     return app.exec();
 }

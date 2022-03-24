@@ -56,6 +56,16 @@ void Initializer::initUrl(const char *url)
 }
 
 /**
+ * Force release of a playback stream
+ * @brief Initializer::freeStream
+ */
+void Initializer::freeStream() {
+    if (BASS_ChannelIsActive(stream) != BASS_ACTIVE_STOPPED)
+        BASS_ChannelStop(stream);
+    BASS_StreamFree(stream);
+}
+
+/**
  * Search for connected output devices for further use
  * @brief Initializer::getDeviceInfo
  * @return QMap of connected devices with name and number
