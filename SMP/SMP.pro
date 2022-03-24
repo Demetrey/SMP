@@ -42,11 +42,55 @@ win32 {
     }
 }
 
+# Linking Android Libraries
+android {
+    contains(ANDROID_TARGET_ARCH, arm64-v8a) {
+        LIBS += -L$$PWD/../Libs/Bass/Android/arm64-v8a/ -lbass
+        LIBS += -L$$PWD/../Libs/TagLib/Android/arm64-v8a/ -ltaglib
+    }
+    contains(ANDROID_TARGET_ARCH, armeabi-v7a) {
+        LIBS += -L$$PWD/../Libs/Bass/Android/armeabi-v7a/ -lbass
+        LIBS += -L$$PWD/../Libs/TagLib/Android/armeabi-v7a/ -ltaglib
+    }
+    contains(ANDROID_TARGET_ARCH, x86) {
+        LIBS += -L$$PWD/../Libs/Bass/Android/x86/ -lbass
+        LIBS += -L$$PWD/../Libs/TagLib/Android/x86/ -ltaglib
+    }
+    contains(ANDROID_TARGET_ARCH, x86_64) {
+        LIBS += -L$$PWD/../Libs/Bass/Android/x86_64/ -lbass
+        LIBS += -L$$PWD/../Libs/TagLib/Android/x86_64/ -ltaglib
+    }
+}
+
 # Linking Linux Libraries
-unix:!macx: LIBS += -L$$PWD/../Libs/Bass/Linux/x64/ -lbass
-unix:!macx: LIBS += -L$$PWD/../Libs/TagLib/Linux/x64/ -ltaglib
+unix:!macx {
+    LIBS += -L$$PWD/../Libs/Bass/Linux/x64/ -lbass
+    LIBS += -L$$PWD/../Libs/TagLib/Linux/x64/ -ltaglib
+}
 
 INCLUDEPATH += $$PWD/../Libs/TagLib/headers
 DEPENDPATH += $$PWD/../Libs/TagLib/headers
 INCLUDEPATH += $$PWD/../Libs/Bass
 DEPENDPATH += $$PWD/../Libs/Bass
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle.properties \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml
+
+ANDROID_EXTRA_LIBS = \
+    $$PWD/../Libs/TagLib/Android/arm64-v8a/libtaglib.so \
+    $$PWD/../Libs/TagLib/Android/armeabi-v7a/libtaglib.so \
+    $$PWD/../Libs/TagLib/Android/x86/libtaglib.so \
+    $$PWD/../Libs/TagLib/Android/x86_64/libtaglib.so \
+    $$PWD/../Libs/Bass/Android/arm64-v8a/libbass.so \
+    $$PWD/../Libs/Bass/Android/armeabi-v7a/libbass.so \
+    $$PWD/../Libs/Bass/Android/x86/libbass.so \
+    $$PWD/../Libs/Bass/Android/x86_64/libbass.so
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
