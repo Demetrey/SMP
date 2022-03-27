@@ -86,3 +86,9 @@ QMap<int, QString> Initializer::getDevicesInfo() {
 HSTREAM Initializer::getStream() {
     return stream;
 }
+
+float Initializer::getChannelFreq() {
+    BASS_CHANNELINFO info;
+    BASS_ChannelGetInfo(stream, &info);
+    return info.freq;
+}

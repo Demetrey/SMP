@@ -7,7 +7,6 @@
 #include "xmlloader.h"
 
 XmlLoader::XmlLoader(QObject *parent) : QObject(parent) {
-
 }
 
 /**
@@ -32,9 +31,6 @@ QVector<int> XmlLoader::loadCenters(QString file) {
         }
         xmlReader.clear();
         ofile.close();
-    }
-    for (int v : result) {
-        qDebug() << v;
     }
     return result;
 }

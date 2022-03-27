@@ -20,7 +20,7 @@ class XmlLoader : public QObject
     Q_OBJECT
 public:
     explicit XmlLoader(QObject *parent = nullptr);
-    QVector<int> loadCenters(QString file);
+    static QVector<int> loadCenters(QString file);
 
 signals:
 

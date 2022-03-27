@@ -25,6 +25,7 @@ public:
     void freeStream();
     QMap<int, QString> getDevicesInfo();
     HSTREAM getStream();
+    float getChannelFreq();
 
 private:
     HSTREAM stream;

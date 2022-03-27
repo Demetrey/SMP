@@ -20,15 +20,22 @@ class PlaybackParameters : public QObject
 public:
     explicit PlaybackParameters(QObject *parent = nullptr);
     void setStream(HSTREAM stream);
+    void initEqCenters(QString path, QList<float> *values = nullptr, float freq = 44100);
     bool setVolume(int value);
     bool setReverb(int value);
     bool setBalance(int value);
+    bool setEqValue(int center, float value);
 
 private:
     HSTREAM stream;
     HFX reverb;
+    QMap<int, float> eqValues;
+    QMap<int, HFX> eqHandlers;
 
     void initReverb();
+    bool initEq();
+    bool initHandlers(int center, float value);
+    void correctCenters(QVector<int> &centers, int freq);
 };
 
 #endif // PLAYBACKPARAMETERS_H
