@@ -9,13 +9,18 @@ CONFIG += c++11
 SOURCES += \
         Kernel/initializer.cpp \
         Kernel/playbackcontroller.cpp \
-        main.cpp
+        Kernel/playbackparameters.cpp \
+        main.cpp \
+        readers/xmlloader.cpp
 
 HEADERS += \
     Kernel/initializer.h \
-    Kernel/playbackcontroller.h
+    Kernel/playbackcontroller.h \
+    Kernel/playbackparameters.h \
+    readers/xmlloader.h
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    resources/workresources.qrc
 
 CONFIG += lrelease
 CONFIG += embed_translations

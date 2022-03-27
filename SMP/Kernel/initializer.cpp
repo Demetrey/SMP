@@ -6,7 +6,7 @@
 
 #include "initializer.h"
 
-Initializer::Initializer() {
+Initializer::Initializer(QObject *parent) : QObject(parent) {
     stream = 0;
 }
 
@@ -63,6 +63,7 @@ void Initializer::freeStream() {
     if (BASS_ChannelIsActive(stream) != BASS_ACTIVE_STOPPED)
         BASS_ChannelStop(stream);
     BASS_StreamFree(stream);
+    stream = 0;
 }
 
 /**
@@ -82,6 +83,6 @@ QMap<int, QString> Initializer::getDevicesInfo() {
     return devices;
 }
 
-HSTREAM* Initializer::getStream() {
-    return &stream;
+HSTREAM Initializer::getStream() {
+    return stream;
 }

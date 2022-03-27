@@ -7,14 +7,16 @@
 #ifndef INITIALIZER_H
 #define INITIALIZER_H
 
+#include <QObject>
 #include <QMap>
 #include <QDebug>
 #include <bass.h>
 
-class Initializer
+class Initializer : public QObject
 {
+    Q_OBJECT
 public:
-    Initializer();
+    explicit Initializer(QObject *parent = nullptr);
     ~Initializer();
     bool initDevice(int device = -1, int freq = 44100);
     void setDevice(int device);
@@ -22,7 +24,7 @@ public:
     void initUrl(const char *url);
     void freeStream();
     QMap<int, QString> getDevicesInfo();
-    HSTREAM* getStream();
+    HSTREAM getStream();
 
 private:
     HSTREAM stream;
