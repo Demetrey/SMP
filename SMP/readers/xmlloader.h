@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022, Dmitry Fomin.
  * This program is distributed under the terms of
- * the GNU Lesser General Public License (LGPL).
+ * the GNU General Public License v3.0 (GPL-3.0).
  */
 
 #ifndef XMLLOADER_H
@@ -21,6 +21,7 @@ class XmlLoader : public QObject
 public:
     explicit XmlLoader(QObject *parent = nullptr);
     static QVector<int> loadCenters(QString file);
+    static QStringList loadPlugFiles(QString file);
 
 signals:
 

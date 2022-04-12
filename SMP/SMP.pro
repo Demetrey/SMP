@@ -8,6 +8,7 @@ CONFIG += c++11
 
 SOURCES += \
         Kernel/initializer.cpp \
+        Kernel/kernel.cpp \
         Kernel/playbackcontroller.cpp \
         Kernel/playbackparameters.cpp \
         main.cpp \
@@ -15,6 +16,7 @@ SOURCES += \
 
 HEADERS += \
     Kernel/initializer.h \
+    Kernel/kernel.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
     readers/xmlloader.h
@@ -92,12 +94,44 @@ DISTFILES += \
 
 ANDROID_EXTRA_LIBS = \
     $$PWD/../Libs/TagLib/Android/arm64-v8a/libtaglib.so \
-    $$PWD/../Libs/TagLib/Android/armeabi-v7a/libtaglib.so \
-    $$PWD/../Libs/TagLib/Android/x86/libtaglib.so \
-    $$PWD/../Libs/TagLib/Android/x86_64/libtaglib.so \
     $$PWD/../Libs/Bass/Android/arm64-v8a/libbass.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbassopus.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbassflac.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbassalac.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbassape.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbasshls.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbasswebm.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbasswv.so \
+    $$PWD/../Libs/Bass/Android/plugins/arm64-v8a/libbassdsd.so \
+    $$PWD/../Libs/TagLib/Android/armeabi-v7a/libtaglib.so \
     $$PWD/../Libs/Bass/Android/armeabi-v7a/libbass.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbassopus.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbassflac.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbassalac.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbassape.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbasshls.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbasswebm.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbasswv.so \
+    $$PWD/../Libs/Bass/Android/plugins/armeabi-v7a/libbassdsd.so \
+    $$PWD/../Libs/TagLib/Android/x86/libtaglib.so \
     $$PWD/../Libs/Bass/Android/x86/libbass.so \
-    $$PWD/../Libs/Bass/Android/x86_64/libbass.so
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbassopus.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbassflac.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbassalac.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbassape.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbasshls.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbasswebm.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbasswv.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86/libbassdsd.so \
+    $$PWD/../Libs/TagLib/Android/x86_64/libtaglib.so \
+    $$PWD/../Libs/Bass/Android/x86_64/libbass.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbassopus.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbassflac.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbassalac.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbassape.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbasshls.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbasswebm.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbasswv.so \
+    $$PWD/../Libs/Bass/Android/plugins/x86_64/libbassdsd.so
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
