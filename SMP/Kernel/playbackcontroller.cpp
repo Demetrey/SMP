@@ -28,7 +28,9 @@ bool PlaybackController::play() {
 }
 
 bool PlaybackController::pause() {
-    return BASS_ChannelPause(stream);
+    if (BASS_ChannelIsActive(stream) == BASS_ACTIVE_PLAYING)
+        return BASS_ChannelPause(stream);
+    return false;
 }
 
 bool PlaybackController::stop() {

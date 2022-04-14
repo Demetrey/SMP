@@ -17,6 +17,7 @@ SOURCES += \
 HEADERS += \
     Kernel/initializer.h \
     Kernel/kernel.h \
+    Kernel/kernelstate.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
     readers/xmlloader.h
