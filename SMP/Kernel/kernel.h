@@ -12,6 +12,7 @@
 #include <QDir>
 #include <QStringList>
 #include <QFileInfoList>
+#include <QMap>
 #include <bass.h>
 #include "initializer.h"
 #include "playbackcontroller.h"
