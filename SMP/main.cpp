@@ -10,6 +10,8 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "Kernel/kernelstate.h"
+
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -26,6 +28,8 @@ int main(int argc, char *argv[]) {
             break;
         }
     }
+
+    qmlRegisterType<KernelState>("kernelState", 1, 0, "KernelState");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

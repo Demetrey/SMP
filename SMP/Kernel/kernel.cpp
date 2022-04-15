@@ -7,6 +7,7 @@
 #include "kernel.h"
 
 Kernel::Kernel(QObject *parent) : QObject(parent) {
+    m_kernelState = KernelState::State::Stop;
     initializer = new Initializer(this);
     controller = new PlaybackController(this);
     parameters = new PlaybackParameters(this);
@@ -67,10 +68,10 @@ QList<QString> Kernel::loadPlugins() {
  */
 void Kernel::initDevice(int device, int freq) {
     QMap<int, QString> devices = initializer->getDevicesInfo();
-    if (devices.contains(device)) {
+    if (devices.contains(device) || device == -1) {
         initializer->initDevice(device, freq);
         if (BASS_ErrorGetCode() == BASS_ERROR_ALREADY
-                && BASS_ErrorGetCode() == BASS_OK) {
+                || BASS_ErrorGetCode() == BASS_OK) {
             initializer->setDevice(device);
             return;
         }
@@ -97,14 +98,14 @@ void Kernel::play(const QString path, bool isFile) {
         if (!path.length() || info.filename == path.toLocal8Bit()) {
             if (BASS_ChannelIsActive(initializer->getStream()) == BASS_ACTIVE_PAUSED) {
                 if (controller->play()) // already playing
-                    setState(KernelState::play);
+                    setKernelState(KernelState::State::Play);
             }
             return;
         }
         // If the new file/stream
         else {
             initializer->freeStream();
-            setState(KernelState::stop);
+            setKernelState(KernelState::State::Stop);
         }
     }
     // New file/stream
@@ -117,7 +118,7 @@ void Kernel::play(const QString path, bool isFile) {
     controller->setStream(initializer->getStream());
     parameters->setStream(initializer->getStream());
     if (controller->play()) {
-        setState(KernelState::play);
+        setKernelState(KernelState::State::Play);
     }
 }
 
@@ -128,7 +129,7 @@ void Kernel::play(const QString path, bool isFile) {
  */
 void Kernel::pause() {
     if (initializer->getStream() && controller->pause())
-        setState(KernelState::pause);
+        setKernelState(KernelState::State::Pause);
 
 }
 
@@ -139,7 +140,7 @@ void Kernel::pause() {
  */
 void Kernel::stop() {
     if (initializer->getStream() && controller->stop())
-        setState(KernelState::stop);
+        setKernelState(KernelState::State::Stop);
 }
 
 void Kernel::setVolume(int value) {
@@ -158,13 +159,15 @@ void Kernel::setTime(int value) {
 
 }
 
-KernelState Kernel::state() const {
-    return m_state;
+const KernelState::State &Kernel::kernelState() const
+{
+    return m_kernelState;
 }
 
-void Kernel::setState(KernelState newState) {
-    if (m_state == newState)
+void Kernel::setKernelState(const KernelState::State &newKernelState)
+{
+    if (m_kernelState == newKernelState)
         return;
-    m_state = newState;
-    emit stateChanged();
+    m_kernelState = newKernelState;
+    emit kernelStateChanged();
 }

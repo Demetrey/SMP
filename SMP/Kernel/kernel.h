@@ -23,20 +23,21 @@
 class Kernel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(KernelState state READ state WRITE setState NOTIFY stateChanged)
+    Q_PROPERTY(KernelState::State kernelState READ kernelState WRITE setKernelState NOTIFY kernelStateChanged)
 public:
     explicit Kernel(QObject *parent = nullptr);
     ~Kernel();
 
     QList<QString> loadPlugins();
 
-    KernelState state() const;
-    void setState(KernelState newState);
+    const KernelState::State &kernelState() const;
+    void setKernelState(const KernelState::State &newKernelState);
 
 signals:
     void timeUpdated(const int position);
     void endOfFile();
-    void stateChanged();
+
+    void kernelStateChanged();
 
 public slots:
     void initDevice(int device = -1, int freq = 44100);
@@ -53,8 +54,7 @@ private:
     Initializer *initializer;
     PlaybackController *controller;
     PlaybackParameters *parameters;
-
-    KernelState m_state;
+    KernelState::State m_kernelState;
 };
 
 #endif // KERNEL_H
