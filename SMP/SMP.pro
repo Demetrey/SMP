@@ -1,6 +1,6 @@
 QT += quick
 
-CONFIG += c++11
+CONFIG += c++11 exceptions
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -15,6 +15,7 @@ SOURCES += \
         readers/xmlloader.cpp
 
 HEADERS += \
+    Kernel/IKernel.h \
     Kernel/initializer.h \
     Kernel/kernel.h \
     Kernel/kernelstate.h \

@@ -14,47 +14,58 @@
 #include <QFileInfoList>
 #include <QMap>
 #include <bass.h>
+#include "IKernel.h"
 #include "initializer.h"
 #include "playbackcontroller.h"
 #include "playbackparameters.h"
 #include "kernelstate.h"
 #include "readers/xmlloader.h"
 
-class Kernel : public QObject
+class Kernel : public IKernel
 {
     Q_OBJECT
-    Q_PROPERTY(KernelState::State kernelState READ kernelState WRITE setKernelState NOTIFY kernelStateChanged)
+    Q_INTERFACES(IKernel)
+
 public:
-    explicit Kernel(QObject *parent = nullptr);
+    explicit Kernel();
     ~Kernel();
+    // IKernel interface
+    void initialize() override; // first call for setup default settings
+    QList<QString> getDevices() override;
+    int getVolume() override;
+    int getReverb() override;
+    int getBalance() override;
+    int getCompositionTime() override;
+    int getCurrentTime() override;
+    QList<float> getEqValues() override;
 
-    QList<QString> loadPlugins();
-
-    const KernelState::State &kernelState() const;
-    void setKernelState(const KernelState::State &newKernelState);
+private:
+    QList<QString> loadPlugins() override;
 
 signals:
     void timeUpdated(const int position);
+    // IKernel interface
     void endOfFile();
-
-    void kernelStateChanged();
+    void kernelStateChanged(const KernelState::State);
 
 public slots:
-    void initDevice(int device = -1, int freq = 44100);
-    void play(const QString path = QString(), bool isFile = true);
-    void pause();
-    void stop();
-    void setVolume(int value);
-    void setReverb(int value);
-    void setBalance(int value);
-    void setTime(int value);    // ms
+    // IKernel interface
+    void initDevice(int device = -1, int freq = 44100) override;
+    void play(const QString path = QString(), bool isFile = true) override;
+    void pause() override;
+    void stop() override;
+    void setVolume(int value) override;
+    void setReverb(int value) override;
+    void setBalance(int value) override;
+    void setTime(int value) override;
+    void setEqValue(int center, float value) override;
 
 
 private:
     Initializer *initializer;
     PlaybackController *controller;
     PlaybackParameters *parameters;
-    KernelState::State m_kernelState;
+
 };
 
 #endif // KERNEL_H

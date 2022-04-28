@@ -6,11 +6,14 @@
 
 #include "kernel.h"
 
-Kernel::Kernel(QObject *parent) : QObject(parent) {
-    m_kernelState = KernelState::State::Stop;
+Kernel::Kernel() {
     initializer = new Initializer(this);
     controller = new PlaybackController(this);
     parameters = new PlaybackParameters(this);
+    connect(controller, &PlaybackController::eof, this, [this]() {
+        qDebug() << "KERNEL ::: END OF FILE";
+        emit endOfFile();
+    });
 }
 
 Kernel::~Kernel() {
@@ -18,6 +21,60 @@ Kernel::~Kernel() {
     delete parameters;
     delete controller;
     delete initializer;
+}
+
+/**
+ * @brief Setting initial parameters
+ *
+ * This method must be called immediately after the object is created.
+ * Default playback device initialization
+ * Loading plugins
+ * Initializing EQ Centers
+ */
+void Kernel::initialize() {
+    loadPlugins();
+    initDevice();
+    parameters->initEqCenters(":/XML/eq_centers.xml");
+}
+
+/**
+ * @brief Get playback devices
+ * @return List of titles available at the time of calling playback devices
+ */
+QList<QString> Kernel::getDevices() {
+    return initializer->getDevicesInfo().values();
+}
+
+int Kernel::getVolume() {
+    return parameters->getCurrentVolume();
+}
+
+int Kernel::getReverb() {
+    return parameters->getCurretReverb();
+}
+
+int Kernel::getBalance() {
+    return parameters->getCurrentBalance();
+}
+
+/**
+ * @brief Current composition time
+ * @return Time in milliseconds
+ */
+int Kernel::getCompositionTime() {
+    return controller->getCompositionTime();
+}
+
+/**
+ * @brief Current playback position in time
+ * @return Time in milliseconds
+ */
+int Kernel::getCurrentTime() {
+    return controller->getCurrentTime();
+}
+
+QList<float> Kernel::getEqValues() {
+    return parameters->getEqValues().values();
 }
 
 /**
@@ -98,14 +155,14 @@ void Kernel::play(const QString path, bool isFile) {
         if (!path.length() || info.filename == path.toLocal8Bit()) {
             if (BASS_ChannelIsActive(initializer->getStream()) == BASS_ACTIVE_PAUSED) {
                 if (controller->play()) // already playing
-                    setKernelState(KernelState::State::Play);
+                    emit kernelStateChanged(KernelState::State::Play);
             }
             return;
         }
         // If the new file/stream
         else {
             initializer->freeStream();
-            setKernelState(KernelState::State::Stop);
+            emit kernelStateChanged(KernelState::State::Stop);
         }
     }
     // New file/stream
@@ -118,7 +175,7 @@ void Kernel::play(const QString path, bool isFile) {
     controller->setStream(initializer->getStream());
     parameters->setStream(initializer->getStream());
     if (controller->play()) {
-        setKernelState(KernelState::State::Play);
+        emit kernelStateChanged(KernelState::State::Play);
     }
 }
 
@@ -129,7 +186,7 @@ void Kernel::play(const QString path, bool isFile) {
  */
 void Kernel::pause() {
     if (initializer->getStream() && controller->pause())
-        setKernelState(KernelState::State::Pause);
+        emit kernelStateChanged(KernelState::State::Pause);
 
 }
 
@@ -140,34 +197,25 @@ void Kernel::pause() {
  */
 void Kernel::stop() {
     if (initializer->getStream() && controller->stop())
-        setKernelState(KernelState::State::Stop);
+        emit kernelStateChanged(KernelState::State::Stop);
 }
 
 void Kernel::setVolume(int value) {
-
+    parameters->setVolume(value);
 }
 
 void Kernel::setReverb(int value) {
-
+    parameters->setReverb(value);
 }
 
 void Kernel::setBalance(int value) {
-
+    parameters->setBalance(value);
 }
 
 void Kernel::setTime(int value) {
-
+    controller->setPosition(value);
 }
 
-const KernelState::State &Kernel::kernelState() const
-{
-    return m_kernelState;
-}
-
-void Kernel::setKernelState(const KernelState::State &newKernelState)
-{
-    if (m_kernelState == newKernelState)
-        return;
-    m_kernelState = newKernelState;
-    emit kernelStateChanged();
+void Kernel::setEqValue(int center, float value) {
+    parameters->setEqValue(center, value);
 }

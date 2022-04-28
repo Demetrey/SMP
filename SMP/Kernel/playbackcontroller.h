@@ -22,6 +22,8 @@ public:
     bool stop();
     void looping();
     bool setPosition(int position);
+    int getCompositionTime();
+    int getCurrentTime();
 
 signals:
     void eof();         // Sends a signal to an external slot

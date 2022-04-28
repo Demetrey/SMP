@@ -6,11 +6,13 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 #include <QLocale>
 #include <QTranslator>
 
 #include "Kernel/kernelstate.h"
+#include "Kernel/kernel.h"
 
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -30,8 +32,14 @@ int main(int argc, char *argv[]) {
     }
 
     qmlRegisterType<KernelState>("kernelState", 1, 0, "KernelState");
+    qmlRegisterInterface<IKernel>("IKernel", 1);
 
     QQmlApplicationEngine engine;
+
+    Kernel _kernel;
+    IKernel *kernel = &_kernel;
+    engine.rootContext()->setContextProperty("kernel", kernel);
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

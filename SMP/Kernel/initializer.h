@@ -29,6 +29,8 @@ public:
 
 private:
     HSTREAM stream;
+
+    void freeDevices();
 };
 
 #endif // INITIALIZER_H

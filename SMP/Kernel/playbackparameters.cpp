@@ -9,18 +9,26 @@
 PlaybackParameters::PlaybackParameters(QObject *parent) : QObject(parent) {
     stream = 0;
     reverb = 0;
+    currentVolume = 100;
+    currentBalance = 0;
+    currentReverb = -1;
 }
 
 void PlaybackParameters::setStream(HSTREAM stream) {
     this->stream = stream;
     initReverb();
     initEq();
+    setVolume(currentVolume);
+    setReverb(currentReverb);
+    setBalance(currentBalance);
 }
 
 /**
+ * @brief Initializing EQ Centers
+ *
  * Initializing the Initial Values ​​of the Equalizer Parameters
  * This method must be called BEFORE setStream
- * @brief PlaybackParameters::initEqCenters
+ *
  * @param path - Path to the centers file
  * @param values - Initial equalizer values ​​(if not - nullptr)
  * @param freq - Sampling frequency
@@ -28,7 +36,6 @@ void PlaybackParameters::setStream(HSTREAM stream) {
 void PlaybackParameters::initEqCenters(QString path, QList<float> *values, float freq) {
     QVector<int> centers = XmlLoader::loadCenters(path);
     correctCenters(centers, freq);
-    qDebug() << centers;
     // Validation of values
     bool checkVal = true;
     if (!values)
@@ -41,30 +48,29 @@ void PlaybackParameters::initEqCenters(QString path, QList<float> *values, float
             eqValues.insert(centers.at(i), checkVal ? (*values).at(i) : 0.0);
         }
     }
-    qDebug() << "values" << eqValues;
 }
 
 /**
- * Setting the volume level
- * @brief PlaybackParameters::setVolume
+ * @brief Setting the volume level
  * @param value - Volume level [0%; 100%]
  * @return true - success; false - failure
  */
 bool PlaybackParameters::setVolume(int value) {
-    if (value > 100 || value < 0)
+    if (value > 100 || value < 0 || value == currentVolume)
         return false;
+    currentVolume = value;
     return BASS_ChannelSetAttribute(stream, BASS_ATTRIB_VOL, value / 100.0);
 }
 
 /**
- * Setting the playback stream reverb parameter
- * @brief PlaybackParameters::setReverb
+ * @brief Setting the playback stream reverb parameter
  * @param value - Reverb parameter [0%; 100%]
  * @return true - success; false - failure
  */
 bool PlaybackParameters::setReverb(int value) {
-    if (value > 100 || value < 0)
+    if (value > 100 || value < 0 || value == currentReverb)
         return false;
+    currentReverb = value;
     float val = 20.0 - 20.0 * value / 100.0;
     BASS_DX8_REVERB p;
     BASS_FXGetParameters(reverb, &p);
@@ -73,20 +79,19 @@ bool PlaybackParameters::setReverb(int value) {
 }
 
 /**
- * Setting the sound balance
- * @brief PlaybackParameters::setBalance
+ * @brief Setting the sound balance
  * @param value - Sound balance [Left; Right] -> [-100%; 100%]
  * @return true - success; false - failure
  */
 bool PlaybackParameters::setBalance(int value) {
-    if (value > 100 || value < -100)
+    if (value > 100 || value < -100 || value == currentBalance)
         return false;
+    currentBalance = value;
     return BASS_ChannelSetAttribute(stream, BASS_ATTRIB_PAN, value / 100.0);
 }
 
 /**
- * Setting a value for the current center
- * @brief PlaybackParameters::setEqValue
+ * @brief Setting a value for the current center
  * @param center - Current frequency center
  * @param value - New value
  * @return true - success; false - failure
@@ -104,6 +109,22 @@ bool PlaybackParameters::setEqValue(int center, float value) {
     return false;
 }
 
+int PlaybackParameters::getCurrentVolume() {
+    return currentVolume;
+}
+
+int PlaybackParameters::getCurretReverb() {
+    return currentReverb;
+}
+
+int PlaybackParameters::getCurrentBalance() {
+    return currentBalance;
+}
+
+QMap<int, float> PlaybackParameters::getEqValues() {
+    return eqValues;
+}
+
 void PlaybackParameters::initReverb() {
     reverb = BASS_ChannelSetFX(stream, BASS_FX_DX8_REVERB, 0);
     setReverb(0);
@@ -113,12 +134,9 @@ bool PlaybackParameters::initEq() {
     QList<int> keys = eqValues.keys();
     for (auto key : qAsConst(keys)) {
         if (!initHandlers(key, eqValues.value(key))) {
-            qDebug() << "Error init handlers" << key;
-            qDebug() << "Error" << BASS_ErrorGetCode();
             return false;
         }
     }
-    qDebug() << eqHandlers;
     return true;
 }
 
@@ -132,12 +150,14 @@ bool PlaybackParameters::initHandlers(int center, float value) {
 }
 
 /**
+ * @brief Center correction
+ *
  * Checking the correct loading of the equalizer parameters
  * On Windows, the frequencies of the centers should not go
  * beyond the range [80; freq / 3]
  * On other systems, the frequency centers should not go
  * beyond the range [0; freq / 2]
- * @brief PlaybackParameters::correctCenters
+ *
  * @param centers - frequency centers
  * @param freq - sampling frequency
  */

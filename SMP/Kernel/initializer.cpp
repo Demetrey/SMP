@@ -11,23 +11,33 @@ Initializer::Initializer(QObject *parent) : QObject(parent) {
 }
 
 Initializer::~Initializer() {
-    BASS_Free();
+    freeDevices();
 }
 
 /**
+ * @brief Device initialization
+ *
  * Initializes an output device
- * @brief Initializer::initDevice
+ *
  * @param device - output device number (-1 - default)
  * @param freq - output sample rate, Hz (44100 - default)
  * @return true - successful application; false - error
  */
 bool Initializer::initDevice(int device, int freq) {
-    return BASS_Init(device, freq, BASS_DEVICE_FREQ, 0, NULL);
+    bool res = false;
+    if (!(res = BASS_Init(device, freq, BASS_DEVICE_FREQ, 0, NULL)) &&
+            BASS_ErrorGetCode() == BASS_ERROR_ALREADY && device != -1) {
+        // reinitializing a non-default playback device
+        res = BASS_Init(device, freq, BASS_DEVICE_FREQ | BASS_DEVICE_REINIT, 0, NULL);
+    }
+    return res;
 }
 
 /**
+ * @brief Device activation
+ *
  * Specifying an output device
- * @brief Initializer::setDevice
+ *
  * @param device - output device number
  */
 void Initializer::setDevice(int device) {
@@ -37,8 +47,10 @@ void Initializer::setDevice(int device) {
 }
 
 /**
+ * @brief File initialization
+ *
  * File playback initialization
- * @brief Initializer::initFile
+ *
  * @param fileWay - path to file
  */
 void Initializer::initFile(const char *fileWay) {
@@ -46,18 +58,20 @@ void Initializer::initFile(const char *fileWay) {
 }
 
 /**
+ * @brief URL initialization
+ *
  * Initiating playback by URL
- * @brief Initializer::initUrl
+ *
  * @param url - url for playback (HTTP, HTTPS, FTP protocols)
  */
-void Initializer::initUrl(const char *url)
-{
+void Initializer::initUrl(const char *url) {
     stream = BASS_StreamCreateURL(url, 0, BASS_STREAM_STATUS, 0, 0);
 }
 
 /**
- * Force release of a playback stream
  * @brief Initializer::freeStream
+ *
+ * Force release of a playback stream
  */
 void Initializer::freeStream() {
     if (BASS_ChannelIsActive(stream) != BASS_ACTIVE_STOPPED)
@@ -67,8 +81,10 @@ void Initializer::freeStream() {
 }
 
 /**
+ * @brief Device information
+ *
  * Search for connected output devices for further use
- * @brief Initializer::getDeviceInfo
+ *
  * @return QMap of connected devices with name and number
  */
 QMap<int, QString> Initializer::getDevicesInfo() {
@@ -87,8 +103,26 @@ HSTREAM Initializer::getStream() {
     return stream;
 }
 
+/**
+ * @brief Channel sampling rate
+ * @return Sampling frequency (Hz)
+ */
 float Initializer::getChannelFreq() {
     BASS_CHANNELINFO info;
     BASS_ChannelGetInfo(stream, &info);
     return info.freq;
+}
+
+/**
+ * @brief Releasing resources
+ *
+ * Releasing resources for active playback devices
+ */
+void Initializer::freeDevices() {
+    QList<int> devices = getDevicesInfo().keys();
+    for (int device : qAsConst(devices)) {
+        if (BASS_SetDevice(device)) {
+            BASS_Free();
+        }
+    }
 }

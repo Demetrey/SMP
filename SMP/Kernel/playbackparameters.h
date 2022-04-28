@@ -25,12 +25,20 @@ public:
     bool setReverb(int value);
     bool setBalance(int value);
     bool setEqValue(int center, float value);
+    int getCurrentVolume();
+    int getCurretReverb();
+    int getCurrentBalance();
+    QMap<int, float> getEqValues();
 
 private:
     HSTREAM stream;
     HFX reverb;
     QMap<int, float> eqValues;
     QMap<int, HFX> eqHandlers;
+
+    int currentVolume;
+    int currentBalance;
+    int currentReverb;
 
     void initReverb();
     bool initEq();
