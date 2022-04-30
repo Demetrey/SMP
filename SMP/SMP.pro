@@ -12,6 +12,7 @@ SOURCES += \
         Kernel/playbackcontroller.cpp \
         Kernel/playbackparameters.cpp \
         main.cpp \
+        presenters/kernelpresenter.cpp \
         readers/xmlloader.cpp
 
 HEADERS += \
@@ -21,6 +22,7 @@ HEADERS += \
     Kernel/kernelstate.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
+    presenters/kernelpresenter.h \
     readers/xmlloader.h
 
 RESOURCES += qml.qrc \

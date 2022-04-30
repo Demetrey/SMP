@@ -73,8 +73,17 @@ int Kernel::getCurrentTime() {
     return controller->getCurrentTime();
 }
 
-QList<float> Kernel::getEqValues() {
-    return parameters->getEqValues().values();
+QList<double> Kernel::getEqValues() {
+    QList<float> tempValues = parameters->getEqValues().values();
+    QList<double> values;
+    for (float value : qAsConst(tempValues)) {
+        values.append(static_cast<double>(value));
+    }
+    return values;
+}
+
+QList<int> Kernel::getEqCenters() {
+    return parameters->getEqValues().keys();
 }
 
 /**
@@ -171,9 +180,11 @@ void Kernel::play(const QString path, bool isFile) {
     }
     else {
         initializer->initUrl(path.toLocal8Bit().data());
+        emit timeUpdated(0);
     }
     controller->setStream(initializer->getStream());
     parameters->setStream(initializer->getStream());
+    if(isFile) emit timeUpdated(controller->getCompositionTime());
     if (controller->play()) {
         emit kernelStateChanged(KernelState::State::Play);
     }
@@ -202,20 +213,23 @@ void Kernel::stop() {
 
 void Kernel::setVolume(int value) {
     parameters->setVolume(value);
+    emit volumeChanged(parameters->getCurrentVolume());
 }
 
 void Kernel::setReverb(int value) {
     parameters->setReverb(value);
+    emit reverbChanged(parameters->getCurretReverb());
 }
 
 void Kernel::setBalance(int value) {
     parameters->setBalance(value);
+    emit balanceChanged(parameters->getCurrentBalance());
 }
 
 void Kernel::setTime(int value) {
     controller->setPosition(value);
 }
 
-void Kernel::setEqValue(int center, float value) {
-    parameters->setEqValue(center, value);
+void Kernel::setEqValue(int center, double value) {
+    parameters->setEqValue(center, static_cast<float>(value));
 }

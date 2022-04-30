@@ -13,6 +13,7 @@
 
 #include "Kernel/kernelstate.h"
 #include "Kernel/kernel.h"
+#include "presenters/kernelpresenter.h"
 
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -32,13 +33,18 @@ int main(int argc, char *argv[]) {
     }
 
     qmlRegisterType<KernelState>("kernelState", 1, 0, "KernelState");
+    qmlRegisterType<KernelPresenter>("kPresenter", 1, 0, "KPresenter");
     qmlRegisterInterface<IKernel>("IKernel", 1);
 
     QQmlApplicationEngine engine;
 
     Kernel _kernel;
     IKernel *kernel = &_kernel;
-    engine.rootContext()->setContextProperty("kernel", kernel);
+    KernelPresenter kp(nullptr, kernel);
+    kernel->initialize();
+    engine.rootContext()->setContextProperty("kp", &kp);
+
+
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

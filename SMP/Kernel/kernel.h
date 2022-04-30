@@ -37,16 +37,20 @@ public:
     int getBalance() override;
     int getCompositionTime() override;
     int getCurrentTime() override;
-    QList<float> getEqValues() override;
+    QList<double> getEqValues() override;
+    QList<int> getEqCenters() override;
 
 private:
     QList<QString> loadPlugins() override;
 
 signals:
-    void timeUpdated(const int position);
     // IKernel interface
+    void timeUpdated(int time);
     void endOfFile();
     void kernelStateChanged(const KernelState::State);
+    void volumeChanged(int);
+    void reverbChanged(int);
+    void balanceChanged(int);
 
 public slots:
     // IKernel interface
@@ -58,7 +62,7 @@ public slots:
     void setReverb(int value) override;
     void setBalance(int value) override;
     void setTime(int value) override;
-    void setEqValue(int center, float value) override;
+    void setEqValue(int center, double value) override;
 
 
 private:

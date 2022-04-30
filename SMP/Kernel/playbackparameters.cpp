@@ -11,7 +11,7 @@ PlaybackParameters::PlaybackParameters(QObject *parent) : QObject(parent) {
     reverb = 0;
     currentVolume = 100;
     currentBalance = 0;
-    currentReverb = -1;
+    currentReverb = 0;
 }
 
 void PlaybackParameters::setStream(HSTREAM stream) {
@@ -56,7 +56,7 @@ void PlaybackParameters::initEqCenters(QString path, QList<float> *values, float
  * @return true - success; false - failure
  */
 bool PlaybackParameters::setVolume(int value) {
-    if (value > 100 || value < 0 || value == currentVolume)
+    if (value > 100 || value < 0)
         return false;
     currentVolume = value;
     return BASS_ChannelSetAttribute(stream, BASS_ATTRIB_VOL, value / 100.0);
@@ -68,7 +68,7 @@ bool PlaybackParameters::setVolume(int value) {
  * @return true - success; false - failure
  */
 bool PlaybackParameters::setReverb(int value) {
-    if (value > 100 || value < 0 || value == currentReverb)
+    if (value > 100 || value < 0)
         return false;
     currentReverb = value;
     float val = 20.0 - 20.0 * value / 100.0;
@@ -84,7 +84,7 @@ bool PlaybackParameters::setReverb(int value) {
  * @return true - success; false - failure
  */
 bool PlaybackParameters::setBalance(int value) {
-    if (value > 100 || value < -100 || value == currentBalance)
+    if (value > 100 || value < -100)
         return false;
     currentBalance = value;
     return BASS_ChannelSetAttribute(stream, BASS_ATTRIB_PAN, value / 100.0);
@@ -97,13 +97,13 @@ bool PlaybackParameters::setBalance(int value) {
  * @return true - success; false - failure
  */
 bool PlaybackParameters::setEqValue(int center, float value) {
-    if (eqHandlers.contains(center) && eqValues.contains(center)) {
-        BASS_DX8_PARAMEQ p;
-        BASS_FXGetParameters(eqHandlers.value(center), &p);
-        p.fGain = value;
-        if (BASS_FXSetParameters(eqHandlers.value(center), &p)) {
-            eqValues[center] = value;
-            return true;
+    if (eqValues.contains(center)) {
+        eqValues[center] = value;
+        if (eqHandlers.contains(center)) {
+            BASS_DX8_PARAMEQ p;
+            BASS_FXGetParameters(eqHandlers.value(center), &p);
+            p.fGain = value;
+            return BASS_FXSetParameters(eqHandlers.value(center), &p);
         }
     }
     return false;
@@ -127,7 +127,7 @@ QMap<int, float> PlaybackParameters::getEqValues() {
 
 void PlaybackParameters::initReverb() {
     reverb = BASS_ChannelSetFX(stream, BASS_FX_DX8_REVERB, 0);
-    setReverb(0);
+    setReverb(currentReverb);
 }
 
 bool PlaybackParameters::initEq() {
