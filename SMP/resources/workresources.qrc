@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>XML/eq_centers.xml</file>
+        <file>XML/pluginFiles.xml</file>
+    </qresource>
+</RCC>
