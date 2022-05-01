@@ -13,7 +13,9 @@ SOURCES += \
         Kernel/playbackparameters.cpp \
         main.cpp \
         presenters/kernelpresenter.cpp \
-        readers/xmlloader.cpp
+        readers/xmlloader.cpp \
+        tagreader/taggetter.cpp \
+        tagreader/tagreader.cpp
 
 HEADERS += \
     Kernel/IKernel.h \
@@ -23,7 +25,10 @@ HEADERS += \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
     presenters/kernelpresenter.h \
-    readers/xmlloader.h
+    readers/xmlloader.h \
+    tagreader/taggetter.h \
+    tagreader/tagreader.h \
+    tagreader/tagstructs.h
 
 RESOURCES += qml.qrc \
     resources/workresources.qrc

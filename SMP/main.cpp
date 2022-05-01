@@ -14,6 +14,7 @@
 #include "Kernel/kernelstate.h"
 #include "Kernel/kernel.h"
 #include "presenters/kernelpresenter.h"
+#include "tagreader/tagreader.h"
 
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -44,7 +45,13 @@ int main(int argc, char *argv[]) {
     kernel->initialize();
     engine.rootContext()->setContextProperty("kp", &kp);
 
-
+    TagReader tr;
+    Tags *tags = tr.getTags("C:\\Users\\JustT\\Desktop\\Aephanemer-Alive.opus");
+    /*qDebug() << "Title" << tags->songName;
+    qDebug() << "Album" << tags->songAlbum;
+    qDebug() << "Year" << tags->songYear;
+    qDebug() << "Artists" << tags->songArtists;
+    delete tags;*/
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
