@@ -21,9 +21,26 @@
 #include <modfile.h>
 #include <apefile.h>
 #include <tstring.h>
+#include <attachedpictureframe.h>
+#include <id3v2tag.h>
 
 #include "tagstructs.h"
 
+/**
+ * @brief The TagGetter class
+ * The class is designed to receive tags (song title, artist names,
+ * album name, year) and covers for the following formats:
+ * Tags and covers:
+ * - MPEG;
+ * - MP4;
+ * - Opus;
+ * - FLAC;
+ * Tags only:
+ * - AIFF;
+ * - S3M;
+ * - MOD;
+ * - APE
+ */
 class TagGetter
 {
 public:
@@ -37,6 +54,11 @@ public:
     Tags *getS3m(const char* fileway);
     Tags *getMod(const char* fileway);
     Tags *getApe(const char* fileway);
+
+    Art *getArtMPEG(const char *fileway);
+    Art *getArtMP4(const char *fileway);
+    Art *getArtOpus(const char *fileway);
+    Art *getArtFlac(const char *fileway);
 
 private:
     Tags *packer(TagLib::String artist, TagLib::String title,

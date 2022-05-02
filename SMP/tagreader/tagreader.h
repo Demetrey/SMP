@@ -18,6 +18,7 @@ class TagReader
 public:
     TagReader();
     Tags *getTags(QString fileway);
+    Art *getArt(QString fileway);
 
 
 private:

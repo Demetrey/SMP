@@ -17,4 +17,9 @@ struct Tags {
     unsigned short songYear = 0;
 };
 
+struct Art {
+    char *data;
+    unsigned int size = 0;
+};
+
 #endif // TAGSTRUCTS_H
