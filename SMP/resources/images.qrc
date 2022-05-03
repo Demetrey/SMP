@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/cover">
+        <file>IMAGES/no_img.svg</file>
+    </qresource>
+</RCC>

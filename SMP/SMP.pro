@@ -1,4 +1,4 @@
-QT += quick
+QT += quick svg
 
 CONFIG += c++11 exceptions
 
@@ -12,6 +12,7 @@ SOURCES += \
         Kernel/playbackcontroller.cpp \
         Kernel/playbackparameters.cpp \
         main.cpp \
+        presenters/imagepresenter.cpp \
         presenters/kernelpresenter.cpp \
         readers/xmlloader.cpp \
         tagreader/taggetter.cpp \
@@ -24,13 +25,16 @@ HEADERS += \
     Kernel/kernelstate.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
+    presenters/imagepresenter.h \
     presenters/kernelpresenter.h \
     readers/xmlloader.h \
+    tagreader/itagreader.h \
     tagreader/taggetter.h \
     tagreader/tagreader.h \
     tagreader/tagstructs.h
 
 RESOURCES += qml.qrc \
+    resources/images.qrc \
     resources/workresources.qrc
 
 CONFIG += lrelease

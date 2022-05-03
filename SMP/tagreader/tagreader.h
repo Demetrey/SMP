@@ -9,16 +9,19 @@
 
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QImage>
 
+#include "itagreader.h"
 #include "taggetter.h"
 #include "tagstructs.h"
 
-class TagReader
+class TagReader : public ITagReader
 {
 public:
     TagReader();
-    Tags *getTags(QString fileway);
-    Art *getArt(QString fileway);
+    Tags *getTags(QString &fileway) override;
+    Art *getArt(QString &fileway) override;
+    QImage getCoverArt(QString &fileway) override;
 
 
 private:

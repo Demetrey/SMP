@@ -14,6 +14,7 @@
 #include "Kernel/kernelstate.h"
 #include "Kernel/kernel.h"
 #include "presenters/kernelpresenter.h"
+#include "presenters/imagepresenter.h"
 
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -43,6 +44,9 @@ int main(int argc, char *argv[]) {
     KernelPresenter kp(nullptr, kernel);
     kernel->initialize();
     engine.rootContext()->setContextProperty("kp", &kp);
+    ImagePresenter *imPresenter = new ImagePresenter();
+    engine.rootContext()->setContextProperty("imagePresenter", imPresenter);
+    engine.addImageProvider("imgPresenter", imPresenter);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
