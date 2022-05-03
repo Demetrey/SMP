@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>XML/eq_centers.xml</file>
         <file>XML/pluginFiles.xml</file>
+        <file>SQL/generation_script.sql</file>
     </qresource>
 </RCC>
