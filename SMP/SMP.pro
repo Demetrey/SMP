@@ -1,4 +1,4 @@
-QT += quick svg
+QT += quick svg sql
 
 CONFIG += c++11 exceptions
 
@@ -11,6 +11,8 @@ SOURCES += \
         Kernel/kernel.cpp \
         Kernel/playbackcontroller.cpp \
         Kernel/playbackparameters.cpp \
+        dbcontroller/dbconnect.cpp \
+        dbcontroller/dbnames.cpp \
         main.cpp \
         presenters/imagepresenter.cpp \
         presenters/kernelpresenter.cpp \
@@ -25,6 +27,8 @@ HEADERS += \
     Kernel/kernelstate.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
+    dbcontroller/dbconnect.h \
+    dbcontroller/dbnames.h \
     presenters/imagepresenter.h \
     presenters/kernelpresenter.h \
     readers/xmlloader.h \
