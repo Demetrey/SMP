@@ -44,35 +44,27 @@ void DBConnect::setParams(QString hostName, QString filePath, QString fileName) 
  * from the generation file.
  */
 void DBConnect::connect() {
-    if(!QDir(filePath).exists())
-    {
+    if(!QDir(filePath).exists()) {
         QDir().mkdir(filePath);
     }
-    if(!QFile(filePath + fileName).exists())
-    {
+    if(!QFile(filePath + fileName).exists()) {
         QFile createFile(filePath + fileName);
         createFile.open(QIODevice::WriteOnly);
         createFile.close();
-        if(!this->openFile())
-        {
+        if(!this->openFile()) {
             return;
         }
-        if(!this->createTables())
-        {
+        if(!this->createTables()) {
             return;
         }
     }
-    else
-    {
-        if(!this->openFile())
-        {
+    else {
+        if(!this->openFile()) {
             return;
         }
-        else
-        {
+        else {
             QSqlQuery query(QSqlDatabase::database(connectionName));
-            if (!query.exec("PRAGMA foreign_keys = ON;"))
-            {
+            if (!query.exec("PRAGMA foreign_keys = ON;")) {
                 qDebug() << query.lastError().text();
                 this->disconnect();
                 return;
@@ -111,17 +103,13 @@ bool DBConnect::createTables() {
     if (generationFile.isEmpty())
         return 1;
     QFile scriptFile(generationFile);
-    if(scriptFile.open(QIODevice::ReadOnly))
-    {
+    if(scriptFile.open(QIODevice::ReadOnly)) {
         QStringList queries = QTextStream(&scriptFile).readAll().split(';');
-        foreach(auto current, queries)
-        {
-            if(current.trimmed().isEmpty())
-            {
+        foreach(auto current, queries) {
+            if(current.trimmed().isEmpty()) {
                 continue;
             }
-            if(!query.exec(current))
-            {
+            if(!query.exec(current)) {
                 qDebug() << query.lastError().text();
                 return 0;
             }

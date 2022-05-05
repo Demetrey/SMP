@@ -11,6 +11,11 @@ SOURCES += \
         Kernel/kernel.cpp \
         Kernel/playbackcontroller.cpp \
         Kernel/playbackparameters.cpp \
+        dbcontroller/Tables/album.cpp \
+        dbcontroller/Tables/artist.cpp \
+        dbcontroller/Tables/basetable.cpp \
+        dbcontroller/Tables/composition.cpp \
+        dbcontroller/Tables/playlist.cpp \
         dbcontroller/dbconnect.cpp \
         dbcontroller/dbnames.cpp \
         main.cpp \
@@ -27,6 +32,11 @@ HEADERS += \
     Kernel/kernelstate.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
+    dbcontroller/Tables/album.h \
+    dbcontroller/Tables/artist.h \
+    dbcontroller/Tables/basetable.h \
+    dbcontroller/Tables/composition.h \
+    dbcontroller/Tables/playlist.h \
     dbcontroller/dbconnect.h \
     dbcontroller/dbnames.h \
     presenters/imagepresenter.h \

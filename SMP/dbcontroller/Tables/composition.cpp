@@ -1,0 +1,83 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
+#include "composition.h"
+
+Composition::Composition(QString connectionName) {
+    this->connectionName = connectionName;
+    this->tableName = QString(COMPOSITION);
+}
+
+int Composition::insert(const QVariantList &data) const {
+    int id = getId(data);
+    if (id != -1)
+        return id;
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    QString queryText = "INSERT INTO " + tableName +
+            " (" + rows.at(1) + ", " + rows.at(2) + ", " + rows.at(3) + ", " + rows.at(4) + ") " +
+            "VALUES (:path, :name, :year, :albumname)";
+    query.prepare(queryText);
+    query.bindValue(":path", data[0].toString());
+    query.bindValue(":name", data[1].toString());
+    query.bindValue(":year", data[2].toInt());
+    query.bindValue(":albumname", data[3].toInt());
+    if(!query.exec()) {
+        qDebug() << query.lastError().text();
+        return -1;
+    }
+    return query.lastInsertId().toInt();
+}
+
+void Composition::remove(const int id) {
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    QString queryText = "DELETE FROM " + tableName + " WHERE id = "
+                        + QString::number(id);
+    query.prepare(queryText);
+    if(!query.exec()) {
+        qDebug() << "Can't delete composition with id" << id;
+        qDebug() << query.lastError().text();
+    }
+}
+
+void Composition::update(const int id, const QVariantList &data) {
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    QString queryText = "UPDATE " + tableName +
+            " SET " + rows.at(1) + " = :path, " + rows.at(2) + " = :name, "
+            + rows.at(3) + " = :year, " + rows.at(4) + " = :albumname WHERE id = "
+            + QString::number(id);
+    query.prepare(queryText);
+    query.bindValue(":path", data[0].toString());
+    query.bindValue(":name", data[1].toString());
+    query.bindValue(":year", data[2].toInt());
+    query.bindValue(":albumname", data[3].toInt());
+    if(!query.exec()) {
+        qDebug() << "Can't update composition with ID: " << id;
+        qDebug() << query.lastError().text();
+    }
+}
+
+int Composition::getId(const QVariantList &data) const {
+    int id = -1;
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    QString queryText = "SELECT id FROM " + tableName +
+            " WHERE " + rows.at(1) + " = :path AND " + rows.at(2) + " = :name AND "
+            + rows.at(3) + " = :year AND " + rows.at(4) + "= :albumname";
+    query.prepare(queryText);
+    query.bindValue(":path", data[0].toString());
+    query.bindValue(":name", data[1].toString());
+    query.bindValue(":year", data[2].toInt());
+    query.bindValue(":albumname", data[3].toInt());
+    if(!query.exec()) {
+        qDebug() << query.lastError().text();
+    }
+    else {
+        while (query.next()) {
+            id = query.value(0).toInt();
+            return id;
+        }
+    }
+    return id;
+}
