@@ -14,7 +14,7 @@
 class UrlAudio
 {
 public:
-    UrlAudio(QString connectionName);
+    UrlAudio(QString &connectionName);
 
     int insert(const QVariantList &data);
     void remove(const int id);

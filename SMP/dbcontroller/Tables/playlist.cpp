@@ -7,6 +7,6 @@
 
 #include "playlist.h"
 
-Playlist::Playlist(QString connectionName) : BaseTable(connectionName) {
+Playlist::Playlist(QString &connectionName) : BaseTable(connectionName) {
     this->tableName = QString(PLAYLIST);
 }

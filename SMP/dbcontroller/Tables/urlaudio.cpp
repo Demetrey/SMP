@@ -1,6 +1,6 @@
 #include "urlaudio.h"
 
-UrlAudio::UrlAudio(QString connectionName) {
+UrlAudio::UrlAudio(QString &connectionName) {
     this->connectionName = connectionName;
     tableName = QString(URL_AUDIO);
 }

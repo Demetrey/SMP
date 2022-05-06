@@ -6,7 +6,7 @@
 
 #include "basetable.h"
 
-BaseTable::BaseTable(QString connectionName) {
+BaseTable::BaseTable(QString &connectionName) {
     this->connectionName = connectionName;
     tableName = QString(ALBUM);
 }
@@ -86,4 +86,19 @@ int BaseTable::getId(const QVariantList &data) const {
         }
     }
     return id;
+}
+
+QVariantList BaseTable::getData(int id) const {
+    QVariantList result;
+    QSqlQuery querySelect(QSqlDatabase::database(connectionName));
+    QString queryText = "SELECT name FROM " + tableName +
+            " WHERE id = :id";
+    querySelect.prepare(queryText);
+    querySelect.bindValue(":id", QString::number(id));
+    if(querySelect.exec()) {
+        while (querySelect.next()) {
+            result.append(querySelect.value(0));
+        }
+    }
+    return result;
 }

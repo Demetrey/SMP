@@ -21,12 +21,14 @@
 class Composition
 {
 public:
-    Composition(QString connectionName);
+    Composition(QString &connectionName);
 
     int insert(const QVariantList &data) const;
     void remove(const int id);
     void update(const int id, const QVariantList &data);
     int getId(const QVariantList &data) const;
+    QVariantList getData(const int id) const;
+    int getAlbumCount(const int id) const;
 
 private:
     QString connectionName;

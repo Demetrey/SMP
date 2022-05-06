@@ -13,7 +13,7 @@
 class Playlist : public BaseTable
 {
 public:
-    Playlist(QString connectionName);
+    Playlist(QString &connectionName);
 };
 
 #endif // PLAYLIST_H

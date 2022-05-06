@@ -12,7 +12,7 @@
 class ArtistComposition : public BaseManyToMany
 {
 public:
-    ArtistComposition(QString connectionName) ;
+    ArtistComposition(QString &connectionName) ;
 
 };
 

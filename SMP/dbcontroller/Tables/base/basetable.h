@@ -21,12 +21,13 @@
 class BaseTable
 {
 public:
-    BaseTable(QString connectionName);
+    BaseTable(QString &connectionName);
 
     int insert(const QVariantList &data);
     void remove(const int id);
     void update(const int id, const QVariantList &data);
     int getId(const QVariantList &data) const;
+    QVariantList getData(int id) const;
 
 protected:
     QString connectionName;

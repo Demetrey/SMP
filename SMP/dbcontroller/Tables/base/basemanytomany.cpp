@@ -1,6 +1,6 @@
 #include "basemanytomany.h"
 
-BaseManyToMany::BaseManyToMany(QString connectionName) {
+BaseManyToMany::BaseManyToMany(QString &connectionName) {
     this->connectionName = connectionName;
 }
 
@@ -9,7 +9,7 @@ BaseManyToMany::BaseManyToMany(QString connectionName) {
  * @param data - struct: data[0] = idFirstCol (int), data[1] = idSecondCol (int)
  * @return id of the added data
  */
-int BaseManyToMany::insert(const QVariantList &data) {
+bool BaseManyToMany::insert(const QVariantList &data) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "INSERT INTO " + tableName + " (" + rows.at(0) + ", " + rows.at(1) + ") " +
             "VALUES (:composition, :noComposition)";
@@ -17,9 +17,9 @@ int BaseManyToMany::insert(const QVariantList &data) {
     query.bindValue(":composition", data[0].toString());
     query.bindValue(":noComposition", data[1].toString());
     if(!query.exec()) {
-        return -1;
+        return false;
     }
-    return query.lastInsertId().toInt();
+    return true;
 }
 
 /**

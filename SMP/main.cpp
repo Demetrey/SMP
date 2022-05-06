@@ -16,6 +16,9 @@
 #include "presenters/kernelpresenter.h"
 #include "presenters/imagepresenter.h"
 
+#include "dbcontroller/dbcontroller.h"
+#include "tagreader/tagreader.h"
+
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -55,6 +58,17 @@ int main(int argc, char *argv[]) {
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+    QString name = "erer";
+    DBController dbc(name);
+    dbc.connect();
+    TagReader tr;
+    QString path = "C:/Users/JustT/Desktop/Aephanemer-Alive.opus";
+    Tags *tags = tr.getTags(path);
+    if (tags) {
+        dbc.insertComposition(path, tags);
+        delete tags;
+    }
 
     return app.exec();
 }

@@ -14,9 +14,9 @@
 class BaseManyToMany
 {
 public:
-    BaseManyToMany(QString connectionName);
+    BaseManyToMany(QString &connectionName);
 
-    int insert(const QVariantList &data);
+    bool insert(const QVariantList &data);
     QList<int> getIdNonComposition(const int idComposition);
     QList<int> getIdComposition(const int idNonComposition);
     int compositionCount(int idNonComposition);

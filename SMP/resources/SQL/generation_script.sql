@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS playlist (
 CREATE TABLE IF NOT EXISTS playlist_composition (
 	idComposition INTEGER NOT NULL,
 	idPlaylist INTEGER NOT NULL,
+        number INTEGER NULL,
 	PRIMARY KEY (idComposition, idPlaylist),
 	FOREIGN KEY (idComposition) REFERENCES composition (id)
 		ON DELETE CASCADE

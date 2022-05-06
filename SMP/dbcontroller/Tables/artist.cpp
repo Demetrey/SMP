@@ -6,6 +6,6 @@
 
 #include "artist.h"
 
-Artist::Artist(QString connectionName) : BaseTable(connectionName) {
+Artist::Artist(QString &connectionName) : BaseTable(connectionName) {
     this->tableName = QString(ARTIST);
 }

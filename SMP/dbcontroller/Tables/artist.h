@@ -12,7 +12,7 @@
 class Artist : public BaseTable
 {
 public:
-    Artist(QString connectionName);
+    Artist(QString &connectionName);
 
 };
 

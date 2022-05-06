@@ -6,7 +6,7 @@
 
 #include "composition.h"
 
-Composition::Composition(QString connectionName) {
+Composition::Composition(QString &connectionName) {
     this->connectionName = connectionName;
     this->tableName = QString(COMPOSITION);
 }
@@ -80,4 +80,38 @@ int Composition::getId(const QVariantList &data) const {
         }
     }
     return id;
+}
+
+QVariantList Composition::getData(const int id) const {
+    QVariantList result;
+    QSqlQuery querySelect(QSqlDatabase::database(connectionName));
+    QString queryText = "SELECT " + rows.at(1) + ", " + rows.at(2) + ", "
+                        + rows.at(3) + ", " + rows.at(4) + " FROM " + tableName +
+            " WHERE id = :id";
+    querySelect.prepare(queryText);
+    querySelect.bindValue(":id", QString::number(id));
+    if(querySelect.exec()) {
+        while (querySelect.next()) {
+            result.append(querySelect.value(0));
+            result.append(querySelect.value(1));
+            result.append(querySelect.value(2));
+            result.append(querySelect.value(3));
+        }
+    }
+    return result;
+}
+
+int Composition::getAlbumCount(const int id) const {
+    int count = -1;
+    QSqlQuery query(QSqlDatabase::database(connectionName));
+    QString queryText = "SELECT COUNT (*) FROM " + tableName +
+            " WHERE " + rows.at(4) + " = :id";
+    query.prepare(queryText);
+    query.bindValue(":id", QString::number(id));
+    if(query.exec()) {
+        while (query.next()) {
+            return query.value(0).toInt();
+        }
+    }
+    return count;
 }

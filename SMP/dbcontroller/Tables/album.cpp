@@ -6,6 +6,6 @@
 
 #include "album.h"
 
-Album::Album(QString connectionName) : BaseTable(connectionName) {
+Album::Album(QString &connectionName) : BaseTable(connectionName) {
     this->tableName = QString(ALBUM);
 }

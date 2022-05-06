@@ -6,7 +6,7 @@
 
 #include "artistcomposition.h"
 
-ArtistComposition::ArtistComposition(QString connectionName)
+ArtistComposition::ArtistComposition(QString &connectionName)
     : BaseManyToMany(connectionName) {
     tableName = QString(ARTIST_COMPOSITION);
     this->rows.append("idComposition");

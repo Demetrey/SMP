@@ -17,10 +17,12 @@ SOURCES += \
         dbcontroller/Tables/base/basemanytomany.cpp \
         dbcontroller/Tables/base/basetable.cpp \
         dbcontroller/Tables/composition.cpp \
+        dbcontroller/Tables/playbackqueue.cpp \
         dbcontroller/Tables/playlist.cpp \
         dbcontroller/Tables/playlistcomposition.cpp \
         dbcontroller/Tables/urlaudio.cpp \
         dbcontroller/dbconnect.cpp \
+        dbcontroller/dbcontroller.cpp \
         dbcontroller/dbnames.cpp \
         main.cpp \
         presenters/imagepresenter.cpp \
@@ -42,11 +44,14 @@ HEADERS += \
     dbcontroller/Tables/base/basemanytomany.h \
     dbcontroller/Tables/base/basetable.h \
     dbcontroller/Tables/composition.h \
+    dbcontroller/Tables/playbackqueue.h \
     dbcontroller/Tables/playlist.h \
     dbcontroller/Tables/playlistcomposition.h \
     dbcontroller/Tables/urlaudio.h \
     dbcontroller/dbconnect.h \
+    dbcontroller/dbcontroller.h \
     dbcontroller/dbnames.h \
+    dbcontroller/idbcontroller.h \
     presenters/imagepresenter.h \
     presenters/kernelpresenter.h \
     readers/xmlloader.h \

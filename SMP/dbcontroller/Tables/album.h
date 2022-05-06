@@ -12,7 +12,7 @@
 class Album : public BaseTable
 {
 public:
-    Album(QString connectionName);
+    Album(QString &connectionName);
 
 };
 

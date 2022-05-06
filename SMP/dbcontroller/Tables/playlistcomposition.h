@@ -6,7 +6,7 @@
 class PlaylistComposition : public BaseManyToMany
 {
 public:
-    PlaylistComposition(QString connectionName);
+    PlaylistComposition(QString &connectionName);
 };
 
 #endif // PLAYLISTCOMPOSITION_H
