@@ -13,9 +13,13 @@ SOURCES += \
         Kernel/playbackparameters.cpp \
         dbcontroller/Tables/album.cpp \
         dbcontroller/Tables/artist.cpp \
-        dbcontroller/Tables/basetable.cpp \
+        dbcontroller/Tables/artistcomposition.cpp \
+        dbcontroller/Tables/base/basemanytomany.cpp \
+        dbcontroller/Tables/base/basetable.cpp \
         dbcontroller/Tables/composition.cpp \
         dbcontroller/Tables/playlist.cpp \
+        dbcontroller/Tables/playlistcomposition.cpp \
+        dbcontroller/Tables/urlaudio.cpp \
         dbcontroller/dbconnect.cpp \
         dbcontroller/dbnames.cpp \
         main.cpp \
@@ -34,9 +38,13 @@ HEADERS += \
     Kernel/playbackparameters.h \
     dbcontroller/Tables/album.h \
     dbcontroller/Tables/artist.h \
-    dbcontroller/Tables/basetable.h \
+    dbcontroller/Tables/artistcomposition.h \
+    dbcontroller/Tables/base/basemanytomany.h \
+    dbcontroller/Tables/base/basetable.h \
     dbcontroller/Tables/composition.h \
     dbcontroller/Tables/playlist.h \
+    dbcontroller/Tables/playlistcomposition.h \
+    dbcontroller/Tables/urlaudio.h \
     dbcontroller/dbconnect.h \
     dbcontroller/dbnames.h \
     presenters/imagepresenter.h \

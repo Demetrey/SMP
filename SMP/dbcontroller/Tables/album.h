@@ -7,7 +7,7 @@
 #ifndef ALBUM_H
 #define ALBUM_H
 
-#include "basetable.h"
+#include "base/basetable.h"
 
 class Album : public BaseTable
 {

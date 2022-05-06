@@ -7,7 +7,7 @@
 #ifndef ARTIST_H
 #define ARTIST_H
 
-#include "basetable.h"
+#include "base/basetable.h"
 
 class Artist : public BaseTable
 {

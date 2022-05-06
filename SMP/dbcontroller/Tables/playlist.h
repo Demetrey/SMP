@@ -8,7 +8,7 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 
-#include "basetable.h"
+#include "base/basetable.h"
 
 class Playlist : public BaseTable
 {
