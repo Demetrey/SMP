@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #ifndef BASEMANYTOMANY_H
 #define BASEMANYTOMANY_H
 
@@ -11,6 +17,11 @@
 
 #include "dbcontroller/dbnames.h"
 
+/**
+ * @brief The BaseManyToMany class
+ * The class implements work with tables with a many-to-many relationship within
+ * the framework of the implemented database
+ */
 class BaseManyToMany
 {
 public:

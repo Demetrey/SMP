@@ -33,7 +33,8 @@ public:
 private:
     QString connectionName;
     QString tableName;
-    const QVector<QString> rows {"id", "compositionPath", "compositionName", "compositionYear", "idAlbum"};
+    const QVector<QString> rows {"id", "compositionPath", "compositionName",
+                                 "compositionYear", "idAlbum"};
 
 };
 

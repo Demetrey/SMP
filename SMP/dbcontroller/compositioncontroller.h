@@ -1,46 +1,37 @@
-#ifndef DBCONTROLLER_H
-#define DBCONTROLLER_H
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
 
-#include <QObject>
-#include "dbconnect.h"
-#include "idbcontroller.h"
+#ifndef COMPOSITIONCONTROLLER_H
+#define COMPOSITIONCONTROLLER_H
+
+#include "basecontroller.h"
+#include "Interfaces/ICompositionController.h"
 #include "Tables/album.h"
 #include "Tables/artist.h"
 #include "Tables/artistcomposition.h"
 #include "Tables/composition.h"
-#include "Tables/playbackqueue.h"
-#include "Tables/playlist.h"
-#include "Tables/playlistcomposition.h"
 #include "Tables/urlaudio.h"
 
-class DBController : public IDBController
+class CompositionController
+        : public ICompositionController, public BaseController
 {
     Q_OBJECT
 public:
-    explicit DBController(QString &connectionName);
-    ~DBController();
+    CompositionController(QString connectionName);
+    ~CompositionController();
 
 signals:
+    // ICompositionController interface
     void insertedComposition(int id);
     void deletedComposition(int id);
     void updatedComposition(int id);
     void changedMedia();
 
-    void insertedPlaylist(int id);
-    void updatedPlaylist(int id);
-    void deletedPlaylist(int id);
-    void changedPlaylistData();
-
-    void changedPlaylistStruct(int id);
-
-    void changedQueue();
-
-    // IDBController interface
-public:
-    void connect() override;
-    QSqlDatabase getDB() override;
-
 public slots:
+    // ICompositionController interface
     void insertComposition(const QString &path, const Tags *tags) override;
     void deleteComposition(const int id) override;
     void updateComposition(const int id, const QString &path, const Tags *tags) override;
@@ -49,26 +40,11 @@ public slots:
     void deleteUrl(const int id) override;
     void updateUrl(const int id, QString &url, const QString &name) override;
 
-    void createPlaylist(const QString &name) override;
-    void deletePlaylist(const int id) override;
-    void updatePlaylist(const int id, const QString &name) override;
-
-    void insertToPlaylist(const int idPlaylist, const int idComposition) override;
-    void removeFromPlaylist(const int idPlaylist, const int idComposition) override;
-
-    void insertToQueue(const int id) override;
-    void removeFromQueue(const int id) override;
-    void updateQueueumbers(const int idComposition, const int number) override;
-
 private:
-    DBConnect *dbc;
     Album *album;
     Artist *artist;
     ArtistComposition *artistComposition;
     Composition *composition;
-    PlaybackQueue *plqyQueue;
-    Playlist *playlist;
-    PlaylistComposition *playlistComposition;
     UrlAudio *urlAudio;
 
     int insertAlbum(const Tags *tags);
@@ -80,4 +56,4 @@ private:
     void compositionCleanup(const int idAlbum, const QList<int> &idAstists);
 };
 
-#endif // DBCONTROLLER_H
+#endif // COMPOSITIONCONTROLLER_H

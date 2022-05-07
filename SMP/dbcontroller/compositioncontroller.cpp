@@ -1,38 +1,34 @@
-#include "dbcontroller.h"
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
 
-DBController::DBController(QString& connectionName) {
-    dbc = new DBConnect(connectionName);
+#include "compositioncontroller.h"
+
+CompositionController::CompositionController(QString connectionName)
+    : BaseController(connectionName) {
     album = new Album(connectionName);
     artist = new Artist(connectionName);
     artistComposition = new ArtistComposition(connectionName);
     composition = new Composition(connectionName);
-    plqyQueue = new PlaybackQueue(connectionName);
-    playlist = new Playlist(connectionName);
-    playlistComposition = new PlaylistComposition(connectionName);
     urlAudio = new UrlAudio(connectionName);
 }
 
-DBController::~DBController() {
-    delete dbc;
+CompositionController::~CompositionController() {
     delete album;
     delete artist;
     delete artistComposition;
     delete composition;
-    delete plqyQueue;
-    delete playlist;
-    delete playlistComposition;
     delete urlAudio;
 }
 
-void DBController::connect() {
-    dbc->connect();
-}
-
-QSqlDatabase DBController::getDB() {
-    return dbc->getDB();
-}
-
-void DBController::insertComposition(const QString &path, const Tags *tags) {
+/**
+ * @brief Insert Composition
+ * @param path - Path to composition
+ * @param tags - Composition tags
+ */
+void CompositionController::insertComposition(const QString &path, const Tags *tags) {
     QVariantList data;
     // Insert album
     int albumId = insertAlbum(tags);
@@ -78,19 +74,37 @@ void DBController::insertComposition(const QString &path, const Tags *tags) {
         qDebug() << "Can't add artist_composition!";
         cancelCompositionInsert(albumId, &artistId, compositionId);
     }
+
+    emit insertedComposition(compositionId);
+    emit changedMedia();
 }
 
-void DBController::deleteComposition(const int id) {
+/**
+ * @brief Delet composition
+ * @param id - id of the composition to delete
+ */
+void CompositionController::deleteComposition(const int id) {
     QVariantList oldData = composition->getData(id);
+    if (oldData.isEmpty()) // no data in DB
+        return;
     int idAlbum = oldData.at(3).toInt();
     QList<int> idArtists = artistComposition->getIdNonComposition(id);
 
     composition->remove(id);
 
     compositionCleanup(idAlbum, idArtists);
+    emit deletedComposition(id);
+    emit changedMedia();
 }
 
-void DBController::updateComposition(const int id, const QString &path, const Tags *tags) {
+/**
+ * @brief Update composition
+ * @param id - Composition id to update
+ * @param path - Path to composition
+ * @param tags - Composition tags
+ */
+void CompositionController::updateComposition(const int id, const QString &path,
+                                     const Tags *tags) {
     QVariantList oldData = composition->getData(id);
     // save old data from other tables
     int idAlbum = oldData.at(3).toInt();
@@ -130,69 +144,56 @@ void DBController::updateComposition(const int id, const QString &path, const Ta
     insertAC(id, artistId);
 
     compositionCleanup(idAlbum, oldArtists);
+
+    emit updatedComposition(id);
+    emit changedMedia();
 }
 
-void DBController::insertUrl(const QString &url, const QString &name)
-{
-
+/**
+ * @brief Insert URL
+ * @param url - URL \_(^-_-^)_/
+ * @param name - Alias ​​for audio source
+ */
+void CompositionController::insertUrl(const QString &url, const QString &name) {
+    QVariantList data = {url, name};
+    urlAudio->insert(data);
 }
 
-void DBController::deleteUrl(const int id)
-{
-
+/**
+ * @brief Delete URL
+ * @param id - id URL to delete
+ */
+void CompositionController::deleteUrl(const int id) {
+    urlAudio->remove(id);
 }
 
-void DBController::updateUrl(const int id, QString &url, const QString &name)
-{
-
+/**
+ * @brief Update URL
+ * @param id - id URL to update
+ * @param url - URL \_(^-_-^)_/
+ * @param name - Alias ​​for audio source
+ */
+void CompositionController::updateUrl(const int id, QString &url, const QString &name) {
+    QVariantList data = {url, name};
+    urlAudio->update(id, data);
 }
 
-void DBController::createPlaylist(const QString &name)
-{
-
-}
-
-void DBController::deletePlaylist(const int id)
-{
-
-}
-
-void DBController::updatePlaylist(const int id, const QString &name)
-{
-
-}
-
-void DBController::insertToPlaylist(const int idPlaylist, const int idComposition)
-{
-
-}
-
-void DBController::removeFromPlaylist(const int idPlaylist, const int idComposition)
-{
-
-}
-
-void DBController::insertToQueue(const int id)
-{
-
-}
-
-void DBController::removeFromQueue(const int id)
-{
-
-}
-
-void DBController::updateQueueumbers(const int idComposition, const int number)
-{
-
-}
-
-int DBController::insertAlbum(const Tags *tags) {
+/**
+ * @brief Insert Album
+ * @param tags - Tags to extract album title
+ * @return - Added Album ID
+ */
+int CompositionController::insertAlbum(const Tags *tags) {
     QVariantList data = {tags->songAlbum};
     return album->insert(data);
 }
 
-QList<int> DBController::insertArtists(const Tags *tags) {
+/**
+ * @brief Insert Artists
+ * @param tags - Tags to extract artists
+ * @return - List of id added artists
+ */
+QList<int> CompositionController::insertArtists(const Tags *tags) {
     QVariantList data;
     QList<int> artistId;
     for (const QString &curArtist : tags->songArtists) {
@@ -203,7 +204,13 @@ QList<int> DBController::insertArtists(const Tags *tags) {
     return artistId;
 }
 
-bool DBController::insertAC(const int idComposition, const QList<int> &idArtists) {
+/**
+ * @brief Insert to Artist_Composition
+ * @param idComposition - Composition id
+ * @param idArtists - Artist id
+ * @return true - successful insertion, false - failure
+ */
+bool CompositionController::insertAC(const int idComposition, const QList<int> &idArtists) {
     QVariantList data;
     bool isOk = false; // can't add
     data.clear();
@@ -220,20 +227,32 @@ bool DBController::insertAC(const int idComposition, const QList<int> &idArtists
     return isOk;
 }
 
-void DBController::cancelCompositionInsert(const int idAlbum,
+/**
+ * @brief Unpaste composition
+ * @param idAlbum - Inserted Album ID
+ * @param idArtist - IDs of added artists
+ * @param idComposition -
+ */
+void CompositionController::cancelCompositionInsert(const int idAlbum,
                                            const QList<int> *idArtist,
                                            const int idComposition) {
     album->remove(idAlbum);
 
-    for (const int id : *idArtist) {
-        if (id != -1)
-            artist->remove(id);
+    if (idArtist) {
+        for (const int id : *idArtist) {
+            if (id != -1)
+                artist->remove(id);
+        }
     }
-
     composition->remove(idComposition);
 }
 
-void DBController::compositionCleanup(const int idAlbum,
+/**
+ * @brief Composition cleanup
+ * @param idAlbum - Old Album ID
+ * @param idAstists - Old Artist IDs
+ */
+void CompositionController::compositionCleanup(const int idAlbum,
                                       const QList<int> &idAstists) {
     // Deleting unused albums
     if (composition->getAlbumCount(idAlbum) == 0) {

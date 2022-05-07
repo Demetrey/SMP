@@ -88,6 +88,11 @@ int BaseTable::getId(const QVariantList &data) const {
     return id;
 }
 
+/**
+ * @brief Get Data by ID
+ * @param id - data id
+ * @return data
+ */
 QVariantList BaseTable::getData(int id) const {
     QVariantList result;
     QSqlQuery querySelect(QSqlDatabase::database(connectionName));

@@ -6,7 +6,7 @@
 
 #include "dbconnect.h"
 
-DBConnect::DBConnect(QString connectionName, QString generationFile, QObject *parent) : QObject(parent) {
+DBConnect::DBConnect(QString connectionName, QString generationFile) {
     this->connectionName = connectionName;
     this->generationFile = generationFile;
     // default name initialization
@@ -16,6 +16,7 @@ DBConnect::DBConnect(QString connectionName, QString generationFile, QObject *pa
 }
 
 DBConnect::~DBConnect() {
+    qDebug() << "DBDisconnect";
     this->disconnect();
 }
 

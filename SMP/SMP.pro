@@ -21,9 +21,12 @@ SOURCES += \
         dbcontroller/Tables/playlist.cpp \
         dbcontroller/Tables/playlistcomposition.cpp \
         dbcontroller/Tables/urlaudio.cpp \
+        dbcontroller/basecontroller.cpp \
+        dbcontroller/compositioncontroller.cpp \
         dbcontroller/dbconnect.cpp \
-        dbcontroller/dbcontroller.cpp \
         dbcontroller/dbnames.cpp \
+        dbcontroller/playlistcontroller.cpp \
+        dbcontroller/queuecontroller.cpp \
         main.cpp \
         presenters/imagepresenter.cpp \
         presenters/kernelpresenter.cpp \
@@ -38,6 +41,10 @@ HEADERS += \
     Kernel/kernelstate.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
+    dbcontroller/Interfaces/IBaseController.h \
+    dbcontroller/Interfaces/ICompositionController.h \
+    dbcontroller/Interfaces/IPlaybackQueueController.h \
+    dbcontroller/Interfaces/IPlaylistController.h \
     dbcontroller/Tables/album.h \
     dbcontroller/Tables/artist.h \
     dbcontroller/Tables/artistcomposition.h \
@@ -48,10 +55,12 @@ HEADERS += \
     dbcontroller/Tables/playlist.h \
     dbcontroller/Tables/playlistcomposition.h \
     dbcontroller/Tables/urlaudio.h \
+    dbcontroller/basecontroller.h \
+    dbcontroller/compositioncontroller.h \
     dbcontroller/dbconnect.h \
-    dbcontroller/dbcontroller.h \
     dbcontroller/dbnames.h \
-    dbcontroller/idbcontroller.h \
+    dbcontroller/playlistcontroller.h \
+    dbcontroller/queuecontroller.h \
     presenters/imagepresenter.h \
     presenters/kernelpresenter.h \
     readers/xmlloader.h \

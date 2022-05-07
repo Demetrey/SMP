@@ -18,13 +18,11 @@
 
 #include "dbnames.h"
 
-class DBConnect : public QObject
+class DBConnect
 {
-    Q_OBJECT
 public:
     explicit DBConnect(QString connectionName,
-                       QString generationFile = QString(),
-                       QObject *parent = nullptr);
+                       QString generationFile = QString());
     ~DBConnect();
 
     void setParams(QString hostName, QString filePath, QString fileName);
