@@ -19,8 +19,8 @@ class TagReader : public ITagReader
 {
 public:
     TagReader();
-    Tags *getTags(QString &fileway) override;
-    Art *getArt(QString &fileway) override;
+    QSharedPointer<Tags> getTags(QString &fileway) override;
+    QSharedPointer<Art> getArt(QString &fileway) override;
     QImage getCoverArt(QString &fileway) override;
 
 

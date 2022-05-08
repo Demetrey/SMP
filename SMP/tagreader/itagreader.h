@@ -8,13 +8,14 @@
 #define ITAGREADER_H
 
 #include <QImage>
+#include <QSharedPointer>
 
 #include "tagstructs.h"
 
 class ITagReader {
 public:
-    virtual Tags *getTags(QString&) = 0;
-    virtual Art *getArt(QString&) = 0;
+    virtual QSharedPointer<Tags> getTags(QString&) = 0;
+    virtual QSharedPointer<Art> getArt(QString&) = 0;
     virtual QImage getCoverArt(QString&) = 0;
 };
 

@@ -19,7 +19,7 @@ TagReader::TagReader() {
  * @param fileway - The path to the file
  * @return Tag structure pointer (nullptr if there are no tags)
  */
-Tags *TagReader::getTags(QString &fileway) {
+QSharedPointer<Tags> TagReader::getTags(QString &fileway) {
     QString mimeType = mime.mimeTypeForFile(fileway,
                                             QMimeDatabase::MatchContent).name();
     const char *chFileway = fileway.toLocal8Bit().data();
@@ -51,7 +51,7 @@ Tags *TagReader::getTags(QString &fileway) {
  * @param fileway - The path to the file
  * @return Cover structure pointer (nullptr if there is no cover)
  */
-Art *TagReader::getArt(QString &fileway) {
+QSharedPointer<Art> TagReader::getArt(QString &fileway) {
     QString mimeType = mime.mimeTypeForFile(fileway,
                                             QMimeDatabase::MatchContent).name();
     const char *chFileway = fileway.toLocal8Bit().data();
@@ -72,11 +72,10 @@ Art *TagReader::getArt(QString &fileway) {
  * @return Cover image of a QImage, or an empty image if none
  */
 QImage TagReader::getCoverArt(QString &fileway) {
-    Art *art = getArt(fileway);
+    QSharedPointer<Art> art = getArt(fileway);
     QImage coverArt = QImage();
     if (art) {
         coverArt.loadFromData(reinterpret_cast<const uchar*>(art->data), art->size);
-        delete art;
     }
     return coverArt;
 }
