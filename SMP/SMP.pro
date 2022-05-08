@@ -11,6 +11,11 @@ SOURCES += \
         Kernel/kernel.cpp \
         Kernel/playbackcontroller.cpp \
         Kernel/playbackparameters.cpp \
+        dbcontroller/Models/mediamodel.cpp \
+        dbcontroller/Models/playlistdatamodel.cpp \
+        dbcontroller/Models/playlistmodel.cpp \
+        dbcontroller/Models/playqueuemodel.cpp \
+        dbcontroller/Models/urlmodel.cpp \
         dbcontroller/Tables/album.cpp \
         dbcontroller/Tables/artist.cpp \
         dbcontroller/Tables/artistcomposition.cpp \
@@ -45,6 +50,11 @@ HEADERS += \
     dbcontroller/Interfaces/ICompositionController.h \
     dbcontroller/Interfaces/IPlaybackQueueController.h \
     dbcontroller/Interfaces/IPlaylistController.h \
+    dbcontroller/Models/mediamodel.h \
+    dbcontroller/Models/playlistdatamodel.h \
+    dbcontroller/Models/playlistmodel.h \
+    dbcontroller/Models/playqueuemodel.h \
+    dbcontroller/Models/urlmodel.h \
     dbcontroller/Tables/album.h \
     dbcontroller/Tables/artist.h \
     dbcontroller/Tables/artistcomposition.h \
