@@ -7,7 +7,7 @@
 #include "basecontroller.h"
 
 BaseController::BaseController(QString connectionName) {
-    dbc = new DBConnect(connectionName);
+    dbc = new DBConnect(connectionName, QString(GENERATION_FILE));
 }
 
 BaseController::~BaseController() {

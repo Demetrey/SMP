@@ -9,6 +9,7 @@
 
 #include "Interfaces/IBaseController.h"
 #include "dbconnect.h"
+#include "dbnames.h"
 
 class BaseController : public IBaseController
 {

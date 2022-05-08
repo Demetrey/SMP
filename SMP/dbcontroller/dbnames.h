@@ -21,4 +21,7 @@ extern const char* PLAYLIST;
 extern const char* PLAYLIST_COMPOSITION;
 extern const char* URL_AUDIO;
 
+// Generation file path
+extern const char* GENERATION_FILE;
+
 #endif // DBNAMES_H

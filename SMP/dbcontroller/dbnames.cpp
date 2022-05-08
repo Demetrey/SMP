@@ -19,3 +19,6 @@ const char* MUSIC_FILE_PATH = "./DATABASE/";
  const char* PLAYLIST = "playlist";
  const char* PLAYLIST_COMPOSITION = "playlist_composition";
  const char* URL_AUDIO = "url_audio";
+
+ // Generation file path
+ const char* GENERATION_FILE = ":/SQL/generation_script.sql";
