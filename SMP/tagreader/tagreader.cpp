@@ -20,26 +20,25 @@ TagReader::TagReader() {
  * @return Tag structure pointer (nullptr if there are no tags)
  */
 QSharedPointer<Tags> TagReader::getTags(QString &fileway) {
-    const char *chFileway = fileway.toLocal8Bit().data();
     FileTypes::FileType fileType = typer.getType(fileway);
 
     switch (fileType) {
     case FileTypes::FileType::Mpeg:
-        return tagGetter.getMPEG(chFileway);
+        return tagGetter.getMPEG(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Mp4:
-        return tagGetter.getMP4(chFileway);
+        return tagGetter.getMP4(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Aiff:
-        return tagGetter.getAiff(chFileway);
+        return tagGetter.getAiff(fileway.toLocal8Bit().data());
     case FileTypes::FileType::S3m:
-        return tagGetter.getS3m(chFileway);
+        return tagGetter.getS3m(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Mod:
-        return tagGetter.getMod(chFileway);
+        return tagGetter.getMod(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Ape:
-        return tagGetter.getApe(chFileway);
+        return tagGetter.getApe(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Flac:
-        return tagGetter.getFlac(chFileway);
+        return tagGetter.getFlac(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Opus:
-        return tagGetter.getOpus(chFileway);
+        return tagGetter.getOpus(fileway.toLocal8Bit().data());
     default:
         return QSharedPointer<Tags>::create();
     }
@@ -55,18 +54,17 @@ QSharedPointer<Tags> TagReader::getTags(QString &fileway) {
  * @return Cover structure pointer (nullptr if there is no cover)
  */
 QSharedPointer<Art> TagReader::getArt(QString &fileway) {
-    const char *chFileway = fileway.toLocal8Bit().data();
     FileTypes::FileType fileType = typer.getType(fileway);
 
     switch (fileType) {
     case FileTypes::FileType::Mpeg:
-        return tagGetter.getArtMPEG(chFileway);
+        return tagGetter.getArtMPEG(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Mp4:
-        return tagGetter.getArtMP4(chFileway);
+        return tagGetter.getArtMP4(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Flac:
-        return tagGetter.getArtFlac(chFileway);
+        return tagGetter.getArtFlac(fileway.toLocal8Bit().data());
     case FileTypes::FileType::Opus:
-        return tagGetter.getArtOpus(chFileway);
+        return tagGetter.getArtOpus(fileway.toLocal8Bit().data());
     default:
         return QSharedPointer<Art>::create();
     }

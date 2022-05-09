@@ -5,6 +5,7 @@
 #include <QRunnable>
 #include <QStringList>
 #include <QFile>
+#include <QFileInfo>
 #include <QScopedPointer>
 #include <QDebug>
 

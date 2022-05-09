@@ -37,7 +37,7 @@ void GetFilesTask::run() {
             if (tags->songAlbum.isEmpty())
                 tags->songAlbum = QString("Unknown");
             if (tags->songName.isEmpty())
-                tags->songName = QString("Unknown");
+                tags->songName = QFileInfo(tryToOpen).fileName();
             tags->songArtists.removeAll(QString(""));
             if (tags->songArtists.isEmpty())
                 tags->songArtists.append(QString("Unknown"));
