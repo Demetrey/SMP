@@ -1,9 +1,20 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #include "mimetyper.h"
 
 MimeTyper::MimeTyper() {
     loadTypeMap();
 }
 
+/**
+ * @brief Get type
+ * @param path - Path to file
+ * @return File type number from enum
+ */
 FileTypes::FileType MimeTyper::getType(const QString &path) {
     QString mimeType = mime.mimeTypeForFile(path,
                                             QMimeDatabase::MatchContent).name();
@@ -16,6 +27,18 @@ FileTypes::FileType MimeTyper::getType(const QString &path) {
     return FileTypes::FileType::Unknown;
 }
 
+/**
+ * @brief Checking for correct file type
+ * @param path - Path to file
+ * @return true - file type is correct; false - file type is not supported
+ */
+bool MimeTyper::isCorrectType(const QString &path) {
+    return (getType(path) != FileTypes::FileType::Unknown);
+}
+
+/**
+ * @brief Load typeMap
+ */
 void MimeTyper::loadTypeMap() {
     typeMap.insert("aiff", FileTypes::FileType::Aiff);
     typeMap.insert("ape", FileTypes::FileType::Ape);
