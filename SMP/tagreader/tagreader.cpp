@@ -20,26 +20,29 @@ TagReader::TagReader() {
  * @return Tag structure pointer (nullptr if there are no tags)
  */
 QSharedPointer<Tags> TagReader::getTags(QString &fileway) {
-    QString mimeType = mime.mimeTypeForFile(fileway,
-                                            QMimeDatabase::MatchContent).name();
     const char *chFileway = fileway.toLocal8Bit().data();
-    if (mimeType.contains("mpeg"))
+    FileTypes::FileType fileType = typer.getType(fileway);
+
+    switch (fileType) {
+    case FileTypes::FileType::Mpeg:
         return tagGetter.getMPEG(chFileway);
-    else if (mimeType.contains("mp4"))
+    case FileTypes::FileType::Mp4:
         return tagGetter.getMP4(chFileway);
-    else if (mimeType.contains("aiff"))
+    case FileTypes::FileType::Aiff:
         return tagGetter.getAiff(chFileway);
-    else if (mimeType.contains("s3m"))
+    case FileTypes::FileType::S3m:
         return tagGetter.getS3m(chFileway);
-    else if (mimeType.contains("mod"))
+    case FileTypes::FileType::Mod:
         return tagGetter.getMod(chFileway);
-    else if (mimeType.contains("ape"))
+    case FileTypes::FileType::Ape:
         return tagGetter.getApe(chFileway);
-    else if (mimeType.contains("flac"))
+    case FileTypes::FileType::Flac:
         return tagGetter.getFlac(chFileway);
-    else if (mimeType.contains("opus"))
+    case FileTypes::FileType::Opus:
         return tagGetter.getOpus(chFileway);
-    else return nullptr;
+    default:
+        return QSharedPointer<Tags>::create();
+    }
 }
 
 /**
@@ -52,18 +55,21 @@ QSharedPointer<Tags> TagReader::getTags(QString &fileway) {
  * @return Cover structure pointer (nullptr if there is no cover)
  */
 QSharedPointer<Art> TagReader::getArt(QString &fileway) {
-    QString mimeType = mime.mimeTypeForFile(fileway,
-                                            QMimeDatabase::MatchContent).name();
     const char *chFileway = fileway.toLocal8Bit().data();
-    if (mimeType.contains("mpeg"))
+    FileTypes::FileType fileType = typer.getType(fileway);
+
+    switch (fileType) {
+    case FileTypes::FileType::Mpeg:
         return tagGetter.getArtMPEG(chFileway);
-    else if (mimeType.contains("mp4"))
+    case FileTypes::FileType::Mp4:
         return tagGetter.getArtMP4(chFileway);
-    else if (mimeType.contains("flac"))
+    case FileTypes::FileType::Flac:
         return tagGetter.getArtFlac(chFileway);
-    else if (mimeType.contains("opus"))
+    case FileTypes::FileType::Opus:
         return tagGetter.getArtOpus(chFileway);
-    else return nullptr;
+    default:
+        return QSharedPointer<Art>::create();
+    }
 }
 
 /**

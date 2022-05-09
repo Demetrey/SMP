@@ -7,10 +7,9 @@
 #ifndef TAGREADER_H
 #define TAGREADER_H
 
-#include <QMimeDatabase>
-#include <QMimeType>
 #include <QImage>
 
+#include "mimetyper/mimetyper.h"
 #include "itagreader.h"
 #include "taggetter.h"
 #include "tagstructs.h"
@@ -25,8 +24,8 @@ public:
 
 
 private:
-    QMimeDatabase mime;
     TagGetter tagGetter;
+    MimeTyper typer;
 };
 
 #endif // TAGREADER_H

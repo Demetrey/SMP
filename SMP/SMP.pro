@@ -33,6 +33,7 @@ SOURCES += \
         dbcontroller/playlistcontroller.cpp \
         dbcontroller/queuecontroller.cpp \
         main.cpp \
+        mimetyper/mimetyper.cpp \
         presenters/imagepresenter.cpp \
         presenters/kernelpresenter.cpp \
         readers/xmlloader.cpp \
@@ -71,6 +72,8 @@ HEADERS += \
     dbcontroller/dbnames.h \
     dbcontroller/playlistcontroller.h \
     dbcontroller/queuecontroller.h \
+    mimetyper/FileTypes.h \
+    mimetyper/mimetyper.h \
     presenters/imagepresenter.h \
     presenters/kernelpresenter.h \
     readers/xmlloader.h \
