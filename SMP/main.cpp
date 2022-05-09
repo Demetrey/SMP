@@ -4,12 +4,14 @@
  * the GNU General Public License v3.0 (GPL-3.0).
  */
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
 #include <QLocale>
 #include <QTranslator>
+
+#include <QThreadPool>
 
 #include "Kernel/kernelstate.h"
 #include "Kernel/kernel.h"
@@ -17,11 +19,16 @@
 #include "presenters/imagepresenter.h"
 
 int main(int argc, char *argv[]) {
+    const int MAX_THREAD_COUNT = 10;
+    QThreadPool::globalInstance()->setMaxThreadCount(MAX_THREAD_COUNT);
+
+
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

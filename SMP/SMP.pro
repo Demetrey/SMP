@@ -1,4 +1,4 @@
-QT += quick svg sql
+QT += quick svg sql widgets
 
 CONFIG += c++11 exceptions
 
@@ -32,6 +32,8 @@ SOURCES += \
         dbcontroller/dbnames.cpp \
         dbcontroller/playlistcontroller.cpp \
         dbcontroller/queuecontroller.cpp \
+        filegetter/filegetter.cpp \
+        filegetter/getfilestask.cpp \
         main.cpp \
         mimetyper/mimetyper.cpp \
         presenters/imagepresenter.cpp \
@@ -72,6 +74,8 @@ HEADERS += \
     dbcontroller/dbnames.h \
     dbcontroller/playlistcontroller.h \
     dbcontroller/queuecontroller.h \
+    filegetter/filegetter.h \
+    filegetter/getfilestask.h \
     mimetyper/FileTypes.h \
     mimetyper/mimetyper.h \
     presenters/imagepresenter.h \
