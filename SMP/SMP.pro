@@ -1,4 +1,5 @@
 QT += quick svg sql widgets
+android: QT += androidextras
 
 CONFIG += c++11 exceptions
 
@@ -32,6 +33,7 @@ SOURCES += \
         dbcontroller/dbnames.cpp \
         dbcontroller/playlistcontroller.cpp \
         dbcontroller/queuecontroller.cpp \
+        filegetter/androidgetter.cpp \
         filegetter/filegetter.cpp \
         filegetter/getfilestask.cpp \
         main.cpp \
@@ -74,6 +76,7 @@ HEADERS += \
     dbcontroller/dbnames.h \
     dbcontroller/playlistcontroller.h \
     dbcontroller/queuecontroller.h \
+    filegetter/androidgetter.h \
     filegetter/filegetter.h \
     filegetter/getfilestask.h \
     mimetyper/FileTypes.h \
@@ -156,7 +159,8 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew \
     android/gradlew.bat \
-    android/res/values/libs.xml
+    android/res/values/libs.xml \
+    android/src/com/demetrey/getpath/PathUtil.java
 
 ANDROID_EXTRA_LIBS = \
     $$PWD/../Libs/TagLib/Android/arm64-v8a/libtaglib.so \

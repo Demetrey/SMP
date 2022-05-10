@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #include "getfilestask.h"
 
 GetFilesTask::GetFilesTask(QObject *parent)
@@ -18,6 +24,11 @@ void GetFilesTask::run() {
     QScopedPointer<CompositionController> compositionController
             (new CompositionController("addFiles"));
     compositionController->dbConnect();
+
+#ifdef Q_OS_ANDROID
+    AndroidGetter androidGetter;
+    takenFiles = androidGetter.getAbsolutePath(takenFiles);
+#endif
 
     for (QString file : qAsConst(takenFiles)) {
 

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #ifndef GETFILESTASK_H
 #define GETFILESTASK_H
 
@@ -12,7 +18,14 @@
 #include "dbcontroller/compositioncontroller.h"
 #include "tagreader/tagreader.h"
 #include "mimetyper/mimetyper.h"
+#include "androidgetter.h"
 
+/**
+ * @brief The GetFilesTask class
+ *
+ * Adding data of received files with received paths to the database
+ * Designed to run on a separate thread
+ */
 class GetFilesTask : public QObject, public QRunnable
 {
     Q_OBJECT

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #ifndef FILEGETTER_H
 #define FILEGETTER_H
 
@@ -21,9 +27,12 @@ signals:
 public slots:
     void onCompletedAdding();
     void getFiles();
+    void getFromFolder();
 
 private:
     QStringList takeFiles();
+    QString takeFolder();
+    void startTask(QStringList takeFiles);
 
 };
 
