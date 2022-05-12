@@ -50,7 +50,6 @@ SOURCES += \
         tagreader/tagreader.cpp
 
 HEADERS += \
-    DBController2/TableClasses/AbstractTable.h \
     Kernel/IKernel.h \
     Kernel/initializer.h \
     Kernel/kernel.h \
