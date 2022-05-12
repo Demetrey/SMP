@@ -38,6 +38,7 @@ public slots:
     virtual void setBalance(int) = 0;
     virtual void setTime(int) = 0;
     virtual void setEqValue(int, double) = 0; // center, value
+    virtual void cycleFile() = 0;
 
 };
 Q_DECLARE_INTERFACE(IKernel, "IKernel")

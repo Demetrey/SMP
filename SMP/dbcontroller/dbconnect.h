@@ -21,13 +21,13 @@
 class DBConnect
 {
 public:
-    explicit DBConnect(QString connectionName,
-                       QString generationFile = QString());
+    explicit DBConnect(QString connectionName);
     ~DBConnect();
 
     void setParams(QString hostName, QString filePath, QString fileName);
     void connect();
     QSqlDatabase getDB();
+    void disconnect();
 
 private:
     QSqlDatabase db;
@@ -40,7 +40,6 @@ private:
 
     bool openFile();
     bool createTables();
-    void disconnect();
 
 };
 

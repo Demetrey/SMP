@@ -12,7 +12,7 @@
 #include "Tables/playlist.h"
 #include "Tables/playlistcomposition.h"
 
-class PlaylistController : public IPlaylistController, public BaseController
+class PlaylistController : public IPlaylistController
 {
     Q_OBJECT
 public:

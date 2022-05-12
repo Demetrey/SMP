@@ -11,7 +11,6 @@
 
 class IBaseController {
 public:
-    virtual void dbConnect() = 0;
     virtual QSqlDatabase getDB() = 0;
 };
 

@@ -16,7 +16,7 @@
 #include "Tables/urlaudio.h"
 
 class CompositionController
-        : public ICompositionController, public BaseController
+        : public ICompositionController
 {
     Q_OBJECT
 public:

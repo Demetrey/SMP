@@ -6,8 +6,7 @@
 
 #include "queuecontroller.h"
 
-QueueController::QueueController(QString connectionName)
-    : BaseController(connectionName) {
+QueueController::QueueController(QString connectionName) {
     playQueue = new PlaybackQueue(connectionName);
 }
 
@@ -38,4 +37,8 @@ void QueueController::removeFromQueue(const int id) {
  */
 void QueueController::updateQueueNumbers(const int idComposition, const int number) {
     playQueue->updateNumber(idComposition, number);
+}
+
+void QueueController::clearQueue() {
+    playQueue->clear();
 }

@@ -6,19 +6,11 @@
 
 #include "basecontroller.h"
 
-BaseController::BaseController(QString connectionName) {
-    dbc = new DBConnect(connectionName, QString(GENERATION_FILE));
+BaseController::BaseController(DBConnect *dbc) {
+    this->dbc = dbc;
 }
 
 BaseController::~BaseController() {
-    delete dbc;
-}
-
-/**
- * @brief Connect to database
- */
-void BaseController::dbConnect() {
-    dbc->connect();
 }
 
 /**

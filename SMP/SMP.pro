@@ -12,6 +12,11 @@ SOURCES += \
         Kernel/kernel.cpp \
         Kernel/playbackcontroller.cpp \
         Kernel/playbackparameters.cpp \
+        PlaybackController/playqueuecontroller.cpp \
+        PlaybackController/runnable/createqueuetask.cpp \
+        PlaybackController/runnable/inserttoqueuetask.cpp \
+        PlaybackController/runnable/removefromqueuetask.cpp \
+        PlaybackController/runnable/shufflequeue.cpp \
         dbcontroller/Models/mediamodel.cpp \
         dbcontroller/Models/playlistdatamodel.cpp \
         dbcontroller/Models/playlistmodel.cpp \
@@ -45,12 +50,19 @@ SOURCES += \
         tagreader/tagreader.cpp
 
 HEADERS += \
+    DBController2/TableClasses/AbstractTable.h \
     Kernel/IKernel.h \
     Kernel/initializer.h \
     Kernel/kernel.h \
     Kernel/kernelstate.h \
     Kernel/playbackcontroller.h \
     Kernel/playbackparameters.h \
+    PlaybackController/cyclestate.h \
+    PlaybackController/playqueuecontroller.h \
+    PlaybackController/runnable/createqueuetask.h \
+    PlaybackController/runnable/inserttoqueuetask.h \
+    PlaybackController/runnable/removefromqueuetask.h \
+    PlaybackController/runnable/shufflequeue.h \
     dbcontroller/Interfaces/IBaseController.h \
     dbcontroller/Interfaces/ICompositionController.h \
     dbcontroller/Interfaces/IPlaybackQueueController.h \

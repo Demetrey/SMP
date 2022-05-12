@@ -233,3 +233,12 @@ void Kernel::setTime(int value) {
 void Kernel::setEqValue(int center, double value) {
     parameters->setEqValue(center, static_cast<float>(value));
 }
+
+/**
+ * @brief Looping a file
+ *
+ * If the playback looping flag is not set - looping, otherwise - clear the flag
+ */
+void Kernel::cycleFile() {
+    controller->looping();
+}

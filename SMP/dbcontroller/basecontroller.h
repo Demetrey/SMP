@@ -14,12 +14,11 @@
 class BaseController : public IBaseController
 {
 public:
-    BaseController(QString connectionName);
+    BaseController(DBConnect *dbc);
     ~BaseController();
 
     // IBaseController interface
 public:
-    void dbConnect() override;
     QSqlDatabase getDB() override;
 
 protected:

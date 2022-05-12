@@ -6,9 +6,9 @@
 
 #include "dbconnect.h"
 
-DBConnect::DBConnect(QString connectionName, QString generationFile) {
+DBConnect::DBConnect(QString connectionName) {
     this->connectionName = connectionName;
-    this->generationFile = generationFile;
+    this->generationFile = QString(GENERATION_FILE);
     // default name initialization
     hostName = QString(MUSIC_HOST_NAME);
     filePath = QString(MUSIC_FILE_PATH);
@@ -45,6 +45,7 @@ void DBConnect::setParams(QString hostName, QString filePath, QString fileName) 
  * from the generation file.
  */
 void DBConnect::connect() {
+    qDebug() << filePath;
     if(!QDir(filePath).exists()) {
         QDir().mkdir(filePath);
     }

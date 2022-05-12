@@ -8,6 +8,7 @@
 
 PlayQueueModel::PlayQueueModel(QSqlDatabase db, QObject *parent)
     : MediaModel(db, parent) {
+    updateModel();
 }
 
 /**
@@ -33,7 +34,7 @@ void PlayQueueModel::updateModel(bool isSorted, const QString search) {
                     "or album.name like \"%" + search + "%\"";
     }
 
-    queryText += " ORDER BY ";
+    queryText += " GROUP BY composition.id ORDER BY ";
     if (isSorted) {
         queryText += "number";
     }

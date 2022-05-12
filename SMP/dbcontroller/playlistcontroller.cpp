@@ -6,8 +6,7 @@
 
 #include "playlistcontroller.h"
 
-PlaylistController::PlaylistController(QString connectionName)
-    : BaseController(connectionName) {
+PlaylistController::PlaylistController(QString connectionName) {
     playlist = new Playlist(connectionName);
     playlistComposition = new PlaylistComposition(connectionName);
 }

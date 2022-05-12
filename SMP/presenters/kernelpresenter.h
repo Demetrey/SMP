@@ -8,6 +8,7 @@
 #define KERNELPRESENTER_H
 
 #include <QObject>
+#include <QTimer>
 #include "Kernel/kernelstate.h"
 #include "Kernel/IKernel.h"
 
@@ -26,17 +27,22 @@ class KernelPresenter : public QObject
     Q_PROPERTY(int Reverb READ Reverb WRITE setReverb NOTIFY ReverbChanged)
     // Display current balance level (%)
     Q_PROPERTY(int Balance READ Balance WRITE setBalance NOTIFY BalanceChanged)
+    // Display current composition time
+    Q_PROPERTY(int CurrentTime READ CurrentTime WRITE setCurrentTime NOTIFY CurrentTimeChanged)
 
     int m_CompositionTime;
     int m_Volume;
     int m_Reverb;
     int m_Balance;
+    int m_CurrentTime;
     KernelState::State m_Statement;
 
     IKernel *kernel;
+    QTimer *timer;
 
 public:
     explicit KernelPresenter(QObject *parent = nullptr, IKernel *kernel = nullptr);
+    ~KernelPresenter();
 
     // For properties
     int CompositionTime() const;
@@ -55,6 +61,9 @@ public:
     Q_INVOKABLE void setEqValue(int center, double value);
     Q_INVOKABLE int getCurrentPosition(); // Query current playback position (ms)
 
+    int CurrentTime() const;
+    void setCurrentTime(int newCurrentTime);
+
 signals:
     void pause();
     void play();
@@ -65,6 +74,8 @@ signals:
     void BalanceChanged(int);
     void StatementChanged();
 
+    void CurrentTimeChanged();
+
 public slots:
     // Updating properties with values ​​from the kernel
     void onKernelStatementChanged(const KernelState::State statement);
@@ -72,6 +83,9 @@ public slots:
     void onVolumeChanged(int value);
     void onReverbChanged(int value);
     void onBalanceChanged(int value);
+
+private slots:
+    void onTimerTick();
 
 };
 

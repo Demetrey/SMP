@@ -63,6 +63,7 @@ public slots:
     void setBalance(int value) override;
     void setTime(int value) override;
     void setEqValue(int center, double value) override;
+    void cycleFile() override;
 
 
 private:

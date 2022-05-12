@@ -19,11 +19,12 @@ void GetFilesTask::setTakenFiles(QStringList &takenFiles) {
  * Handling a list of file paths
  */
 void GetFilesTask::run() {
+    DBConnect dbc("addFiles");
+    dbc.connect();
     QScopedPointer<TagReader> tagReader(new TagReader());
     QScopedPointer<MimeTyper> mimeTyper(new MimeTyper());
     QScopedPointer<CompositionController> compositionController
             (new CompositionController("addFiles"));
-    compositionController->dbConnect();
 
 #ifdef Q_OS_ANDROID
     AndroidGetter androidGetter;

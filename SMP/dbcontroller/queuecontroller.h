@@ -11,7 +11,7 @@
 #include "Interfaces/IPlaybackQueueController.h"
 #include "Tables/playbackqueue.h"
 
-class QueueController : public IPlaybackQueueController, public BaseController
+class QueueController : public IPlaybackQueueController
 {
     Q_OBJECT
 public:
@@ -27,6 +27,7 @@ public slots:
     void insertToQueue(const int id) override;
     void removeFromQueue(const int id) override;
     void updateQueueNumbers(const int idComposition, const int number) override;
+    void clearQueue() override;
 
 private:
     PlaybackQueue *playQueue;

@@ -19,6 +19,7 @@ public slots:
     virtual void removeFromQueue(const int id) = 0;
     virtual void updateQueueNumbers(const int idComposition,
                                    const int number) = 0;
+    virtual void clearQueue() = 0;
 
 signals:
     void changedQueue();

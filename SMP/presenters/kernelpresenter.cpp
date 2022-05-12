@@ -14,6 +14,10 @@ KernelPresenter::KernelPresenter(QObject *parent, IKernel *kernel) : QObject(par
     m_Reverb = this->kernel->getReverb();
     m_Balance = this->kernel->getBalance();
 
+    timer = new QTimer();
+    timer->setInterval(500); //ms
+    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerTick()));
+
     // connections
     connect(this, SIGNAL(play()), this->kernel, SLOT(play()));
     connect(this, SIGNAL(pause()), this->kernel, SLOT(pause()));
@@ -27,6 +31,11 @@ KernelPresenter::KernelPresenter(QObject *parent, IKernel *kernel) : QObject(par
     connect(this, SIGNAL(VolumeChanged(int)), this->kernel, SLOT(setVolume(int)));
     connect(this, SIGNAL(BalanceChanged(int)), this->kernel, SLOT(setBalance(int)));
     connect(this, SIGNAL(ReverbChanged(int)), this->kernel, SLOT(setReverb(int)));
+    timer->start();
+}
+
+KernelPresenter::~KernelPresenter() {
+    delete timer;
 }
 
 
@@ -119,4 +128,21 @@ void KernelPresenter::onReverbChanged(int value) {
 
 void KernelPresenter::onBalanceChanged(int value) {
     setBalance(value);
+}
+
+void KernelPresenter::onTimerTick() {
+    setCurrentTime(kernel->getCurrentTime());
+}
+
+int KernelPresenter::CurrentTime() const
+{
+    return m_CurrentTime;
+}
+
+void KernelPresenter::setCurrentTime(int newCurrentTime)
+{
+    if (m_CurrentTime == newCurrentTime)
+        return;
+    m_CurrentTime = newCurrentTime;
+    emit CurrentTimeChanged();
 }

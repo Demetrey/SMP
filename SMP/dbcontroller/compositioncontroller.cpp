@@ -6,8 +6,7 @@
 
 #include "compositioncontroller.h"
 
-CompositionController::CompositionController(QString connectionName)
-    : BaseController(connectionName) {
+CompositionController::CompositionController(QString connectionName) {
     album = new Album(connectionName);
     artist = new Artist(connectionName);
     artistComposition = new ArtistComposition(connectionName);
