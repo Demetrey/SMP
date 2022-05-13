@@ -43,6 +43,7 @@ SOURCES += \
         filegetter/getfilestask.cpp \
         main.cpp \
         mimetyper/mimetyper.cpp \
+        presenters/compositionpresenter.cpp \
         presenters/imagepresenter.cpp \
         presenters/kernelpresenter.cpp \
         presenters/themepresenter.cpp \
@@ -94,6 +95,7 @@ HEADERS += \
     filegetter/getfilestask.h \
     mimetyper/FileTypes.h \
     mimetyper/mimetyper.h \
+    presenters/compositionpresenter.h \
     presenters/imagepresenter.h \
     presenters/kernelpresenter.h \
     presenters/themepresenter.h \

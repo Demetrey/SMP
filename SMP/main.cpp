@@ -34,6 +34,7 @@
 #include "filegetter/filegetter.h"
 
 #include "presenters/themepresenter.h"
+#include "presenters/compositionpresenter.h"
 
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
@@ -105,6 +106,7 @@ int main(int argc, char *argv[]) {
     qmlRegisterType<KernelPresenter>("playlistController", 1, 0, "PlaylistController");
     qmlRegisterType<KernelPresenter>("queueController", 1, 0, "QueueController");
     qmlRegisterType<KernelPresenter>("themePresenter", 1, 0, "ThemePresenter");
+    qmlRegisterType<KernelPresenter>("compositionPresenter", 1, 0, "CompositionPresenter");
 
     QQmlApplicationEngine engine;
 
@@ -119,7 +121,11 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("imagePresenter", imPresenter);
     engine.addImageProvider("imgPresenter", imPresenter);
 
-    PlayQueueController pq(kernel, queueModel, urlModel);
+
+    CompositionPresenter compositionPresenter;
+    engine.rootContext()->setContextProperty("compositionPresenter", &compositionPresenter);
+
+    PlayQueueController pq(kernel, queueModel, urlModel, &compositionPresenter);
 
     engine.rootContext()->setContextProperty("mediaModel", mediaModel.get());
     engine.rootContext()->setContextProperty("urlModel", urlModel.get());

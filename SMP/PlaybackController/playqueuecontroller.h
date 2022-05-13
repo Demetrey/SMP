@@ -18,6 +18,8 @@
 #include "runnable/removefromqueuetask.h"
 #include "runnable/shufflequeue.h"
 
+#include "presenters/compositionpresenter.h"
+
 #include "cyclestate.h"
 
 class PlayQueueController : public QObject
@@ -33,6 +35,7 @@ public:
     explicit PlayQueueController(IKernel *kernel,
                                  QSharedPointer<PlayQueueModel> queueModel,
                                  QSharedPointer<UrlModel> urlModel,
+                                 CompositionPresenter *compositionPresenter,
                                  QObject *parent = nullptr);
 
     int CurrentPlayId() const;
@@ -90,6 +93,7 @@ private:
     IKernel* kernel;
     QSharedPointer<PlayQueueModel> queueModel;
     QSharedPointer<UrlModel> urlModel;
+    CompositionPresenter *compositionPresenter;
 
     int m_CurrentPlayId;
     bool m_IsFile;

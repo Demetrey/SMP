@@ -3,11 +3,13 @@
 PlayQueueController::PlayQueueController(IKernel *kernel,
                                          QSharedPointer<PlayQueueModel> queueModel,
                                          QSharedPointer<UrlModel> urlModel,
+                                         CompositionPresenter *compositionPresenter,
                                          QObject *parent)
     : QObject(parent) {
     this->kernel = kernel;
     this->queueModel = queueModel;
     this->urlModel = urlModel;
+    this->compositionPresenter = compositionPresenter;
     this->m_CurrentPlayId = -1;
     this->m_CurrentPlayIndex = -1;
     this->m_CurrentSycle = CycleState::Cycle::CycleNo;
@@ -142,6 +144,19 @@ void PlayQueueController::play(int index) {
         if (!path.isNull() && !path.isEmpty()) {
             kernel->play(path, m_IsFile);
             setCurrentPlayId(queueModel->getId(index));
+
+            compositionPresenter->setAlbum
+                    (queueModel->data(queueModel->index(index, 0),
+                                      queueModel->albumRole).toString());
+            compositionPresenter->setArtists
+                    (queueModel->data(queueModel->index(index, 0),
+                                      queueModel->artistRole).toString());
+            compositionPresenter->setTitle
+                    (queueModel->data(queueModel->index(index, 0),
+                                      queueModel->nameRole).toString());
+            compositionPresenter->setYear
+                    (queueModel->data(queueModel->index(index, 0),
+                                      queueModel->yearRole).toInt());
         }
     }
 }
@@ -157,6 +172,13 @@ void PlayQueueController::playURL(int index) {
         if (!path.isNull() && !path.isEmpty()) {
             kernel->play(path, m_IsFile);
             setCurrentPlayId(urlModel->getId(index));
+
+            compositionPresenter->setAlbum("...");
+            compositionPresenter->setArtists("...");
+            compositionPresenter->setTitle
+                    (urlModel->data(urlModel->index(index, 0),
+                                    urlModel->nameRole).toString());
+            compositionPresenter->setYear(0);
         }
     }
 }
