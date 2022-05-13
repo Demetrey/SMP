@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<colors>
+	<background>#3b3b3b</background>
+	<primary>#171717</primary>
+	<accent>#777777</accent>
+	<textcolor>#FFFFFF</textcolor>
+	<listitem>#3b3b3b</listitem>
+	<listitemselected>#898989</listitemselected>
+</colors>

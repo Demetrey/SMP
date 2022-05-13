@@ -4,4 +4,8 @@
         <file>XML/pluginFiles.xml</file>
         <file>SQL/generation_script.sql</file>
     </qresource>
+    <qresource prefix="/themes">
+        <file>XML/themes/light.xml</file>
+        <file>XML/themes/dark.xml</file>
+    </qresource>
 </RCC>

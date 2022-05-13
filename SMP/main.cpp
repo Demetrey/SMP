@@ -31,6 +31,8 @@
 #include "PlaybackController/playqueuecontroller.h"
 #include "filegetter/filegetter.h"
 
+#include "presenters/themepresenter.h"
+
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
     QThreadPool::globalInstance()->setMaxThreadCount(MAX_THREAD_COUNT);
@@ -98,6 +100,7 @@ int main(int argc, char *argv[]) {
     qmlRegisterType<KernelPresenter>("compositionController", 1, 0, "CompositionController");
     qmlRegisterType<KernelPresenter>("playlistController", 1, 0, "PlaylistController");
     qmlRegisterType<KernelPresenter>("queueController", 1, 0, "QueueController");
+    qmlRegisterType<KernelPresenter>("themePresenter", 1, 0, "ThemePresenter");
 
     QQmlApplicationEngine engine;
 
@@ -121,6 +124,11 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("queueModel", queueModel.get());
     engine.rootContext()->setContextProperty("pq", &pq);
 
+    ThemePresenter tp;
+    tp.updateThemeList();
+    engine.rootContext()->setContextProperty("tp", &tp);
+
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -139,6 +147,8 @@ int main(int argc, char *argv[]) {
     pq.shuffle();
     //pq.insertToQueue(2428);
     pq.nextFile();
+
+    qDebug() << XmlLoader::loadThem(":/themes/XML/themes/light.xml");
 
     return app.exec();
 }

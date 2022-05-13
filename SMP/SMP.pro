@@ -45,9 +45,11 @@ SOURCES += \
         mimetyper/mimetyper.cpp \
         presenters/imagepresenter.cpp \
         presenters/kernelpresenter.cpp \
+        presenters/themepresenter.cpp \
         readers/xmlloader.cpp \
         tagreader/taggetter.cpp \
-        tagreader/tagreader.cpp
+        tagreader/tagreader.cpp \
+        themes/themecontroller.cpp
 
 HEADERS += \
     Kernel/IKernel.h \
@@ -94,11 +96,13 @@ HEADERS += \
     mimetyper/mimetyper.h \
     presenters/imagepresenter.h \
     presenters/kernelpresenter.h \
+    presenters/themepresenter.h \
     readers/xmlloader.h \
     tagreader/itagreader.h \
     tagreader/taggetter.h \
     tagreader/tagreader.h \
-    tagreader/tagstructs.h
+    tagreader/tagstructs.h \
+    themes/themecontroller.h
 
 RESOURCES += qml.qrc \
     resources/images.qrc \

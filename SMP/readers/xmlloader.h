@@ -22,6 +22,7 @@ public:
     explicit XmlLoader(QObject *parent = nullptr);
     static QVector<int> loadCenters(QString file);
     static QStringList loadPlugFiles(QString file);
+    static QStringList loadThem(QString file);
 
 signals:
 

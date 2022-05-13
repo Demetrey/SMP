@@ -2,6 +2,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import kPresenter 1.0
 
+import themePresenter 1.0
+
 ApplicationWindow {
     id: mainWindow
     minimumWidth: 640
@@ -104,6 +106,17 @@ ApplicationWindow {
             kp.pause();
             ik.setTime(timeLine.value);
             kp.play();
+        }
+    }
+
+    ComboBox {
+        id: themes
+        anchors.bottom: parent.bottom
+        anchors.left: timeLine.right
+        model: tp.getThemes()
+        onCurrentIndexChanged: {
+            tp.setTheme(currentIndex)
+            console.log(tp.Background)
         }
     }
 

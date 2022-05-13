@@ -60,3 +60,38 @@ QStringList XmlLoader::loadPlugFiles(QString file) {
     }
     return result;
 }
+
+/**
+ * @brief Load colors from file
+ * @param file - Path to xml file
+ * @return [Background, Primary, Accent, TextColor, ListItemColor, SelectedListItemColor]
+ */
+QStringList XmlLoader::loadThem(QString file) {
+    QStringList result;
+    QFile ofile(file);
+    if (ofile.open(QFile::ReadOnly | QFile::Text)) {
+        QXmlStreamReader xmlReader;
+        xmlReader.setDevice(&ofile);
+        xmlReader.readNext();
+        while (!xmlReader.atEnd() && !xmlReader.hasError()) {
+            if (xmlReader.isStartElement()) {
+                if (xmlReader.name() == "background")
+                    result.append(xmlReader.readElementText());
+                if (xmlReader.name() == "primary")
+                    result.append(xmlReader.readElementText());
+                if (xmlReader.name() == "accent")
+                    result.append(xmlReader.readElementText());
+                if (xmlReader.name() == "textcolor")
+                    result.append(xmlReader.readElementText());
+                if (xmlReader.name() == "listitem")
+                    result.append(xmlReader.readElementText());
+                if (xmlReader.name() == "listitemselected")
+                    result.append(xmlReader.readElementText());
+            }
+            xmlReader.readNext();
+        }
+        xmlReader.clear();
+        ofile.close();
+    }
+    return result;
+}
