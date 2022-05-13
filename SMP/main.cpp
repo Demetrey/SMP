@@ -13,6 +13,8 @@
 
 #include <QThreadPool>
 
+#include <QQuickStyle>
+
 #include "Kernel/kernelstate.h"
 #include "Kernel/kernel.h"
 #include "presenters/kernelpresenter.h"
@@ -83,6 +85,8 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
 
+    QQuickStyle::setStyle("Material");
+
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -107,10 +111,10 @@ int main(int argc, char *argv[]) {
     // set context properties
     Kernel _kernel;
     IKernel *kernel = &_kernel;
-    KernelPresenter kp(nullptr, kernel);
+    KernelPresenter kernelPresenter(nullptr, kernel);
     kernel->initialize();
-    engine.rootContext()->setContextProperty("kp", &kp);
-    engine.rootContext()->setContextProperty("ik", kernel);
+    engine.rootContext()->setContextProperty("kernelPresenter", &kernelPresenter);
+    engine.rootContext()->setContextProperty("iKernel", kernel);
     ImagePresenter *imPresenter = new ImagePresenter();
     engine.rootContext()->setContextProperty("imagePresenter", imPresenter);
     engine.addImageProvider("imgPresenter", imPresenter);
@@ -124,9 +128,8 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("queueModel", queueModel.get());
     engine.rootContext()->setContextProperty("pq", &pq);
 
-    ThemePresenter tp;
-    tp.updateThemeList();
-    engine.rootContext()->setContextProperty("tp", &tp);
+    ThemePresenter themePresenter;
+    engine.rootContext()->setContextProperty("themePresenter", &themePresenter);
 
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

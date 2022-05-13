@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <colors>
+        <theme>dark</theme>
 	<background>#3b3b3b</background>
 	<primary>#171717</primary>
 	<accent>#777777</accent>

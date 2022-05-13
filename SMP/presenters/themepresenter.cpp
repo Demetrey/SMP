@@ -39,12 +39,13 @@ void ThemePresenter::setTheme(int index) {
         return;
     QStringList colors = themeController->getColors(themes.at(index));
     qDebug() << colors;
-    setBackground(colors.at(0));
-    setPrimary(colors.at(1));
-    setAccent(colors.at(2));
-    setTextcolor(colors.at(3));
-    setListitem(colors.at(4));
-    setListitemselected(colors.at(5));
+    setBaseTheme(colors.at(0));
+    setBackground(colors.at(1));
+    setPrimary(colors.at(2));
+    setAccent(colors.at(3));
+    setTextcolor(colors.at(4));
+    setListitem(colors.at(5));
+    setListitemselected(colors.at(6));
 }
 
 
@@ -125,4 +126,17 @@ void ThemePresenter::setListitemselected(const QString &newListitemselected)
         return;
     m_Listitemselected = newListitemselected;
     emit ListitemselectedChanged();
+}
+
+const QString &ThemePresenter::BaseTheme() const
+{
+    return m_BaseTheme;
+}
+
+void ThemePresenter::setBaseTheme(const QString &newBaseTheme)
+{
+    if (m_BaseTheme == newBaseTheme)
+        return;
+    m_BaseTheme = newBaseTheme;
+    emit BaseThemeChanged();
 }

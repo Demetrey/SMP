@@ -64,7 +64,7 @@ QStringList XmlLoader::loadPlugFiles(QString file) {
 /**
  * @brief Load colors from file
  * @param file - Path to xml file
- * @return [Background, Primary, Accent, TextColor, ListItemColor, SelectedListItemColor]
+ * @return [Theme, Background, Primary, Accent, TextColor, ListItemColor, SelectedListItemColor]
  */
 QStringList XmlLoader::loadThem(QString file) {
     QStringList result;
@@ -75,6 +75,8 @@ QStringList XmlLoader::loadThem(QString file) {
         xmlReader.readNext();
         while (!xmlReader.atEnd() && !xmlReader.hasError()) {
             if (xmlReader.isStartElement()) {
+                if (xmlReader.name() == "theme")
+                    result.append(xmlReader.readElementText());
                 if (xmlReader.name() == "background")
                     result.append(xmlReader.readElementText());
                 if (xmlReader.name() == "primary")

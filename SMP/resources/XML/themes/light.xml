@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <colors>
+        <theme>light</theme>
 	<background>#E8E8E8</background>
 	<primary>#C4C4C4</primary>
-	<accent>#F8F8F8</accent>
+	<accent>#777777</accent>
 	<textcolor>#000000</textcolor>
 	<listitem>#E8E8E8</listitem>
 	<listitemselected>#C4C4C4</listitemselected>

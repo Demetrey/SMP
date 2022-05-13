@@ -1,7 +1,9 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import kPresenter 1.0
+import QtQuick.Controls.Material 2.12
+import QtGraphicalEffects 1.15
 
+import kPresenter 1.0
 import themePresenter 1.0
 
 ApplicationWindow {
@@ -10,6 +12,12 @@ ApplicationWindow {
     minimumHeight: 480
     visible: true
     title: qsTr("SMP")
+
+    Material.theme: themePresenter.BaseTheme === "light" ? Material.Light : Material.Dark
+    Material.background: themePresenter.Background
+    Material.primary: themePresenter.Primary
+    Material.accent: themePresenter.Accent
+    Material.foreground: themePresenter.Textcolor
 
     /*Image {
         id: img
@@ -39,13 +47,15 @@ ApplicationWindow {
         anchors.fill: parent;
         model: queueModel
 
-        delegate: Item {
+        delegate: Rectangle {
             id: data
             height: 20
             width: lv.width
+            color: themePresenter.Listitem
             Text {
                 id: textic
                 text: model.id + "..." + model.name;
+                color: themePresenter.Textcolor
             }
         }
     }
@@ -99,13 +109,13 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.left: erer.right
         from: 0
-        to: kp.CompositionTime
+        to: kernelPresenter.CompositionTime
         stepSize: 1
-        value: kp.CurrentTime
+        value: kernelPresenter.CurrentTime
         onMoved:  {
-            kp.pause();
-            ik.setTime(timeLine.value);
-            kp.play();
+            kernelPresenter.pause();
+            iKernel.setTime(timeLine.value);
+            kernelPresenter.play();
         }
     }
 
@@ -113,10 +123,9 @@ ApplicationWindow {
         id: themes
         anchors.bottom: parent.bottom
         anchors.left: timeLine.right
-        model: tp.getThemes()
+        model: themePresenter.getThemes()
         onCurrentIndexChanged: {
-            tp.setTheme(currentIndex)
-            console.log(tp.Background)
+            themePresenter.setTheme(currentIndex)
         }
     }
 

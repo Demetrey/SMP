@@ -1,4 +1,4 @@
-QT += quick svg sql widgets
+QT += quick svg sql widgets quickcontrols2
 android: QT += androidextras
 
 CONFIG += c++11 exceptions
