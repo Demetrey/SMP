@@ -2,4 +2,12 @@
     <qresource prefix="/cover">
         <file>IMAGES/no_img.svg</file>
     </qresource>
+    <qresource prefix="/controll">
+        <file>IMAGES/controlls/arrow_back.svg</file>
+        <file>IMAGES/controlls/menu.svg</file>
+        <file>IMAGES/controlls/close.svg</file>
+        <file>IMAGES/controlls/maximize.svg</file>
+        <file>IMAGES/controlls/minimize.svg</file>
+        <file>IMAGES/controlls/field.svg</file>
+    </qresource>
 </RCC>
