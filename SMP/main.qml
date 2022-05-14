@@ -168,6 +168,7 @@ ApplicationWindow {
                 pageLoader.source = "qrc:/ui/mediaLib/mediaLib.qml";
                 break;
             case 2:
+                pageLoader.source = "qrc:/ui/playlist/PlaylistForm.qml";
                 break;
             case 3:
                 break;
@@ -333,6 +334,7 @@ ApplicationWindow {
         id: navModel
         ListElement {menuText: qsTr("Home")}
         ListElement {menuText: qsTr("Media library")}
+        ListElement {menuText: qsTr("Playlists")}
         ListElement {menuText: qsTr("Equalizer")}
         ListElement {menuText: qsTr("Settings")}
     }
