@@ -17,8 +17,10 @@
 #include "runnable/inserttoqueuetask.h"
 #include "runnable/removefromqueuetask.h"
 #include "runnable/shufflequeue.h"
+#include "runnable/getarttask.h"
 
 #include "presenters/compositionpresenter.h"
+#include "presenters/imagepresenter.h"
 
 #include "cyclestate.h"
 
@@ -36,6 +38,7 @@ public:
                                  QSharedPointer<PlayQueueModel> queueModel,
                                  QSharedPointer<UrlModel> urlModel,
                                  CompositionPresenter *compositionPresenter,
+                                 ImagePresenter *imagePresenter,
                                  QObject *parent = nullptr);
 
     int CurrentPlayId() const;
@@ -59,6 +62,8 @@ public slots:
     void onRemovedFromQueue();
 
     void onShuffledQueue();
+
+    void onCompletedArt(QImage result);
 
     void onEndOfFile();             // Переключиться на следующий файл после завершения текущего
 
@@ -94,6 +99,8 @@ private:
     QSharedPointer<PlayQueueModel> queueModel;
     QSharedPointer<UrlModel> urlModel;
     CompositionPresenter *compositionPresenter;
+    ImagePresenter *imagePresenter;
+    CycleState::Cycle m_CurrentSycle;
 
     int m_CurrentPlayId;
     bool m_IsFile;
@@ -101,7 +108,7 @@ private:
     bool m_IsShuffled;
 
     void updateIndex();
-    CycleState::Cycle m_CurrentSycle;
+    void updateImage();
 
 };
 

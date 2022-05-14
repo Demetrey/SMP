@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
     CompositionPresenter compositionPresenter;
     engine.rootContext()->setContextProperty("compositionPresenter", &compositionPresenter);
 
-    PlayQueueController pq(kernel, queueModel, urlModel, &compositionPresenter);
+    PlayQueueController pq(kernel, queueModel, urlModel, &compositionPresenter, imPresenter);
 
     engine.rootContext()->setContextProperty("mediaModel", mediaModel.get());
     engine.rootContext()->setContextProperty("urlModel", urlModel.get());
@@ -153,9 +153,10 @@ int main(int argc, char *argv[]) {
     pq.play(0);
     pq.cycle();
     pq.cycle();
-    pq.shuffle();
+    //pq.shuffle();
     //pq.insertToQueue(2428);
     pq.nextFile();
+    pq.play(3);
 
     qDebug() << XmlLoader::loadThem(":/themes/XML/themes/light.xml");
 

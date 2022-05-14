@@ -4,12 +4,14 @@ PlayQueueController::PlayQueueController(IKernel *kernel,
                                          QSharedPointer<PlayQueueModel> queueModel,
                                          QSharedPointer<UrlModel> urlModel,
                                          CompositionPresenter *compositionPresenter,
+                                         ImagePresenter *imagePresenter,
                                          QObject *parent)
     : QObject(parent) {
     this->kernel = kernel;
     this->queueModel = queueModel;
     this->urlModel = urlModel;
     this->compositionPresenter = compositionPresenter;
+    this->imagePresenter = imagePresenter;
     this->m_CurrentPlayId = -1;
     this->m_CurrentPlayIndex = -1;
     this->m_CurrentSycle = CycleState::Cycle::CycleNo;
@@ -115,6 +117,10 @@ void PlayQueueController::onShuffledQueue() {
     emit changedQueue();
 }
 
+void PlayQueueController::onCompletedArt(QImage result) {
+    imagePresenter->updateImage(result);
+}
+
 /**
  * @brief Достигнут конец файла при воспроизведении
  *
@@ -144,6 +150,7 @@ void PlayQueueController::play(int index) {
         if (!path.isNull() && !path.isEmpty()) {
             kernel->play(path, m_IsFile);
             setCurrentPlayId(queueModel->getId(index));
+            setCurrentPlayIndex(index);
 
             compositionPresenter->setAlbum
                     (queueModel->data(queueModel->index(index, 0),
@@ -157,6 +164,7 @@ void PlayQueueController::play(int index) {
             compositionPresenter->setYear
                     (queueModel->data(queueModel->index(index, 0),
                                       queueModel->yearRole).toInt());
+            updateImage();
         }
     }
 }
@@ -302,6 +310,15 @@ void PlayQueueController::updateIndex() {
     }
     qDebug() << "index" << m_CurrentPlayIndex;
     qDebug() << "id" << m_CurrentPlayId;
+}
+
+void PlayQueueController::updateImage() {
+    QString path = queueModel->data(queueModel->index(m_CurrentPlayIndex, 0),
+                                    queueModel->pathRole).toString();
+    GetArtTask* task = new GetArtTask(path);
+    connect(task, SIGNAL(completed(QImage)), this, SLOT(onCompletedArt(QImage)));
+    task->setAutoDelete(true);
+    QThreadPool::globalInstance()->start(task);
 }
 
 

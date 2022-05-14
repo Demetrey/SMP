@@ -14,6 +14,7 @@ SOURCES += \
         Kernel/playbackparameters.cpp \
         PlaybackController/playqueuecontroller.cpp \
         PlaybackController/runnable/createqueuetask.cpp \
+        PlaybackController/runnable/getarttask.cpp \
         PlaybackController/runnable/inserttoqueuetask.cpp \
         PlaybackController/runnable/removefromqueuetask.cpp \
         PlaybackController/runnable/shufflequeue.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     PlaybackController/cyclestate.h \
     PlaybackController/playqueuecontroller.h \
     PlaybackController/runnable/createqueuetask.h \
+    PlaybackController/runnable/getarttask.h \
     PlaybackController/runnable/inserttoqueuetask.h \
     PlaybackController/runnable/removefromqueuetask.h \
     PlaybackController/runnable/shufflequeue.h \
