@@ -13,27 +13,86 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 40
+        height: 50
         z: 2
 
-        Button {
-            width: height
-            height: parent.height
+        RowLayout {
+            anchors.fill: parent
+            anchors.margins: 10
+            spacing: 20
 
-            Image {
-                id: shuffleBtnImage
-                source: "qrc:/controll/IMAGES/controlls/add.svg"
-                anchors.centerIn: parent
-                width: height
-                height: parent.height
-                anchors.margins: 5
-                sourceSize.height: height
-                sourceSize.width: height
+            Button {
+                Layout.fillWidth: true
+                Layout.minimumWidth: parent.height
+                Layout.maximumWidth: parent.height
+                Layout.maximumHeight: parent.height
+                Layout.minimumHeight: parent.height
+
+                Image {
+                    id: shuffleBtnImage
+                    source: "qrc:/controll/IMAGES/controlls/add.svg"
+                    anchors.centerIn: parent
+                    width: height
+                    height: parent.height
+                    anchors.margins: 5
+                    sourceSize.height: height
+                    sourceSize.width: height
+                }
+
+                onClicked: {
+                    fileGetter.getFiles();
+                }
             }
 
-            onClicked: {
-                fileGetter.getFiles();
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.minimumWidth: 40
+                Layout.maximumHeight: parent.height
+                Layout.minimumHeight: parent.height
+                color: themePresenter.Background
+                border.color: "black"
+                border.width: 1
+                clip: true
+
+                TextInput {
+                    id: searchField
+                    anchors.fill: parent
+                    anchors.margins: 3
+                    font.family: "Arial"
+                    font.pixelSize: height / 1.5
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color: themePresenter.Textcolor
+                    selectByMouse: true
+                    selectionColor: colors.colorTitleBar
+                }
             }
+
+            Button {
+                id: searchBtn
+                Layout.fillWidth: true
+                Layout.minimumWidth: parent.height
+                Layout.maximumWidth: parent.height
+                Layout.maximumHeight: parent.height
+                Layout.minimumHeight: parent.height
+
+                Image {
+                    id: searchImg
+                    source: "qrc:/controll/IMAGES/controlls/search.svg"
+                    anchors.centerIn: parent
+                    width: height
+                    height: parent.height
+                    anchors.margins: 5
+                    sourceSize.height: height
+                    sourceSize.width: height
+                }
+
+                onClicked: {
+                    mediaModel.updateModel(searchField.text);
+                    searchField.clear();
+                }
+            }
+
         }
 
     }

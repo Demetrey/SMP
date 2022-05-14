@@ -18,5 +18,6 @@
         <file>IMAGES/controlls/shuffle.svg</file>
         <file>IMAGES/controlls/cancel.svg</file>
         <file>IMAGES/controlls/add.svg</file>
+        <file>IMAGES/controlls/search.svg</file>
     </qresource>
 </RCC>

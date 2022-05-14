@@ -167,9 +167,9 @@ int main(int argc, char *argv[]) {
     //pq.shuffle();
     //pq.insertToQueue(2428);
     //pq.nextFile();
-    playQController.play(3);
+    //playQController.play(3);
 
-    qDebug() << XmlLoader::loadThem(":/themes/XML/themes/light.xml");
+    //qDebug() << XmlLoader::loadThem(":/themes/XML/themes/light.xml");
 
     return app.exec();
 }

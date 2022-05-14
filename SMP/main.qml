@@ -323,7 +323,8 @@ ApplicationWindow {
         }
 
         function onCompletedFilesAdding() {
-            waitLocker.visible = true;
+            waitLocker.visible = false;
+            mediaModel.updateModel();
         }
     }
 

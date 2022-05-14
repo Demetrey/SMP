@@ -23,6 +23,8 @@ void FileGetter::onCompletedAdding() {
 void FileGetter::getFiles() {
     emit startedFilesAdding();
     QStringList takenFiles = takeFiles();
+    if (takenFiles.isEmpty())
+        emit completedFilesAdding();
     startTask(takenFiles);
 }
 
