@@ -29,8 +29,11 @@ QImage ImagePresenter::requestImage(const QString &id, QSize *size, const QSize 
  */
 void ImagePresenter::updateImage(const QImage &image) {
     if(this->image != image) {
-        if (image.isNull())
+        qDebug() << image;
+        if (image.isNull()) {
+            qDebug() << "NO IMAGE";
             this->image = QImage(":/cover/IMAGES/no_img.svg");
+        }
         else
             this->image = image;
         emit imageChanged();

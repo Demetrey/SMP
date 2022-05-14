@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>ui/mainForm/PlayPage.qml</file>
+        <file>ui/visualizer/visualizer.qml</file>
+        <file>ui/mainForm/MainForm.qml</file>
     </qresource>
 </RCC>

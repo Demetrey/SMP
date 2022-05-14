@@ -5,7 +5,7 @@ import QtQuick.Window 2.15
 import QtGraphicalEffects 1.15
 
 import kPresenter 1.0
-import themePresenter 1.0
+//import themePresenter 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -69,8 +69,8 @@ ApplicationWindow {
                 source: "qrc:/controll/IMAGES/controlls/menu.svg"
                 anchors.fill: parent
                 anchors.margins: 10
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
+                sourceSize.width: width
+                sourceSize.height: height
             }
 
             onClicked: {
@@ -92,8 +92,8 @@ ApplicationWindow {
                 source: "qrc:/controll/IMAGES/controlls/close.svg"
                 anchors.fill: parent
                 anchors.margins: 10
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
+                sourceSize.width: width
+                sourceSize.height: height
             }
 
             onClicked: {
@@ -114,8 +114,8 @@ ApplicationWindow {
                 source: "qrc:/controll/IMAGES/controlls/maximize.svg"
                 anchors.fill: parent
                 anchors.margins: 10
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
+                sourceSize.width: width
+                sourceSize.height: height
             }
 
             onClicked: {
@@ -127,10 +127,17 @@ ApplicationWindow {
             id: btnMinimize
             width: height
             height: parent.height
-            text: qsTr("_")
             anchors.top: parent.top
             anchors.right: btnMaximize.left
             visible: !isAndroid
+
+            Image {
+                source: "qrc:/controll/IMAGES/controlls/minimize.svg"
+                anchors.fill: parent
+                anchors.margins: 10
+                sourceSize.width: width
+                sourceSize.height: height
+            }
 
             onClicked: {
                 mainWindow.showMinimized();
@@ -142,6 +149,8 @@ ApplicationWindow {
         console.log(Qt.platform.os)
     }
 
+
+
     // Main Content
     Loader {
         id: pageLoader
@@ -149,7 +158,7 @@ ApplicationWindow {
         anchors.bottom: isAndroid ? parent.bottom : bottomBar.top
         anchors.left: parent.left
         anchors.right: parent.right
-        source: ""
+        source: "qrc:/ui/mainForm/MainForm.qml"
 
         function formLoad(index) {
             switch (index) {
@@ -218,8 +227,8 @@ ApplicationWindow {
                     anchors.fill: parent
                     anchors.margins: 10
                     anchors.leftMargin: parent.width / 3
-                    sourceSize.width: parent.width
-                    sourceSize.height: parent.height
+                    sourceSize.width: width
+                    sourceSize.height: height
                 }
 
                 onClicked: {

@@ -7,6 +7,5 @@ GetArtTask::GetArtTask(QString path, QObject *parent) : QObject(parent) {
 void GetArtTask::run() {
     TagReader tagReader;
     QImage result = tagReader.getCoverArt(path);
-    if (!result.isNull())
-        emit completed(result);
+    emit completed(result);
 }

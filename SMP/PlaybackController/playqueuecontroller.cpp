@@ -118,6 +118,7 @@ void PlayQueueController::onShuffledQueue() {
 }
 
 void PlayQueueController::onCompletedArt(QImage result) {
+    qDebug() << "onCompleted" << result;
     imagePresenter->updateImage(result);
 }
 
@@ -315,6 +316,7 @@ void PlayQueueController::updateIndex() {
 void PlayQueueController::updateImage() {
     QString path = queueModel->data(queueModel->index(m_CurrentPlayIndex, 0),
                                     queueModel->pathRole).toString();
+    qDebug() << "Composition path" << path;
     GetArtTask* task = new GetArtTask(path);
     connect(task, SIGNAL(completed(QImage)), this, SLOT(onCompletedArt(QImage)));
     task->setAutoDelete(true);

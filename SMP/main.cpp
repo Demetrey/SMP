@@ -102,11 +102,12 @@ int main(int argc, char *argv[]) {
     qmlRegisterType<KernelState>("kernelState", 1, 0, "KernelState");
     qmlRegisterType<KernelPresenter>("kPresenter", 1, 0, "KPresenter");
     qmlRegisterInterface<IKernel>("IKernel", 1);
-    qmlRegisterType<KernelPresenter>("compositionController", 1, 0, "CompositionController");
-    qmlRegisterType<KernelPresenter>("playlistController", 1, 0, "PlaylistController");
-    qmlRegisterType<KernelPresenter>("queueController", 1, 0, "QueueController");
-    qmlRegisterType<KernelPresenter>("themePresenter", 1, 0, "ThemePresenter");
-    qmlRegisterType<KernelPresenter>("compositionPresenter", 1, 0, "CompositionPresenter");
+    /*qmlRegisterType<CompositionController>("compositionController", 1, 0, "CompositionController");
+    qmlRegisterType<PlaylistController>("playlistController", 1, 0, "PlaylistController");
+    qmlRegisterType<QueueController>("queueController", 1, 0, "QueueController");*/
+    /*qmlRegisterType<ThemePresenter>("themePresenter", 1, 0, "ThemePresenter");
+    qmlRegisterType<CompositionPresenter>("compositionPresenter", 1, 0, "CompositionPresenter");
+    qmlRegisterType<PlayQueueController>("playQueueController", 1, 0, "PlayQueueController");*/
 
     QQmlApplicationEngine engine;
 
@@ -125,14 +126,14 @@ int main(int argc, char *argv[]) {
     CompositionPresenter compositionPresenter;
     engine.rootContext()->setContextProperty("compositionPresenter", &compositionPresenter);
 
-    PlayQueueController pq(kernel, queueModel, urlModel, &compositionPresenter, imPresenter);
+    PlayQueueController playQController(kernel, queueModel, urlModel, &compositionPresenter, imPresenter);
 
     engine.rootContext()->setContextProperty("mediaModel", mediaModel.get());
     engine.rootContext()->setContextProperty("urlModel", urlModel.get());
     engine.rootContext()->setContextProperty("playlistModel", playlistModel.get());
     engine.rootContext()->setContextProperty("playlistDataModel", playlistDataModel.get());
     engine.rootContext()->setContextProperty("queueModel", queueModel.get());
-    engine.rootContext()->setContextProperty("pq", &pq);
+    engine.rootContext()->setContextProperty("playQController", &playQController);
 
     ThemePresenter themePresenter;
     engine.rootContext()->setContextProperty("themePresenter", &themePresenter);
@@ -150,13 +151,13 @@ int main(int argc, char *argv[]) {
     /*pq.createQueue(2);*/
     /*FileGetter fg;
     fg.getFiles();*/
-    pq.play(0);
-    pq.cycle();
-    pq.cycle();
+    //pq.play(0);
+    /*pq.cycle();
+    pq.cycle();*/
     //pq.shuffle();
     //pq.insertToQueue(2428);
-    pq.nextFile();
-    pq.play(3);
+    //pq.nextFile();
+    playQController.play(3);
 
     qDebug() << XmlLoader::loadThem(":/themes/XML/themes/light.xml");
 

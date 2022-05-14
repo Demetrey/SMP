@@ -9,5 +9,10 @@
         <file>IMAGES/controlls/maximize.svg</file>
         <file>IMAGES/controlls/minimize.svg</file>
         <file>IMAGES/controlls/field.svg</file>
+        <file>IMAGES/controlls/arrow_forward.svg</file>
+        <file>IMAGES/controlls/pause.svg</file>
+        <file>IMAGES/controlls/play.svg</file>
+        <file>IMAGES/controlls/volume_off.svg</file>
+        <file>IMAGES/controlls/volume_up.svg</file>
     </qresource>
 </RCC>
