@@ -6,5 +6,6 @@
         <file>ui/mainForm/MainForm.qml</file>
         <file>ui/mainForm/PlayQueue.qml</file>
         <file>ui/modals/WaitLocker.qml</file>
+        <file>ui/mediaLib/mediaLib.qml</file>
     </qresource>
 </RCC>

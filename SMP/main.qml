@@ -165,6 +165,7 @@ ApplicationWindow {
         function formLoad(index) {
             switch (index) {
             case 1:
+                pageLoader.source = "qrc:/ui/mediaLib/mediaLib.qml";
                 break;
             case 2:
                 break;
@@ -173,6 +174,7 @@ ApplicationWindow {
             case 4:
                 break;
             default:
+                pageLoader.source = "qrc:/ui/mainForm/MainForm.qml"
                 break;
             }
         }
@@ -264,7 +266,8 @@ ApplicationWindow {
                     }
 
                     onClicked: {
-                        console.log(text);
+                        pageLoader.formLoad(index);
+                        navDrawer.close();
                     }
                 }
             }
@@ -309,6 +312,18 @@ ApplicationWindow {
 
         function onStopRemoveFromQueue() {
             waitLocker.visible = false;
+        }
+    }
+
+    Connections {
+        target: fileGetter
+
+        function onStartedFilesAdding() {
+            waitLocker.visible = true;
+        }
+
+        function onCompletedFilesAdding() {
+            waitLocker.visible = true;
         }
     }
 

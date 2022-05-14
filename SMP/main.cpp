@@ -140,6 +140,14 @@ int main(int argc, char *argv[]) {
     ThemePresenter themePresenter;
     engine.rootContext()->setContextProperty("themePresenter", &themePresenter);
 
+    FileGetter fileGetter;
+    engine.rootContext()->setContextProperty("fileGetter", &fileGetter);
+
+    CompositionController compositionController(connectionName);
+    PlaylistController playlistController(connectionName);
+    engine.rootContext()->setContextProperty("compositionController", &compositionController);
+    engine.rootContext()->setContextProperty("playlistController", &playlistController);
+
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

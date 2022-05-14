@@ -74,6 +74,7 @@ public slots:
     void cycle();                   // Зациклить воспроизведение очереди/файла
     void shuffle();                 // Перемешать очередь
     void shuffleBack();             // Отменить перемешивание
+    void compositionRemoved();    // Удалено из медиатеки, удаление из плейлиста не рассматривается
 
 signals:
     void startCreateQueue();

@@ -79,11 +79,20 @@ void PlayQueueController::shuffleBack() {
     emit changedQueue();
 }
 
+void PlayQueueController::compositionRemoved() {
+    queueModel->updateModel(m_IsShuffled);
+    updateIndex();
+}
+
 /**
  * @brief Создание очереди завершено в отдельном потоке
  */
 void PlayQueueController::onCreatedQueue() {
+    kernel->stop();
+    setIsShuffled(false);
     queueModel->updateModel(m_IsShuffled);
+    updateIndex();
+    play(m_CurrentPlayIndex);
     emit createdQueue();
     emit changedQueue();
     setIsFile(true);
