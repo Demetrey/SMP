@@ -10,11 +10,14 @@ Item {
         Item {
             id: playlistPage
             PlaylistPage {
+                id:playlists
             }
         }
 
         Item {
             id: currentPlaylistData
+            PlaylistData{
+            }
         }
     }
 }

@@ -10,5 +10,6 @@
         <file>ui/playlist/PlaylistForm.qml</file>
         <file>ui/playlist/PlaylistPage.qml</file>
         <file>ui/modals/DialogWindow.qml</file>
+        <file>ui/playlist/PlaylistData.qml</file>
     </qresource>
 </RCC>

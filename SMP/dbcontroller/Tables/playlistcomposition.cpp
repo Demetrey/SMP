@@ -17,7 +17,7 @@ void PlaylistComposition::removeFromPlaylist(const int idPlaylist,
                                              const int idComposition) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "DELETE FROM " + tableName +
-            " WHERE " + rows.at(0) + " = :idComposition, " + rows.at(1) + " = :idPLaylist";
+            " WHERE " + rows.at(0) + " = :idComposition and " + rows.at(1) + " = :idPLaylist";
     query.prepare(queryText);
     query.bindValue(":idComposition", QString::number(idComposition));
     query.bindValue(":idPLaylist", QString::number(idPlaylist));
