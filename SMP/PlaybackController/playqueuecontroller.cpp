@@ -26,7 +26,7 @@ PlayQueueController::PlayQueueController(IKernel *kernel,
  * @param id плейлиста
  */
 void PlayQueueController::createQueue(int id) {
-    emit createdQueue();
+    emit startCreateQueue();
     CreateQueueTask* task = new CreateQueueTask(id);
     connect(task, SIGNAL(createdQueue()), this, SLOT(onCreatedQueue()));
     task->setAutoDelete(true);
@@ -299,7 +299,7 @@ void PlayQueueController::updateIndex() {
     for (int i = 0; i < queueModel->rowCount(); i++) {
         if (queueModel->data(queueModel->index(i, 0), queueModel->idRole) == m_CurrentPlayId) {
             isCorrect = true;
-            m_CurrentPlayIndex = i;
+            setCurrentPlayIndex(i);
         }
     }
     // Если индекса нет, то файл был удален

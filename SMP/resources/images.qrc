@@ -14,5 +14,8 @@
         <file>IMAGES/controlls/play.svg</file>
         <file>IMAGES/controlls/volume_off.svg</file>
         <file>IMAGES/controlls/volume_up.svg</file>
+        <file>IMAGES/controlls/repeat.svg</file>
+        <file>IMAGES/controlls/shuffle.svg</file>
+        <file>IMAGES/controlls/cancel.svg</file>
     </qresource>
 </RCC>

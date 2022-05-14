@@ -14,6 +14,8 @@ Item {
 
         Item {
             id: currentPlaylist
+            PlayQueue{
+            }
         }
     }
 

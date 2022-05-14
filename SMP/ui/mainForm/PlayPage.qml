@@ -55,7 +55,7 @@ Item {
         // Title, artist, timeline
         Item {
             Layout.fillWidth: true
-            height: 150
+            height: isAndroid ? 170 : 150
 
             Item {
                 id: compositionData

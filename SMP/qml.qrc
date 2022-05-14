@@ -4,5 +4,7 @@
         <file>ui/mainForm/PlayPage.qml</file>
         <file>ui/visualizer/visualizer.qml</file>
         <file>ui/mainForm/MainForm.qml</file>
+        <file>ui/mainForm/PlayQueue.qml</file>
+        <file>ui/modals/WaitLocker.qml</file>
     </qresource>
 </RCC>

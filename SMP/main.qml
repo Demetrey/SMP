@@ -5,7 +5,8 @@ import QtQuick.Window 2.15
 import QtGraphicalEffects 1.15
 
 import kPresenter 1.0
-//import themePresenter 1.0
+
+import "./ui/modals/"
 
 ApplicationWindow {
     id: mainWindow
@@ -87,6 +88,7 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.rightMargin: 5
             visible: !isAndroid
+            z: 100
 
             Image {
                 source: "qrc:/controll/IMAGES/controlls/close.svg"
@@ -269,6 +271,47 @@ ApplicationWindow {
         }
     }
 
+    WaitLocker {
+        id: waitLocker
+        visible: false
+    }
+
+    Connections {
+        target: playQController
+
+        function onStartShuffle() {
+            waitLocker.visible = true;
+        }
+
+        function onEndShuffle() {
+            waitLocker.visible = false;
+        }
+
+        function onStartCreateQueue() {
+            waitLocker.visible = true;
+        }
+
+        function onCreatedQueue() {
+            waitLocker.visible = false;
+        }
+
+        function onStartInsertToQueue() {
+            waitLocker.visible = true;
+        }
+
+        function onEndInsertToQueue() {
+            waitLocker.visible = false;
+        }
+
+        function onStartRemoveFromQueue() {
+            waitLocker.visible = true;
+        }
+
+        function onStopRemoveFromQueue() {
+            waitLocker.visible = false;
+        }
+    }
+
     // menu data
     ListModel {
         id: navModel
@@ -284,110 +327,5 @@ ApplicationWindow {
         else
             mainWindow.showMaximized();
     }
-
-    /*Image {
-        id: img
-        property string currenImage: "image://imgPresenter/image"
-        fillMode: Image.PreserveAspectFit
-        anchors.fill: parent
-        source: currenImage
-        sourceSize.width: 100
-        sourceSize.height: 100
-
-        function update() {
-            source = "image://imgPresenter/image/";
-            source = Qt.binding(function() { return currenImage });
-        }
-    }
-
-    Connections {
-        target: imagePresenter
-        function onImageChanged() {
-            console.log("new image");
-            img.update();
-        }
-    }*/
-
-    /*ListView {
-        id: lv
-        anchors.fill: parent;
-        model: queueModel
-
-        delegate: Rectangle {
-            id: data
-            height: 20
-            width: lv.width
-            color: themePresenter.Listitem
-            Text {
-                id: textic
-                text: model.id + "..." + model.name;
-                color: themePresenter.Textcolor
-            }
-        }
-    }
-    Button {
-        text: "->"
-        anchors.bottom: parent.bottom
-        id: erer
-        onClicked: {
-            console.log("start");
-            pq.cycle();
-
-
-        }
-    }
-
-    Connections {
-        target: pq
-        function onCreatedQueue() {
-            waitBar.toggle();
-            console.log("sdsds");
-
-        }
-    }
-
-    Rectangle {
-        id: waitBar
-        color: "#0f0f0f0f";
-        anchors.fill: parent;
-        visible: false
-        function toggle() {
-            console.log("toggle");
-            if (waitBar.visible)
-                waitBar.visible = false
-            else
-                waitBar.visible = true
-        }
-
-        ProgressBar {
-            anchors.fill: parent
-            indeterminate: true
-        }
-    }
-
-    Slider {
-        id: timeLine
-        anchors.bottom: parent.bottom
-        anchors.left: erer.right
-        from: 0
-        to: kernelPresenter.CompositionTime
-        stepSize: 1
-        value: kernelPresenter.CurrentTime
-        onMoved:  {
-            kernelPresenter.pause();
-            iKernel.setTime(timeLine.value);
-            kernelPresenter.play();
-        }
-    }
-
-    ComboBox {
-        id: themes
-        anchors.bottom: parent.bottom
-        anchors.left: timeLine.right
-        model: themePresenter.getThemes()
-        onCurrentIndexChanged: {
-            themePresenter.setTheme(currentIndex)
-        }
-    }*/
 
 }

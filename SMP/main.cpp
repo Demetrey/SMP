@@ -35,6 +35,7 @@
 
 #include "presenters/themepresenter.h"
 #include "presenters/compositionpresenter.h"
+#include "PlaybackController/cyclestate.h"
 
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
@@ -108,6 +109,7 @@ int main(int argc, char *argv[]) {
     /*qmlRegisterType<ThemePresenter>("themePresenter", 1, 0, "ThemePresenter");
     qmlRegisterType<CompositionPresenter>("compositionPresenter", 1, 0, "CompositionPresenter");
     qmlRegisterType<PlayQueueController>("playQueueController", 1, 0, "PlayQueueController");*/
+    qmlRegisterType<CycleState>("CycleState", 1, 0, "CycleState");
 
     QQmlApplicationEngine engine;
 

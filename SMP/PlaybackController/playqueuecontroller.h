@@ -76,6 +76,7 @@ public slots:
     void shuffleBack();             // Отменить перемешивание
 
 signals:
+    void startCreateQueue();
     void createdQueue();
     void changedQueue();
 

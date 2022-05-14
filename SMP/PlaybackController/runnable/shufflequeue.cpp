@@ -22,15 +22,20 @@ void ShuffleQueue::run() {
         ids[i] = model.data(model.index(i, 0), model.idRole).toInt();
     }
 
-    ids[0] = idCurrentComposition;
+    qDebug() << "IDCURRENTCOMPOSITION:::::" << idCurrentComposition;
+    qDebug() << "АЙДИШКИ ПОСЛЕ ПЕРЕМЕШКИ" << ids;
     for (int i = ids.size() - 1; i > 1; i--) {
         int j = rg->bounded(1, i);
-        if (j == idCurrentComposition)
+        if (j == 0)
             continue;
         int temp = ids[i];
         ids[i] = ids[j];
         ids[j] = temp;
     }
+    int indexCurrent = ids.indexOf(idCurrentComposition);
+    ids[indexCurrent] = ids[0];
+    ids[0] = idCurrentComposition;
+    qDebug() << "АЙДИШКИ ПОСЛЕ ПЕРЕМЕШКИ" << ids;
     for (int i = 0; i < ids.size(); i++) {
         queueController->updateQueueNumbers(ids[i], i);
     }
