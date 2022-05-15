@@ -203,6 +203,7 @@ ApplicationWindow {
                 pageLoader.source = "qrc:/ui/UrlForm/UrlForm.qml";
                 break;
             case 4:
+                pageLoader.source = "qrc:/ui/equalizer/EqForm.qml";
                 break;
             case 5:
                 pageLoader.source = "qrc:/ui/settings/SettingsForm.qml";
