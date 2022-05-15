@@ -25,6 +25,10 @@ Item {
                 Layout.maximumHeight: parent.height
                 Layout.minimumHeight: parent.height
 
+                background: Rectangle {
+                    color: "#00000000"
+                }
+
                 Image {
                     id: shuffleBtnImage
                     source: "qrc:/controll/IMAGES/controlls/shuffle.svg"
@@ -67,6 +71,10 @@ Item {
                     text: playQController.CurrentSycle === CycleState.CycleNo ?
                               qsTr("no") : playQController.CurrentSycle === CycleState.CycleOne ?
                                   "1" : qsTr("all")
+                }
+
+                background: Rectangle {
+                    color: "#00000000"
                 }
 
                 Image {
@@ -152,6 +160,7 @@ Item {
                 anchors.right: parent.right
                 source: "qrc:/controll/IMAGES/controlls/cancel.svg"
                 anchors.margins: 5
+                anchors.rightMargin: 10
                 sourceSize.height: height
                 sourceSize.width: height
 
@@ -164,5 +173,8 @@ Item {
                 }
             }
         }
+
+        ScrollBar.vertical: ScrollBar {}
+
     }
 }

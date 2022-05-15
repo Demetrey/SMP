@@ -94,22 +94,25 @@ Item {
                     anchors.top: artistName.bottom
                     anchors.margins: 10
 
+                    // current time
                     Text {
                         id: current
                         anchors.left: parent.left
                         anchors.verticalCenter: parent.verticalCenter
-                        text: kernelPresenter.CurrentTime === "" ? "00:00" :
+                        text: kernelPresenter.CurrentTime <= 0 ? "00:00" :
                                          getCurrentTime(kernelPresenter.CurrentTime)
+                        font.family: "Consolas"
                         color: themePresenter.Textcolor
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 15
                     }
 
+                    // all composition time
                     Text {
                         id: allTime
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
-                        text: kernelPresenter.CompositionTime === "" ? "00:00" :
+                        text: kernelPresenter.CompositionTime <= 0 ? "00:00" :
                                      getCurrentTime(kernelPresenter.CompositionTime)
                         font.family: "Consolas"
                         color: themePresenter.Textcolor
@@ -134,6 +137,7 @@ Item {
                 }
             }
 
+            // volume icon (volume off)
             Image {
                 id: volumeOff
                 anchors.top: compositionData.bottom
@@ -152,7 +156,7 @@ Item {
                 }
             }
 
-            Image {
+            /*Image {
                 id: volumeUp
                 anchors.top: compositionData.bottom
                 anchors.right: parent.right
@@ -168,13 +172,15 @@ Item {
                         kernelPresenter.Volume += 10;
                     }
                 }
-            }
+            }*/
 
+            // volume
             Slider {
                 id: volumeLevel
                 anchors.top: compositionData.bottom
                 anchors.left: volumeOff.right
-                anchors.right: volumeUp.left
+                anchors.right: parent.right
+                anchors.rightMargin: 20
                 height: 20
 
                 from: 0
@@ -269,6 +275,7 @@ Item {
         }
     }
 
+    // album cover art
     Component {
         id: art
         Item {
@@ -306,11 +313,11 @@ Item {
         }
     }
 
-    function getCurrentTime(strTime) {
-        let numTime = Number(strTime);
+    // Representing the current time in a given format
+    function getCurrentTime(numTime) {
         let min = numTime / 1000 / 60;
-        let r = min % 1;
-        let sec = Math.floor(r * 60);
+        let secD = min % 1;
+        let sec = Math.floor(secD * 60);
         if (sec < 10) {
             sec = "0" + sec;
         }
@@ -320,6 +327,4 @@ Item {
         }
         return min + ":" + sec;
     }
-
-    // Control
 }
