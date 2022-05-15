@@ -4,8 +4,7 @@ import QtQuick.Layouts 1.15
 
 Item {
     anchors.fill: parent
-
-
+    anchors.margins: 5
 
     Column {
         id: deviceSettings
@@ -19,11 +18,10 @@ Item {
             Text {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.minimumWidth: parent.width / 4
+                Layout.minimumWidth: parent.width / 10
                 color: themePresenter.Textcolor
                 text: qsTr("Playback devices:")
                 verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
             }
 
@@ -41,11 +39,10 @@ Item {
             Text {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.minimumWidth: parent.width / 4
+                Layout.minimumWidth: parent.width / 10
                 color: themePresenter.Textcolor
                 text: qsTr("Sample Rate (Hz):")
                 verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
             }
 
@@ -64,14 +61,41 @@ Item {
             Text {
                 anchors.fill: parent
                 text: qsTr("Apply")
-                verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 color: themePresenter.Textcolor
                 font.pixelSize: 15
             }
 
             onClicked: {
                 iKernel.initDevice(currentDevice.currentValue, sampleRate.currentValue);
+            }
+        }
+
+        RowLayout {
+            width: parent.width
+            height: 40
+
+            Text {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.minimumWidth: parent.width / 10
+                color: themePresenter.Textcolor
+                text: qsTr("Sample Rate (Hz):")
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: 15
+            }
+
+            ComboBox {
+                id: currentTheme
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                model: themePresenter.getThemes();
+                currentIndex: themePresenter.CurrentThemeIndex
+
+                onCurrentIndexChanged: {
+                    themePresenter.setTheme(currentIndex);
+                }
             }
         }
     }

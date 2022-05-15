@@ -17,6 +17,7 @@ class ThemePresenter : public QObject
     Q_PROPERTY(QString Textcolor READ Textcolor WRITE setTextcolor NOTIFY TextcolorChanged)
     Q_PROPERTY(QString Listitem READ Listitem WRITE setListitem NOTIFY ListitemChanged)
     Q_PROPERTY(QString Listitemselected READ Listitemselected WRITE setListitemselected NOTIFY ListitemselectedChanged)
+    Q_PROPERTY(int CurrentThemeIndex READ CurrentThemeIndex WRITE setCurrentThemeIndex NOTIFY CurrentThemeIndexChanged)
 public:
     explicit ThemePresenter(QObject *parent = nullptr);
     ~ThemePresenter();
@@ -34,9 +35,11 @@ public:
     void setListitem(const QString &newListitem);
     const QString &Listitemselected() const;
     void setListitemselected(const QString &newListitemselected);
-
     const QString &BaseTheme() const;
     void setBaseTheme(const QString &newBaseTheme);
+
+    int CurrentThemeIndex() const;
+    void setCurrentThemeIndex(int newCurrentThemeIndex);
 
 public slots:
     void setTheme(int index);
@@ -49,8 +52,9 @@ signals:
     void TextcolorChanged();
     void ListitemChanged();
     void ListitemselectedChanged();
-
     void BaseThemeChanged();
+
+    void CurrentThemeIndexChanged();
 
 private:
     QStringList themes;
@@ -63,6 +67,7 @@ private:
     QString m_Listitem;
     QString m_Listitemselected;
     QString m_BaseTheme;
+    int m_CurrentThemeIndex;
 };
 
 #endif // THEMEPRESENTER_H

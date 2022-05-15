@@ -104,12 +104,6 @@ int main(int argc, char *argv[]) {
     qmlRegisterType<KernelState>("kernelState", 1, 0, "KernelState");
     qmlRegisterType<KernelPresenter>("kPresenter", 1, 0, "KPresenter");
     qmlRegisterInterface<IKernel>("IKernel", 1);
-    /*qmlRegisterType<CompositionController>("compositionController", 1, 0, "CompositionController");
-    qmlRegisterType<PlaylistController>("playlistController", 1, 0, "PlaylistController");
-    qmlRegisterType<QueueController>("queueController", 1, 0, "QueueController");*/
-    /*qmlRegisterType<ThemePresenter>("themePresenter", 1, 0, "ThemePresenter");
-    qmlRegisterType<CompositionPresenter>("compositionPresenter", 1, 0, "CompositionPresenter");
-    qmlRegisterType<PlayQueueController>("playQueueController", 1, 0, "PlayQueueController");*/
     qmlRegisterType<CycleState>("CycleState", 1, 0, "CycleState");
 
     QQmlApplicationEngine engine;
@@ -160,21 +154,6 @@ int main(int argc, char *argv[]) {
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
-    //kernel->play("http://europaplus.hostingradio.ru:8014/europaplus320.mp3", false);
-
-    /*pq.createQueue(2);*/
-    /*FileGetter fg;
-    fg.getFiles();*/
-    //pq.play(0);
-    /*pq.cycle();
-    pq.cycle();*/
-    //pq.shuffle();
-    //pq.insertToQueue(2428);
-    //pq.nextFile();
-    //playQController.play(3);
-
-    //qDebug() << XmlLoader::loadThem(":/themes/XML/themes/light.xml");
 
     return app.exec();
 }

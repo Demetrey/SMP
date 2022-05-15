@@ -46,6 +46,7 @@ void ThemePresenter::setTheme(int index) {
     setTextcolor(colors.at(4));
     setListitem(colors.at(5));
     setListitemselected(colors.at(6));
+    setCurrentThemeIndex(index);
 }
 
 
@@ -139,4 +140,17 @@ void ThemePresenter::setBaseTheme(const QString &newBaseTheme)
         return;
     m_BaseTheme = newBaseTheme;
     emit BaseThemeChanged();
+}
+
+int ThemePresenter::CurrentThemeIndex() const
+{
+    return m_CurrentThemeIndex;
+}
+
+void ThemePresenter::setCurrentThemeIndex(int newCurrentThemeIndex)
+{
+    if (m_CurrentThemeIndex == newCurrentThemeIndex)
+        return;
+    m_CurrentThemeIndex = newCurrentThemeIndex;
+    emit CurrentThemeIndexChanged();
 }

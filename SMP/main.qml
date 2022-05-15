@@ -45,6 +45,7 @@ ApplicationWindow {
             font.family: "Cascadia Code"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+            color: themePresenter.Textcolor
 
             font.pointSize: 20
             minimumPointSize: 5
