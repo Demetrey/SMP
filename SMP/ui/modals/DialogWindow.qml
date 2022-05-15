@@ -11,7 +11,7 @@ Dialog {
     focus: true
 
     // Текст диалогового окна
-    property string titleText: qsTr("Dialog Title")
+    property string titleText: qsTr("Dialog Title") + qmlTranslator.EmptyString
 
     // Передача тектста диалогового окна
     signal okClicked(msg: string)

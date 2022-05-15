@@ -16,5 +16,6 @@
         <file>ui/modals/SelectCompositions.qml</file>
         <file>ui/UrlForm/UrlForm.qml</file>
         <file>ui/settings/SettingsForm.qml</file>
+        <file>ui/equalizer/EqForm.qml</file>
     </qresource>
 </RCC>

@@ -55,7 +55,7 @@ Item {
                     anchors.leftMargin: 5
                     color: themePresenter.Textcolor
                     font.pixelSize: 10
-                    text: playQController.IsShuffled ? qsTr("on") : qsTr("off")
+                    text: playQController.IsShuffled ? qsTr("on") + qmlTranslator.EmptyString : qsTr("off") + qmlTranslator.EmptyString
                 }
 
                 onClicked: {
@@ -78,8 +78,8 @@ Item {
                     color: themePresenter.Textcolor
                     font.pixelSize: 10
                     text: playQController.CurrentSycle === CycleState.CycleNo ?
-                              qsTr("no") : playQController.CurrentSycle === CycleState.CycleOne ?
-                                  "1" : qsTr("all")
+                              qsTr("no") + qmlTranslator.EmptyString : playQController.CurrentSycle === CycleState.CycleOne ?
+                                  "1" : qsTr("all") + qmlTranslator.EmptyString
                 }
 
                 background: Rectangle {
@@ -223,7 +223,7 @@ Item {
         property int currentPlayIndex: -1
 
         Action {
-            text: qsTr("Remove from Queue");
+            text: qsTr("Remove from Queue") + qmlTranslator.EmptyString;
 
             onTriggered: {
                 playQController.removeFromQueue(mediaContextMenu.currentPlayId);

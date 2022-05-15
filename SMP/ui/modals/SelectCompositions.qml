@@ -11,7 +11,7 @@ Dialog {
     implicitHeight: parent.height
 
 
-    property string titleText: qsTr("Title text")
+    property string titleText: qsTr("Title text") + qmlTranslator.EmptyString
     property var selectedIds: []
     property int insertedPlaylistId: -1
 

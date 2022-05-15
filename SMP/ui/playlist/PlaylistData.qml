@@ -256,7 +256,7 @@ Item {
 
     SelectCompositions {
         id: selectCompositions
-        titleText: qsTr("Select compositions")
+        titleText: qsTr("Select compositions") + qmlTranslator.EmptyString
     }
 
     // context menu
@@ -267,7 +267,7 @@ Item {
         property int currentPlayIndex: -1
 
         Action {
-            text: qsTr("Delete");
+            text: qsTr("Delete") + qmlTranslator.EmptyString;
 
             onTriggered: {
                 playlistController.removeFromPlaylist(playlists.currentPlaylistId, mediaContextMenu.currentPlayId);
@@ -278,7 +278,7 @@ Item {
         }
 
         Action {
-            text: qsTr("Insert to Queue")
+            text: qsTr("Insert to Queue") + qmlTranslator.EmptyString
 
             onTriggered: {
                 playQController.insertToQueue(mediaContextMenu.currentPlayId);

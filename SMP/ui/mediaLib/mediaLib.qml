@@ -242,7 +242,7 @@ Item {
         property int currentPlayIndex: -1
 
         Action {
-            text: qsTr("Delete");
+            text: qsTr("Delete") + qmlTranslator.EmptyString;
 
             onTriggered: {
                 compositionController.deleteComposition(mediaContextMenu.currentPlayId);
@@ -254,7 +254,7 @@ Item {
         }
 
         Action {
-            text: qsTr("Insert to Queue")
+            text: qsTr("Insert to Queue") + qmlTranslator.EmptyString
 
             onTriggered: {
                 playQController.insertToQueue(mediaContextMenu.currentPlayId);

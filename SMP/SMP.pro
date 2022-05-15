@@ -53,7 +53,8 @@ SOURCES += \
         readers/xmlloader.cpp \
         tagreader/taggetter.cpp \
         tagreader/tagreader.cpp \
-        themes/themecontroller.cpp
+        themes/themecontroller.cpp \
+        translator/qmltranslator.cpp
 
 HEADERS += \
     Kernel/IKernel.h \
@@ -110,9 +111,11 @@ HEADERS += \
     tagreader/taggetter.h \
     tagreader/tagreader.h \
     tagreader/tagstructs.h \
-    themes/themecontroller.h
+    themes/themecontroller.h \
+    translator/qmltranslator.h
 
 RESOURCES += qml.qrc \
+    languages.qrc \
     resources/images.qrc \
     resources/workresources.qrc
 
@@ -228,3 +231,6 @@ ANDROID_EXTRA_LIBS = \
     $$PWD/../Libs/Bass/Android/plugins/x86_64/libbassdsd.so
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+TRANSLATIONS = \
+    $$PWD/translations/QtLanguage_ru.ts

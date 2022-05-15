@@ -259,7 +259,7 @@ Item {
         property int currentPlayIndex: -1
 
         Action {
-            text: qsTr("Delete");
+            text: qsTr("Delete") + qmlTranslator.EmptyString;
 
             onTriggered: {
                 compositionController.deleteUrl(mediaContextMenu.currentPlayId);
@@ -270,7 +270,7 @@ Item {
         }
 
         Action {
-            text: qsTr("Update");
+            text: qsTr("Update") + qmlTranslator.EmptyString;
 
             onTriggered: {
                 updateUrlDialog.open();

@@ -214,7 +214,7 @@ Item {
 
     DialogWindow {
         id: enterNameDialog
-        titleText: qsTr("Enter playlist name")
+        titleText: qsTr("Enter playlist name") + qmlTranslator.EmptyString
     }
 
     DialogWindow {
@@ -222,7 +222,7 @@ Item {
 
         property int curplaylistId: -1
 
-        titleText: qsTr("Enter playlist name")
+        titleText: qsTr("Enter playlist name") + qmlTranslator.EmptyString
     }
 
     Connections {
@@ -254,7 +254,7 @@ Item {
         property int currentPlayListIndex: -1
 
         Action {
-            text: qsTr("Delete");
+            text: qsTr("Delete") + qmlTranslator.EmptyString;
 
             onTriggered: {
                 playlistController.deletePlaylist(mediaContextMenu.currentPlayListId);
@@ -265,7 +265,7 @@ Item {
         }
 
         Action {
-            text: qsTr("Rename")
+            text: qsTr("Rename") + qmlTranslator.EmptyString
 
             onTriggered: {
                 renameDialog.curplaylistId = mediaContextMenu.currentPlayListId;

@@ -18,7 +18,7 @@ Item {
             Text {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.minimumWidth: parent.width / 10
+                Layout.minimumWidth: parent.width / 5
                 color: themePresenter.Textcolor
                 text: qsTr("Playback devices:")
                 verticalAlignment: Text.AlignVCenter
@@ -39,9 +39,9 @@ Item {
             Text {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.minimumWidth: parent.width / 10
+                Layout.minimumWidth: parent.width / 5
                 color: themePresenter.Textcolor
-                text: qsTr("Sample Rate (Hz):")
+                text: qsTr("Sample Rate (Hz):") + qmlTranslator.EmptyString
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 15
             }
@@ -60,7 +60,7 @@ Item {
 
             Text {
                 anchors.fill: parent
-                text: qsTr("Apply")
+                text: qsTr("Apply") + qmlTranslator.EmptyString
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 color: themePresenter.Textcolor
@@ -79,9 +79,9 @@ Item {
             Text {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.minimumWidth: parent.width / 10
+                Layout.minimumWidth: parent.width / 5
                 color: themePresenter.Textcolor
-                text: qsTr("Sample Rate (Hz):")
+                text: qsTr("Sample Rate (Hz):") + qmlTranslator.EmptyString
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 15
             }
@@ -98,6 +98,33 @@ Item {
                 }
             }
         }
+
+        RowLayout {
+            width: parent.width
+            height: 40
+
+            Text {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.minimumWidth: parent.width / 5
+                color: themePresenter.Textcolor
+                text: qsTr("Language: ") + qmlTranslator.EmptyString
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: 15
+            }
+
+            ComboBox {
+                id: language
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                model: languages
+                //currentIndex: 1
+
+                onCurrentValueChanged: {
+                    qmlTranslator.selectLanguage(language.currentValue);
+                }
+            }
+        }
     }
 
     ListModel {
@@ -109,5 +136,11 @@ Item {
         ListElement {sampleRateF: 96000}
         ListElement {sampleRateF: 176400}
         ListElement {sampleRateF: 192000}
+    }
+
+    ListModel {
+        id: languages
+        ListElement {lang: "en"}
+        ListElement {lang: "ru"}
     }
 }

@@ -38,6 +38,8 @@
 #include "PlaybackController/cyclestate.h"
 #include "playlisttaskcontroller/playlisttaskcontroller.h"
 
+#include "translator/qmltranslator.h"
+
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
     QThreadPool::globalInstance()->setMaxThreadCount(MAX_THREAD_COUNT);
@@ -145,6 +147,9 @@ int main(int argc, char *argv[]) {
 
     PlaylistTaskController pTaskController;
     engine.rootContext()->setContextProperty("pTaskController", &pTaskController);
+
+    QmlTranslator qmlTranslator;
+    engine.rootContext()->setContextProperty("qmlTranslator", &qmlTranslator);
 
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
