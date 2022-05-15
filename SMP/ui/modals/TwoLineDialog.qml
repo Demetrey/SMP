@@ -12,24 +12,36 @@ Dialog {
 
     // Текст диалогового окна
     property string titleText: qsTr("Dialog Title")
+    property string label1Text: qsTr("Label_1")
+    property string label2Text: qsTr("Label_2")
 
     // Передача тектста диалогового окна
-    signal okClicked(msg: string)
+    signal okClicked(msg1: string, msg2: string)
 
     TextField {
-        id: enteredText
+        id: enteredText1
         anchors.left: parent.left
         anchors.right: parent.right
         selectByMouse: true
         focus: true
-        placeholderText: titleText
+        placeholderText: label1Text
+    }
+
+    TextField {
+        id: enteredText2
+        anchors.left: parent.left
+        anchors.right: parent.right
+        selectByMouse: true
+        focus: true
+        placeholderText: label2Text
     }
 
     onAccepted: {
-        okClicked(enteredText.text);
+        okClicked(enteredText1.text, enteredText2.text);
     }
 
    onClosed: {
-       enteredText.clear();
+       enteredText1.clear();
+       enteredText2.clear();
    }
 }

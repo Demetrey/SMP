@@ -44,7 +44,7 @@ Item {
                 }
 
                 onClicked: {
-                    playlistNameEnter.show();
+                    enterNameDialog.open();
                 }
             }
 
@@ -169,11 +169,12 @@ Item {
     }
 
     DialogWindow {
-        id: playlistNameEnter
+        id: enterNameDialog
+        titleText: qsTr("Enter playlist name")
     }
 
     Connections {
-        target: playlistNameEnter
+        target: enterNameDialog
 
         function onOkClicked(msg) {
             playlistController.createPlaylist(msg);
