@@ -10,6 +10,39 @@
     </message>
 </context>
 <context>
+    <name>EqForm</name>
+    <message>
+        <location filename="../ui/equalizer/EqForm.qml" line="22"/>
+        <source>Reverberation</source>
+        <translation>Реверберация</translation>
+    </message>
+    <message>
+        <location filename="../ui/equalizer/EqForm.qml" line="65"/>
+        <source>Balance</source>
+        <translation>Баланс</translation>
+    </message>
+    <message>
+        <location filename="../ui/equalizer/EqForm.qml" line="65"/>
+        <source>L</source>
+        <translation>Л</translation>
+    </message>
+    <message>
+        <location filename="../ui/equalizer/EqForm.qml" line="76"/>
+        <source>R </source>
+        <translation>П </translation>
+    </message>
+    <message>
+        <location filename="../ui/equalizer/EqForm.qml" line="122"/>
+        <source>KHz</source>
+        <translation>КГц</translation>
+    </message>
+    <message>
+        <location filename="../ui/equalizer/EqForm.qml" line="123"/>
+        <source>Hz</source>
+        <translation>Гц</translation>
+    </message>
+</context>
+<context>
     <name>PlayQueue</name>
     <message>
         <location filename="../ui/mainForm/PlayQueue.qml" line="58"/>
@@ -100,6 +133,11 @@
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
+    <message>
+        <location filename="../ui/settings/SettingsForm.qml" line="111"/>
+        <source>Language: </source>
+        <translation>Язык: </translation>
+    </message>
 </context>
 <context>
     <name>TwoLineDialog</name>
@@ -153,32 +191,32 @@
         <translation>SMP</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="393"/>
+        <location filename="../main.qml" line="394"/>
         <source>Home</source>
         <translation>Главная</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="394"/>
+        <location filename="../main.qml" line="395"/>
         <source>Media library</source>
         <translation>Медиатека</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="395"/>
+        <location filename="../main.qml" line="396"/>
         <source>Playlists</source>
         <translation>Плейлисты</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="396"/>
+        <location filename="../main.qml" line="397"/>
         <source>Online</source>
         <translation>Онлайн</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="397"/>
+        <location filename="../main.qml" line="398"/>
         <source>Equalizer</source>
         <translation>Эквалайзер</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="398"/>
+        <location filename="../main.qml" line="399"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>

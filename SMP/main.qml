@@ -302,7 +302,7 @@ ApplicationWindow {
                     anchors.right: parent.right
                     height: 50
                     anchors.margins: 5
-                    text: model.menuText
+                    text: model.menuText + qmlTranslator.EmptyString
 
                     contentItem: Text {
                         text: parent.text

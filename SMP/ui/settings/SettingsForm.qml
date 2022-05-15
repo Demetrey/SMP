@@ -20,7 +20,7 @@ Item {
                 Layout.fillHeight: true
                 Layout.minimumWidth: parent.width / 5
                 color: themePresenter.Textcolor
-                text: qsTr("Playback devices:")
+                text: qsTr("Playback devices:") + qmlTranslator.EmptyString
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 15
             }
@@ -117,8 +117,8 @@ Item {
                 id: language
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                model: languages
-                //currentIndex: 1
+                model: qmlTranslator.getLangs();
+                currentIndex: indexOfValue(qmlTranslator.CurrentLang)
 
                 onCurrentValueChanged: {
                     qmlTranslator.selectLanguage(language.currentValue);
