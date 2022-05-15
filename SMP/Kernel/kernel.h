@@ -31,7 +31,6 @@ public:
     ~Kernel();
     // IKernel interface
     void initialize() override; // first call for setup default settings
-    QList<QString> getDevices() override;
     int getVolume() override;
     int getReverb() override;
     int getBalance() override;
@@ -54,6 +53,7 @@ signals:
 
 public slots:
     // IKernel interface
+    QStringList getDevices() override;
     void initDevice(int device = -1, int freq = 44100) override;
     void play(const QString path = QString(), bool isFile = true) override;
     void pause() override;

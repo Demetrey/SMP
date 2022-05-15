@@ -203,6 +203,9 @@ ApplicationWindow {
                 break;
             case 4:
                 break;
+            case 5:
+                pageLoader.source = "qrc:/ui/settings/SettingsForm.qml";
+                break;
             default:
                 pageLoader.source = "qrc:/ui/mainForm/MainForm.qml"
                 break;

@@ -15,5 +15,6 @@
         <file>ui/scripts/AdditionalFunctions.js</file>
         <file>ui/modals/SelectCompositions.qml</file>
         <file>ui/UrlForm/UrlForm.qml</file>
+        <file>ui/settings/SettingsForm.qml</file>
     </qresource>
 </RCC>

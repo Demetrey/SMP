@@ -226,6 +226,9 @@ Item {
 
     TwoLineDialog {
         id: updateUrlDialog
+
+        property int currentPlayId: -1
+
         label1Text: qsTr("URL (HTTP/HTTPS/FTP)")
         label2Text: qsTr("Name")
     }
@@ -234,7 +237,7 @@ Item {
         target: insertUrlDialog
 
         function onOkClicked(url, name) {
-            compositionController.insertUrl(url, name);
+            compositionController.insertUrl(updateUrlDialog.currentPlayId, url, name);
             urlModel.updateModel();
         }
     }
@@ -261,6 +264,16 @@ Item {
             onTriggered: {
                 compositionController.deleteUrl(mediaContextMenu.currentPlayId);
                 urlModel.updateModel();
+                mediaContextMenu.currentPlayId = -1;
+                mediaContextMenu.currentPlayIndex = -1;
+            }
+        }
+
+        Action {
+            text: qsTr("Update");
+
+            onTriggered: {
+                updateUrlDialog.open();
                 mediaContextMenu.currentPlayId = -1;
                 mediaContextMenu.currentPlayIndex = -1;
             }

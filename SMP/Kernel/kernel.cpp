@@ -41,8 +41,12 @@ void Kernel::initialize() {
  * @brief Get playback devices
  * @return List of titles available at the time of calling playback devices
  */
-QList<QString> Kernel::getDevices() {
-    return initializer->getDevicesInfo().values();
+QStringList Kernel::getDevices() {
+    auto deviceList = initializer->getDevicesInfo().values();
+    QStringList devices;
+    for (int i = 0; i < deviceList.size(); i++)
+        devices.append(deviceList.at(i));
+    return devices;
 }
 
 int Kernel::getVolume() {

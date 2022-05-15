@@ -8,7 +8,6 @@ class IKernel : public QObject {
 public:
     virtual ~IKernel() {};
     virtual void initialize() = 0;
-    virtual QList<QString> getDevices() = 0;
     virtual int getVolume() = 0;
     virtual int getReverb() = 0;
     virtual int getBalance() = 0;
@@ -29,6 +28,7 @@ signals:
     void balanceChanged(int);
 
 public slots:
+    virtual QList<QString> getDevices() = 0;
     virtual void initDevice(int, int) = 0;
     virtual void play(const QString path = QString(), bool isFile = true) = 0;
     virtual void pause() = 0;
