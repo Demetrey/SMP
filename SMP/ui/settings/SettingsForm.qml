@@ -71,7 +71,7 @@ Item {
             }
 
             onClicked: {
-                iKernel.initDevice(currentDevice.currentIndex + 1, sampleRate.currentValue);
+                iKernel.initDevice(currentDevice.currentValue, sampleRate.currentValue);
             }
         }
     }

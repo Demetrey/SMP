@@ -54,7 +54,7 @@ signals:
 public slots:
     // IKernel interface
     QStringList getDevices() override;
-    void initDevice(int device = -1, int freq = 44100) override;
+    void initDevice(QString deviceName = QString(), int freq = 44100) override;
     void play(const QString path = QString(), bool isFile = true) override;
     void pause() override;
     void stop() override;

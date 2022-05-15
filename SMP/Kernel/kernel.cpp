@@ -136,8 +136,14 @@ QList<QString> Kernel::loadPlugins() {
  * @param device - Playback device index
  * @param freq - Sample rate of playback device
  */
-void Kernel::initDevice(int device, int freq) {
+void Kernel::initDevice(QString deviceName, int freq) {
+    int device = -1;
     QMap<int, QString> devices = initializer->getDevicesInfo();
+    int findingKey;
+    if ((findingKey = devices.key(deviceName)) > 0)
+        device = findingKey;
+    qDebug() << "Current device: " << device;
+
     if (devices.contains(device) || device == -1) {
         initializer->initDevice(device, freq);
         if (BASS_ErrorGetCode() == BASS_ERROR_ALREADY

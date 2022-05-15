@@ -28,8 +28,8 @@ signals:
     void balanceChanged(int);
 
 public slots:
-    virtual QList<QString> getDevices() = 0;
-    virtual void initDevice(int, int) = 0;
+    virtual QStringList getDevices() = 0;
+    virtual void initDevice(QString, int) = 0;
     virtual void play(const QString path = QString(), bool isFile = true) = 0;
     virtual void pause() = 0;
     virtual void stop() = 0;
