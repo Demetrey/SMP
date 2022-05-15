@@ -36,6 +36,7 @@
 #include "presenters/themepresenter.h"
 #include "presenters/compositionpresenter.h"
 #include "PlaybackController/cyclestate.h"
+#include "playlisttaskcontroller/playlisttaskcontroller.h"
 
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
@@ -148,6 +149,9 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("compositionController", &compositionController);
     engine.rootContext()->setContextProperty("playlistController", &playlistController);
 
+    PlaylistTaskController pTaskController;
+    engine.rootContext()->setContextProperty("pTaskController", &pTaskController);
+
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -157,6 +161,7 @@ int main(int argc, char *argv[]) {
     }, Qt::QueuedConnection);
     engine.load(url);
 
+    //kernel->play("http://europaplus.hostingradio.ru:8014/europaplus320.mp3", false);
 
     /*pq.createQueue(2);*/
     /*FileGetter fg;

@@ -13,5 +13,7 @@
         <file>ui/playlist/PlaylistData.qml</file>
         <file>ui/modals/TwoLineDialog.qml</file>
         <file>ui/scripts/AdditionalFunctions.js</file>
+        <file>ui/modals/SelectCompositions.qml</file>
+        <file>ui/UrlForm/UrlForm.qml</file>
     </qresource>
 </RCC>

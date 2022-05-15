@@ -158,6 +158,7 @@ void PlayQueueController::play(int index) {
     if (queueModel->rowCount() > 0) {
         QString path = queueModel->data(queueModel->index(index, 0), queueModel->pathRole).toString();
         if (!path.isNull() && !path.isEmpty()) {
+            setIsFile(true);
             kernel->play(path, m_IsFile);
             setCurrentPlayId(queueModel->getId(index));
             setCurrentPlayIndex(index);
@@ -188,6 +189,7 @@ void PlayQueueController::playURL(int index) {
         setIsFile(false);
         QString path = urlModel->data(urlModel->index(index, 0), urlModel->urlRole).toString();
         if (!path.isNull() && !path.isEmpty()) {
+            qDebug() << "url" << path;
             kernel->play(path, m_IsFile);
             setCurrentPlayId(urlModel->getId(index));
 
@@ -205,6 +207,8 @@ void PlayQueueController::playURL(int index) {
  * @brief Переключение на следующий файл в очереди
  */
 void PlayQueueController::nextFile() {
+    if (!m_IsFile)
+        return;
     // Мы не дошли до конца очереди
     // Нет зацикливания по файлу
     // Просто играем файл со следующийм индексом
@@ -242,6 +246,8 @@ void PlayQueueController::nextFile() {
 }
 
 void PlayQueueController::prevFile() {
+    if (!m_IsFile)
+        return;
     // Мы не дошли до начала очереди
     // Нет зацикливания по файлу
     // Просто играем файл с предыдущим индексом

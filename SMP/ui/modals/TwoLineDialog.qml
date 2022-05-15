@@ -18,22 +18,26 @@ Dialog {
     // Передача тектста диалогового окна
     signal okClicked(msg1: string, msg2: string)
 
-    TextField {
-        id: enteredText1
-        anchors.left: parent.left
-        anchors.right: parent.right
-        selectByMouse: true
-        focus: true
-        placeholderText: label1Text
-    }
+    contentItem:  Item {
+        implicitHeight: 50
 
-    TextField {
-        id: enteredText2
-        anchors.left: parent.left
-        anchors.right: parent.right
-        selectByMouse: true
-        focus: true
-        placeholderText: label2Text
+        TextField {
+            id: enteredText1
+            anchors.left: parent.left
+            anchors.right: parent.right
+            selectByMouse: true
+            placeholderText: label1Text
+        }
+
+        TextField {
+            id: enteredText2
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: enteredText1.bottom
+            selectByMouse: true
+            focus: true
+            placeholderText: label2Text
+        }
     }
 
     onAccepted: {

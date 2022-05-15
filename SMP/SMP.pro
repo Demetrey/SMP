@@ -44,6 +44,8 @@ SOURCES += \
         filegetter/getfilestask.cpp \
         main.cpp \
         mimetyper/mimetyper.cpp \
+        playlisttaskcontroller/inserttopltask.cpp \
+        playlisttaskcontroller/playlisttaskcontroller.cpp \
         presenters/compositionpresenter.cpp \
         presenters/imagepresenter.cpp \
         presenters/kernelpresenter.cpp \
@@ -97,6 +99,8 @@ HEADERS += \
     filegetter/getfilestask.h \
     mimetyper/FileTypes.h \
     mimetyper/mimetyper.h \
+    playlisttaskcontroller/inserttopltask.h \
+    playlisttaskcontroller/playlisttaskcontroller.h \
     presenters/compositionpresenter.h \
     presenters/imagepresenter.h \
     presenters/kernelpresenter.h \

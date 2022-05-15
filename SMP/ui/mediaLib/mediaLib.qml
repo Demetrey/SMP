@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 
 import CycleState 1.0
 
@@ -39,7 +40,7 @@ Item {
                 }
 
                 Image {
-                    id: shuffleBtnImage
+                    id: btnAddImg
                     source: "qrc:/controll/IMAGES/controlls/add.svg"
                     anchors.centerIn: parent
                     width: height
@@ -48,6 +49,12 @@ Item {
                     sourceSize.height: height
                     sourceSize.width: height
                 }
+
+                ColorOverlay {
+                   anchors.fill: btnAddImg
+                   source: btnAddImg
+                   color: themePresenter.Textcolor
+               }
 
                 onClicked: {
                     fileGetter.getFiles();
@@ -102,6 +109,12 @@ Item {
                     sourceSize.width: height
                 }
 
+                ColorOverlay {
+                   anchors.fill: searchImg
+                   source: searchImg
+                   color: themePresenter.Textcolor
+               }
+
                 onClicked: {
                     mediaModel.updateModel(searchField.text);
                     searchField.clear();
@@ -114,7 +127,7 @@ Item {
 
     // medialibrary
     ListView {
-        id: playQueueList
+        id: mediaList
         anchors.top: topSide.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -123,7 +136,7 @@ Item {
         model: mediaModel
 
         delegate: Rectangle {
-            width: playQueueList.width
+            width: mediaList.width
             height: 50
             color: playQController.CurrentPlayId === model.id ?
                        themePresenter.Listitemselected :
@@ -188,6 +201,7 @@ Item {
 
             // delete song (Fix for context menu)
             Image {
+                id: moreImg
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
@@ -210,6 +224,12 @@ Item {
                     }
                 }
             }
+
+            ColorOverlay {
+               anchors.fill: moreImg
+               source: moreImg
+               color: themePresenter.Textcolor
+           }
         }
         ScrollBar.vertical: ScrollBar {}
     }

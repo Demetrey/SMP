@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.0
 
 import kernelState 1.0
 
@@ -142,9 +143,12 @@ Item {
                 id: volumeOff
                 anchors.top: compositionData.bottom
                 anchors.left: parent.left
+                anchors.leftMargin: 5
                 height: 20
                 width: height
-                source: "qrc:/controll/IMAGES/controlls/volume_off.svg"
+                source: kernelPresenter.Volume  > 0 ?
+                            "qrc:/controll/IMAGES/controlls/volume_up.svg" :
+                            "qrc:/controll/IMAGES/controlls/volume_off.svg"
                 sourceSize.width: width
                 sourceSize.height: height
 
@@ -156,23 +160,11 @@ Item {
                 }
             }
 
-            /*Image {
-                id: volumeUp
-                anchors.top: compositionData.bottom
-                anchors.right: parent.right
-                height: 20
-                width: height
-                source: "qrc:/controll/IMAGES/controlls/volume_up.svg"
-                sourceSize.width: width
-                sourceSize.height: height
-
-                MouseArea {
-                    anchors.fill: parent
-                    onPressed: {
-                        kernelPresenter.Volume += 10;
-                    }
-                }
-            }*/
+            ColorOverlay {
+               anchors.fill: volumeOff
+               source: volumeOff
+               color: themePresenter.Textcolor
+           }
 
             // volume
             Slider {
@@ -208,6 +200,7 @@ Item {
                     width: parent.height
 
                     Image {
+                        id: btnPlayImg
                         source: kernelPresenter.Statement === KernelState.Play ?
                                     "qrc:/controll/IMAGES/controlls/pause.svg" :
                                     "qrc:/controll/IMAGES/controlls/play.svg"
@@ -216,6 +209,12 @@ Item {
                         sourceSize.width: width
                         sourceSize.height: height
                     }
+
+                    ColorOverlay {
+                       anchors.fill: btnPlayImg
+                       source: btnPlayImg
+                       color: themePresenter.Textcolor
+                   }
 
                     onClicked: {
                         kernelPresenter.Statement === KernelState.Play ?
@@ -236,6 +235,7 @@ Item {
                     width: height
 
                     Image {
+                        id: btnPrevImg
                         source: "qrc:/controll/IMAGES/controlls/arrow_back.svg"
                         anchors.fill: parent
                         anchors.margins: 10
@@ -243,6 +243,12 @@ Item {
                         sourceSize.width: width
                         sourceSize.height: height
                     }
+
+                    ColorOverlay {
+                       anchors.fill: btnPrevImg
+                       source: btnPrevImg
+                       color: themePresenter.Textcolor
+                   }
 
                     onClicked: {
                         playQController.prevFile();
@@ -259,6 +265,7 @@ Item {
                     width: height
 
                     Image {
+                        id: btnNextImg
                         source: "qrc:/controll/IMAGES/controlls/arrow_forward.svg"
                         anchors.fill: parent
                         anchors.margins: 10
@@ -266,6 +273,12 @@ Item {
                         sourceSize.width: width
                         sourceSize.height: height
                     }
+
+                    ColorOverlay {
+                       anchors.fill: btnNextImg
+                       source: btnNextImg
+                       color: themePresenter.Textcolor
+                   }
 
                     onClicked: {
                         playQController.nextFile();

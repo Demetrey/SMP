@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 
 import CycleState 1.0
 
@@ -41,6 +42,12 @@ Item {
                     sourceSize.height: height
                     sourceSize.width: height
                 }
+
+                ColorOverlay {
+                   anchors.fill: shuffleBtnImage
+                   source: shuffleBtnImage
+                   color: themePresenter.Textcolor
+               }
 
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
@@ -89,6 +96,12 @@ Item {
                     sourceSize.height: height
                     sourceSize.width: height
                 }
+
+                ColorOverlay {
+                   anchors.fill: btnRepeatImage
+                   source: btnRepeatImage
+                   color: themePresenter.Textcolor
+               }
 
                 onClicked: {
                     playQController.cycle();
@@ -167,6 +180,7 @@ Item {
             }
 
             Image {
+                id: moreImg
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
@@ -190,6 +204,12 @@ Item {
                     }
                 }
             }
+
+            ColorOverlay {
+               anchors.fill: moreImg
+               source: moreImg
+               color: themePresenter.Textcolor
+           }
         }
 
         ScrollBar.vertical: ScrollBar {}

@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 
 import CycleState 1.0
 
@@ -38,7 +39,7 @@ Item {
                 }
 
                 Image {
-                    id: shuffleBtnImage
+                    id: addBtnImg
                     source: "qrc:/controll/IMAGES/controlls/add.svg"
                     anchors.centerIn: parent
                     width: height
@@ -47,6 +48,12 @@ Item {
                     sourceSize.height: height
                     sourceSize.width: height
                 }
+
+                ColorOverlay {
+                   anchors.fill: addBtnImg
+                   source: addBtnImg
+                   color: themePresenter.Textcolor
+               }
 
                 onClicked: {
                     enterNameDialog.open();
@@ -98,6 +105,12 @@ Item {
                     sourceSize.height: height
                     sourceSize.width: height
                 }
+
+                ColorOverlay {
+                   anchors.fill: searchImg
+                   source: searchImg
+                   color: themePresenter.Textcolor
+               }
 
                 onClicked: {
                     playlistModel.updateModel(searchField.text);
@@ -167,6 +180,7 @@ Item {
             }
 
             Image {
+                id: moreImg
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
@@ -189,6 +203,12 @@ Item {
                     }
                 }
             }
+
+            ColorOverlay {
+               anchors.fill: moreImg
+               source: moreImg
+               color: themePresenter.Textcolor
+           }
         }
     }
 

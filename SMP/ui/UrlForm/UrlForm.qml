@@ -11,6 +11,7 @@ import "../scripts/AdditionalFunctions.js" as AFunc
 Item {
     anchors.fill: parent
 
+    // top bar
     Rectangle {
         id: topSide
         color: themePresenter.Background
@@ -20,45 +21,13 @@ Item {
         height: 50
         z: 2
 
+        // search, add
         RowLayout {
             anchors.fill: parent
             anchors.margins: 10
             spacing: 20
 
-            Button {
-                Layout.fillWidth: true
-                Layout.minimumWidth: parent.height
-                Layout.maximumWidth: parent.height
-                Layout.maximumHeight: parent.height
-                Layout.minimumHeight: parent.height
-
-                Image {
-                    id: btnBackImg
-                    source: "qrc:/controll/IMAGES/controlls/arrow_back.svg"
-                    anchors.centerIn: parent
-                    width: height
-                    height: parent.height
-                    anchors.margins: 5
-                    sourceSize.height: height
-                    sourceSize.width: height
-                    anchors.leftMargin: parent.width / 3
-                }
-
-                ColorOverlay {
-                   anchors.fill: btnBackImg
-                   source: btnBackImg
-                   color: themePresenter.Textcolor
-               }
-
-                background: Rectangle{
-                    color: "#00000000"
-                }
-
-                onClicked: {
-                    swipeView.currentIndex = 0;
-                }
-            }
-
+            // add file btn
             Button {
                 Layout.fillWidth: true
                 Layout.minimumWidth: parent.height
@@ -88,11 +57,11 @@ Item {
                }
 
                 onClicked: {
-                    selectCompositions.insertedPlaylistId = playlists.currentPlaylistId;
-                    selectCompositions.open();
+                    insertUrlDialog.open();
                 }
             }
 
+            // search field
             Rectangle {
                 Layout.fillWidth: true
                 Layout.minimumWidth: 40
@@ -116,6 +85,7 @@ Item {
                 }
             }
 
+            // search btn
             Button {
                 id: searchBtn
                 Layout.fillWidth: true
@@ -146,7 +116,7 @@ Item {
                }
 
                 onClicked: {
-                    playlistDataModel.updateModel(playlists.currentPlaylistId, searchField.text);
+                    urlModel.updateModel(searchField.text);
                     searchField.clear();
                 }
             }
@@ -155,17 +125,18 @@ Item {
 
     }
 
+    // medialibrary
     ListView {
-        id: playQueueList
+        id: mediaList
         anchors.top: topSide.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.topMargin: 10
-        model: playlistDataModel
+        model: urlModel
 
         delegate: Rectangle {
-            width: playQueueList.width
+            width: mediaList.width
             height: 50
             color: playQController.CurrentPlayId === model.id ?
                        themePresenter.Listitemselected :
@@ -174,8 +145,7 @@ Item {
             Text {
                 id: indexText
                 text: index + 1
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
+                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 2
                 width: height
@@ -186,36 +156,36 @@ Item {
 
             Text {
                 id: nameText
+                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: indexText.right
-                anchors.top: parent.top
-                height: parent.height / 2
-                anchors.leftMargin: 10
+                anchors.leftMargin: 5
                 text: model.name.substr(0, parent.width / font.pointSize)
                 verticalAlignment: Text.AlignBottom
                 font.pixelSize: 15
                 color: themePresenter.Textcolor
             }
 
-            Text {
-                anchors.left: nameText.left
-                anchors.top: nameText.bottom
-                anchors.bottom: parent.bottom
-                font.pointSize: 9
-                color: themePresenter.Textcolor
-                horizontalAlignment: Text.AlignHCenter
-                text: (model.artist + " :: " + model.album).substr(0, parent.width / font.pointSize)
-            }
-
+            // select song
             MouseArea {
+                id: fillArea
                 anchors.fill: parent
                 onClicked: {
-                    playQController.CurrentPlayId = model.id
-                    playQController.createQueue(playlists.currentPlaylistId);
+                    playQController.playURL(index);
+                }
+
+                onPressAndHold: {
+                    var absolutePos = AFunc.getAbsolutePosition(fillArea);
+                    mediaContextMenu.currentPlayId = model.id;
+                    mediaContextMenu.currentPlayIndex = index;
+                    mediaContextMenu.x =  absolutePos.x + mouseX;
+                    mediaContextMenu.y = absolutePos.y;
+                    mediaContextMenu.open();
                 }
             }
 
+            // delete song (Fix for context menu)
             Image {
-                id: rightArea
+                id: moreImg
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
@@ -225,6 +195,7 @@ Item {
                 sourceSize.width: height
 
                 MouseArea {
+                    id: rightArea
                     anchors.fill: parent
 
                     onClicked: {
@@ -239,24 +210,42 @@ Item {
             }
 
             ColorOverlay {
-               anchors.fill: rightArea
-               source: rightArea
+               anchors.fill: moreImg
+               source: moreImg
                color: themePresenter.Textcolor
            }
+        }
+        ScrollBar.vertical: ScrollBar {}
+    }
+
+    TwoLineDialog {
+        id: insertUrlDialog
+        label1Text: qsTr("URL (HTTP/HTTPS/FTP)")
+        label2Text: qsTr("Name")
+    }
+
+    TwoLineDialog {
+        id: updateUrlDialog
+        label1Text: qsTr("URL (HTTP/HTTPS/FTP)")
+        label2Text: qsTr("Name")
+    }
+
+    Connections {
+        target: insertUrlDialog
+
+        function onOkClicked(url, name) {
+            compositionController.insertUrl(url, name);
+            urlModel.updateModel();
         }
     }
 
     Connections {
-        target: pTaskController
+        target: updateUrlDialog
 
-        function onEndInPlaylistAdding() {
-            playlistDataModel.updateModel(playlists.currentPlaylistId);
+        function onOkClicked(url, name) {
+            compositionController.updateUrl(url, name);
+            urlModel.updateModel();
         }
-    }
-
-    SelectCompositions {
-        id: selectCompositions
-        titleText: qsTr("Select compositions")
     }
 
     // context menu
@@ -270,18 +259,8 @@ Item {
             text: qsTr("Delete");
 
             onTriggered: {
-                playlistController.removeFromPlaylist(playlists.currentPlaylistId, mediaContextMenu.currentPlayId);
-                playlistDataModel.updateModel(playlists.currentPlaylistId);
-                mediaContextMenu.currentPlayId = -1;
-                mediaContextMenu.currentPlayIndex = -1;
-            }
-        }
-
-        Action {
-            text: qsTr("Insert to Queue")
-
-            onTriggered: {
-                playQController.insertToQueue(mediaContextMenu.currentPlayId);
+                compositionController.deleteUrl(mediaContextMenu.currentPlayId);
+                urlModel.updateModel();
                 mediaContextMenu.currentPlayId = -1;
                 mediaContextMenu.currentPlayIndex = -1;
             }

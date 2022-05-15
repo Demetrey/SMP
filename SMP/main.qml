@@ -67,12 +67,19 @@ ApplicationWindow {
             anchors.leftMargin: 5
 
             Image {
+                id: menuBtnImg
                 source: "qrc:/controll/IMAGES/controlls/menu.svg"
                 anchors.fill: parent
                 anchors.margins: 10
                 sourceSize.width: width
                 sourceSize.height: height
             }
+
+            ColorOverlay {
+               anchors.fill: menuBtnImg
+               source: menuBtnImg
+               color: themePresenter.Textcolor
+           }
 
             onClicked: {
                 navDrawer.open();
@@ -91,12 +98,19 @@ ApplicationWindow {
             z: 100
 
             Image {
+                id: btnCloseImg
                 source: "qrc:/controll/IMAGES/controlls/close.svg"
                 anchors.fill: parent
                 anchors.margins: 10
                 sourceSize.width: width
                 sourceSize.height: height
             }
+
+            ColorOverlay {
+               anchors.fill: btnCloseImg
+               source: btnCloseImg
+               color: themePresenter.Textcolor
+           }
 
             onClicked: {
                 mainWindow.close();
@@ -113,12 +127,19 @@ ApplicationWindow {
             visible: !isAndroid
 
             Image {
+                id: btnMaximizeImg
                 source: "qrc:/controll/IMAGES/controlls/maximize.svg"
                 anchors.fill: parent
                 anchors.margins: 10
                 sourceSize.width: width
                 sourceSize.height: height
             }
+
+            ColorOverlay {
+               anchors.fill: btnMaximizeImg
+               source: btnMaximizeImg
+               color: themePresenter.Textcolor
+           }
 
             onClicked: {
                 windowResize();
@@ -134,12 +155,19 @@ ApplicationWindow {
             visible: !isAndroid
 
             Image {
+                id: btnMinimizeImg
                 source: "qrc:/controll/IMAGES/controlls/minimize.svg"
                 anchors.fill: parent
                 anchors.margins: 10
                 sourceSize.width: width
                 sourceSize.height: height
             }
+
+            ColorOverlay {
+               anchors.fill: btnMinimizeImg
+               source: btnMinimizeImg
+               color: themePresenter.Textcolor
+           }
 
             onClicked: {
                 mainWindow.showMinimized();
@@ -171,6 +199,7 @@ ApplicationWindow {
                 pageLoader.source = "qrc:/ui/playlist/PlaylistForm.qml";
                 break;
             case 3:
+                pageLoader.source = "qrc:/ui/UrlForm/UrlForm.qml";
                 break;
             case 4:
                 break;
@@ -208,6 +237,12 @@ ApplicationWindow {
                 cursorShape: Qt.SizeFDiagCursor
             }
         }
+
+        ColorOverlay {
+           anchors.fill: resizeItem
+           source: resizeItem
+           color: themePresenter.Textcolor
+       }
     }
 
     Drawer {
@@ -228,6 +263,7 @@ ApplicationWindow {
                 height: topMenu.height
 
                 Image {
+                    id: btnBackMenuImg
                     source: "qrc:/controll/IMAGES/controlls/arrow_back.svg"
                     anchors.fill: parent
                     anchors.margins: 10
@@ -235,6 +271,12 @@ ApplicationWindow {
                     sourceSize.width: width
                     sourceSize.height: height
                 }
+
+                ColorOverlay {
+                   anchors.fill: btnBackMenuImg
+                   source: btnBackMenuImg
+                   color: themePresenter.Textcolor
+               }
 
                 onClicked: {
                     navDrawer.close();
@@ -329,12 +371,25 @@ ApplicationWindow {
         }
     }
 
+    Connections {
+        target: pTaskController
+
+        function onStartInPlaylistAdding() {
+            waitLocker.visible = true;
+        }
+
+        function onEndInPlaylistAdding() {
+            waitLocker.visible = false;
+        }
+    }
+
     // menu data
     ListModel {
         id: navModel
         ListElement {menuText: qsTr("Home")}
         ListElement {menuText: qsTr("Media library")}
         ListElement {menuText: qsTr("Playlists")}
+        ListElement {menuText: qsTr("Online")}
         ListElement {menuText: qsTr("Equalizer")}
         ListElement {menuText: qsTr("Settings")}
     }
