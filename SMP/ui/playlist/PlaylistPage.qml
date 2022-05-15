@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 import CycleState 1.0
 
 import "../modals/"
+import "../scripts/AdditionalFunctions.js" as AFunc
 
 Item {
     anchors.fill: parent
@@ -31,6 +32,10 @@ Item {
                 Layout.maximumWidth: parent.height
                 Layout.maximumHeight: parent.height
                 Layout.minimumHeight: parent.height
+
+                background: Rectangle {
+                    color: "#00000000"
+                }
 
                 Image {
                     id: shuffleBtnImage
@@ -78,6 +83,10 @@ Item {
                 Layout.maximumWidth: parent.height
                 Layout.maximumHeight: parent.height
                 Layout.minimumHeight: parent.height
+
+                background: Rectangle {
+                    color: "#00000000"
+                }
 
                 Image {
                     id: searchImg
@@ -138,6 +147,7 @@ Item {
             }
 
             MouseArea {
+                id: fillArea
                 anchors.fill: parent
                 onClicked: {
                     console.log(model.id)
@@ -145,23 +155,37 @@ Item {
                     swipeView.currentIndex = 1;
                     playlistDataModel.updateModel(model.id);
                 }
+
+                onPressAndHold: {
+                    var absolutePos = AFunc.getAbsolutePosition(fillArea);
+                    mediaContextMenu.currentPlayListId = model.id;
+                    mediaContextMenu.currentPlayListIndex = index;
+                    mediaContextMenu.x =  absolutePos.x + mouseX;
+                    mediaContextMenu.y = absolutePos.y;
+                    mediaContextMenu.open();
+                }
             }
 
             Image {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                source: "qrc:/controll/IMAGES/controlls/cancel.svg"
+                source: "qrc:/controll/IMAGES/controlls/more_horiz.svg"
                 anchors.margins: 5
                 sourceSize.height: height
                 sourceSize.width: height
 
                 MouseArea {
+                    id: rightArea
                     anchors.fill: parent
 
                     onClicked: {
-                        playlistController.deletePlaylist(model.id);
-                        playlistModel.updateModel();
+                        var absolutePos = AFunc.getAbsolutePosition(rightArea);
+                        mediaContextMenu.currentPlayListId = model.id;
+                        mediaContextMenu.currentPlayListIndex = index;
+                        mediaContextMenu.x =  absolutePos.x;
+                        mediaContextMenu.y = absolutePos.y;
+                        mediaContextMenu.open();
                     }
                 }
             }
@@ -173,12 +197,62 @@ Item {
         titleText: qsTr("Enter playlist name")
     }
 
+    DialogWindow {
+        id: renameDialog
+
+        property int curplaylistId: -1
+
+        titleText: qsTr("Enter playlist name")
+    }
+
     Connections {
         target: enterNameDialog
 
         function onOkClicked(msg) {
             playlistController.createPlaylist(msg);
             playlistModel.updateModel();
+        }
+    }
+
+    Connections {
+        target: renameDialog
+
+        function onOkClicked(msg) {
+            if (renameDialog.curplaylistId !== -1) {
+                playlistController.updatePlaylist(renameDialog.curplaylistId, msg);
+                playlistModel.updateModel();
+                renameDialog.curplaylistId = -1;
+            }
+        }
+    }
+
+    // context menu
+    Menu {
+        id: mediaContextMenu
+
+        property int currentPlayListId: -1
+        property int currentPlayListIndex: -1
+
+        Action {
+            text: qsTr("Delete");
+
+            onTriggered: {
+                playlistController.deletePlaylist(mediaContextMenu.currentPlayListId);
+                playlistModel.updateModel();
+                mediaContextMenu.currentIndex = -1;
+                mediaContextMenu.currentPlayListId = -1;
+            }
+        }
+
+        Action {
+            text: qsTr("Rename")
+
+            onTriggered: {
+                renameDialog.curplaylistId = mediaContextMenu.currentPlayListId;
+                renameDialog.open();
+                mediaContextMenu.currentIndex = -1;
+                mediaContextMenu.currentPlayListId = -1;
+            }
         }
     }
 }

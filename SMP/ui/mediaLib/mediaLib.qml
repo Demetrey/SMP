@@ -4,9 +4,13 @@ import QtQuick.Layouts 1.3
 
 import CycleState 1.0
 
+import "../modals/"
+import "../scripts/AdditionalFunctions.js" as AFunc
+
 Item {
     anchors.fill: parent
 
+    // top bar
     Rectangle {
         id: topSide
         color: themePresenter.Background
@@ -16,17 +20,23 @@ Item {
         height: 50
         z: 2
 
+        // search, add
         RowLayout {
             anchors.fill: parent
             anchors.margins: 10
             spacing: 20
 
+            // add file btn
             Button {
                 Layout.fillWidth: true
                 Layout.minimumWidth: parent.height
                 Layout.maximumWidth: parent.height
                 Layout.maximumHeight: parent.height
                 Layout.minimumHeight: parent.height
+
+                background: Rectangle {
+                    color: "#00000000"
+                }
 
                 Image {
                     id: shuffleBtnImage
@@ -44,6 +54,7 @@ Item {
                 }
             }
 
+            // search field
             Rectangle {
                 Layout.fillWidth: true
                 Layout.minimumWidth: 40
@@ -64,10 +75,10 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     color: themePresenter.Textcolor
                     selectByMouse: true
-                    selectionColor: colors.colorTitleBar
                 }
             }
 
+            // search btn
             Button {
                 id: searchBtn
                 Layout.fillWidth: true
@@ -75,6 +86,10 @@ Item {
                 Layout.maximumWidth: parent.height
                 Layout.maximumHeight: parent.height
                 Layout.minimumHeight: parent.height
+
+                background: Rectangle {
+                    color: "#00000000"
+                }
 
                 Image {
                     id: searchImg
@@ -97,6 +112,7 @@ Item {
 
     }
 
+    // medialibrary
     ListView {
         id: playQueueList
         anchors.top: topSide.bottom
@@ -113,10 +129,10 @@ Item {
                        themePresenter.Listitemselected :
                        themePresenter.Listitem
 
+            // index
             Text {
                 id: indexText
                 text: index + 1
-                //anchors.verticalCenter: parent.verticalCenter
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
@@ -127,6 +143,7 @@ Item {
                 font.pixelSize: 15
             }
 
+            // title
             Text {
                 id: nameText
                 anchors.left: indexText.right
@@ -139,6 +156,7 @@ Item {
                 color: themePresenter.Textcolor
             }
 
+            // artist :: album
             Text {
                 anchors.left: nameText.left
                 anchors.top: nameText.bottom
@@ -149,32 +167,79 @@ Item {
                 text: (model.artist + " :: " + model.album).substr(0, parent.width / font.pointSize)
             }
 
+            // select song
             MouseArea {
+                id: fillArea
                 anchors.fill: parent
                 onClicked: {
                     playQController.CurrentPlayId = model.id
                     playQController.createQueue(0);
                 }
+
+                onPressAndHold: {
+                    var absolutePos = AFunc.getAbsolutePosition(fillArea);
+                    mediaContextMenu.currentPlayId = model.id;
+                    mediaContextMenu.currentPlayIndex = index;
+                    mediaContextMenu.x =  absolutePos.x + mouseX;
+                    mediaContextMenu.y = absolutePos.y;
+                    mediaContextMenu.open();
+                }
             }
 
+            // delete song (Fix for context menu)
             Image {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                source: "qrc:/controll/IMAGES/controlls/cancel.svg"
+                source: "qrc:/controll/IMAGES/controlls/more_horiz.svg"
                 anchors.margins: 5
                 sourceSize.height: height
                 sourceSize.width: height
 
                 MouseArea {
+                    id: rightArea
                     anchors.fill: parent
 
                     onClicked: {
-                        compositionController.deleteComposition(model.id);
-                        playQController.compositionRemoved();
-                        mediaModel.updateModel();
+                        var absolutePos = AFunc.getAbsolutePosition(rightArea);
+                        mediaContextMenu.currentPlayId = model.id;
+                        mediaContextMenu.currentPlayIndex = index;
+                        mediaContextMenu.x =  absolutePos.x;
+                        mediaContextMenu.y = absolutePos.y;
+                        mediaContextMenu.open();
                     }
                 }
+            }
+        }
+        ScrollBar.vertical: ScrollBar {}
+    }
+
+    // context menu
+    Menu {
+        id: mediaContextMenu
+
+        property int currentPlayId: -1
+        property int currentPlayIndex: -1
+
+        Action {
+            text: qsTr("Delete");
+
+            onTriggered: {
+                compositionController.deleteComposition(mediaContextMenu.currentPlayId);
+                playQController.compositionRemoved();
+                mediaModel.updateModel();
+                mediaContextMenu.currentPlayId = -1;
+                mediaContextMenu.currentPlayIndex = -1;
+            }
+        }
+
+        Action {
+            text: qsTr("Insert to Queue")
+
+            onTriggered: {
+                playQController.insertToQueue(mediaContextMenu.currentPlayId);
+                mediaContextMenu.currentPlayId = -1;
+                mediaContextMenu.currentPlayIndex = -1;
             }
         }
     }

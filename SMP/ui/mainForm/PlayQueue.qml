@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.3
 
 import CycleState 1.0
 
+import "../scripts/AdditionalFunctions.js" as AFunc
+
 Item {
     anchors.fill: parent
 
@@ -148,9 +150,19 @@ Item {
             }
 
             MouseArea {
+                id: fillArea
                 anchors.fill: parent
                 onClicked: {
                     playQController.play(index)
+                }
+
+                onPressAndHold: {
+                    var absolutePos = AFunc.getAbsolutePosition(fillArea);
+                    mediaContextMenu.currentPlayId = model.id;
+                    mediaContextMenu.currentPlayIndex = index;
+                    mediaContextMenu.x =  absolutePos.x + mouseX;
+                    mediaContextMenu.y = absolutePos.y;
+                    mediaContextMenu.open();
                 }
             }
 
@@ -158,23 +170,46 @@ Item {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                source: "qrc:/controll/IMAGES/controlls/cancel.svg"
+                source: "qrc:/controll/IMAGES/controlls/more_horiz.svg"
                 anchors.margins: 5
                 anchors.rightMargin: 10
                 sourceSize.height: height
                 sourceSize.width: height
 
                 MouseArea {
+                    id: rightArea
                     anchors.fill: parent
 
                     onClicked: {
-                        playQController.removeFromQueue(model.id);
+                        var absolutePos = AFunc.getAbsolutePosition(rightArea);
+                        mediaContextMenu.currentPlayId = model.id;
+                        mediaContextMenu.currentPlayIndex = index;
+                        mediaContextMenu.x =  absolutePos.x;
+                        mediaContextMenu.y = absolutePos.y;
+                        mediaContextMenu.open();
                     }
                 }
             }
         }
 
         ScrollBar.vertical: ScrollBar {}
+    }
 
+    // context menu
+    Menu {
+        id: mediaContextMenu
+
+        property int currentPlayId: -1
+        property int currentPlayIndex: -1
+
+        Action {
+            text: qsTr("Remove from Queue");
+
+            onTriggered: {
+                playQController.removeFromQueue(mediaContextMenu.currentPlayId);
+                mediaContextMenu.currentPlayId = -1;
+                mediaContextMenu.currentPlayIndex = -1;
+            }
+        }
     }
 }

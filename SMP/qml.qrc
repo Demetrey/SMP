@@ -12,5 +12,6 @@
         <file>ui/modals/DialogWindow.qml</file>
         <file>ui/playlist/PlaylistData.qml</file>
         <file>ui/modals/TwoLineDialog.qml</file>
+        <file>ui/scripts/AdditionalFunctions.js</file>
     </qresource>
 </RCC>
