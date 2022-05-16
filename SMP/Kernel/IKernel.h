@@ -15,6 +15,7 @@ public:
     virtual int getCurrentTime() = 0;       // ms
     virtual QList<double> getEqValues() = 0;
     virtual QList<int> getEqCenters() = 0;
+    Q_INVOKABLE virtual QList<double> getVizValues() = 0;
 
 private:
     virtual QList<QString> loadPlugins() = 0;

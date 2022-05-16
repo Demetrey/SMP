@@ -29,6 +29,7 @@ public:
     int getCurretReverb();
     int getCurrentBalance();
     QMap<int, float> getEqValues();
+    QList<float> getFFT();
 
 private:
     HSTREAM stream;

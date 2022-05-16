@@ -90,6 +90,15 @@ QList<int> Kernel::getEqCenters() {
     return parameters->getEqValues().keys();
 }
 
+QList<double> Kernel::getVizValues() {
+    QList<float> f = parameters->getFFT();
+    QList<double> result;
+    for (float val : qAsConst(f)) {
+        result.append(static_cast<double>(val));
+    }
+    return result;
+}
+
 /**
  * @brief Loading plugins
  *

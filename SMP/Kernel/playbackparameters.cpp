@@ -125,6 +125,17 @@ QMap<int, float> PlaybackParameters::getEqValues() {
     return eqValues;
 }
 
+QList<float> PlaybackParameters::getFFT() {
+    const int fftSize = 128;
+    float fft[fftSize];
+    BASS_ChannelGetData(this->stream, fft, BASS_DATA_FFT256);
+    QList<float> result;
+    for (int i = 0; i < fftSize; i++) {
+        result.append(fft[i]);
+    }
+    return result;
+}
+
 void PlaybackParameters::initReverb() {
     reverb = BASS_ChannelSetFX(stream, BASS_FX_DX8_REVERB, 0);
     setReverb(currentReverb);

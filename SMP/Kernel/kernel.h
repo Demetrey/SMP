@@ -38,6 +38,7 @@ public:
     int getCurrentTime() override;
     QList<double> getEqValues() override;
     QList<int> getEqCenters() override;
+    Q_INVOKABLE QList<double> getVizValues() override;
 
 private:
     QList<QString> loadPlugins() override;

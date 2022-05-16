@@ -53,4 +53,20 @@ Rectangle {
             id: listModel
         }
     }
+
+    Timer {
+        id: valuRequest
+        interval: 100
+        repeat: true
+
+        onTriggered: {
+            var arr = iKernel.getVizValues();
+            for (var i = 0; i < listModel.count; i++)
+                r.setValue(i, Math.sqrt(arr[i+10]) * 3);
+        }
+    }
+
+    Component.onCompleted: {
+        valuRequest.start();
+    }
 }
