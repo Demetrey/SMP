@@ -32,7 +32,7 @@ Rectangle {
         delegate: Item {
             width: r.columnSize + 1 // +1 - border compensation
             height: r.height
-            property int val: Math.random() * r.height // 0
+            property int val: 0 // Math.random() * r.height
 
             Rectangle {
                 anchors.bottom: parent.bottom
