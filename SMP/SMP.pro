@@ -44,6 +44,8 @@ SOURCES += \
         filegetter/getfilestask.cpp \
         main.cpp \
         mimetyper/mimetyper.cpp \
+        notificationcontroller/notificationcontroller.cpp \
+        notificationcontroller/nworker.cpp \
         playlisttaskcontroller/inserttopltask.cpp \
         playlisttaskcontroller/playlisttaskcontroller.cpp \
         presenters/compositionpresenter.cpp \
@@ -100,6 +102,8 @@ HEADERS += \
     filegetter/getfilestask.h \
     mimetyper/FileTypes.h \
     mimetyper/mimetyper.h \
+    notificationcontroller/notificationcontroller.h \
+    notificationcontroller/nworker.h \
     playlisttaskcontroller/inserttopltask.h \
     playlisttaskcontroller/playlisttaskcontroller.h \
     presenters/compositionpresenter.h \
@@ -186,7 +190,10 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
-    android/src/com/demetrey/getpath/PathUtil.java
+    android/src/com/demetrey/getpath/PathUtil.java \
+    android/src/com/demetrey/notification/NController.java \
+    android/src/com/demetrey/notification/NFunctions.java \
+    android/src/com/demetrey/notification/NReceiver.java
 
 ANDROID_EXTRA_LIBS = \
     $$PWD/../Libs/TagLib/Android/arm64-v8a/libtaglib.so \

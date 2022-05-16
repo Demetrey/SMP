@@ -40,6 +40,8 @@
 
 #include "translator/qmltranslator.h"
 
+#include "notificationcontroller/nworker.h"
+
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
     QThreadPool::globalInstance()->setMaxThreadCount(MAX_THREAD_COUNT);
@@ -151,6 +153,9 @@ int main(int argc, char *argv[]) {
     QmlTranslator qmlTranslator;
     engine.rootContext()->setContextProperty("qmlTranslator", &qmlTranslator);
 
+#ifdef Q_OS_ANDROID
+    NWorker nWorker(&kernelPresenter, &playQController, &compositionPresenter);
+#endif
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

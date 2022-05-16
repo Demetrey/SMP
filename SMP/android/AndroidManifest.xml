@@ -70,6 +70,8 @@
             <!-- extract android style -->
         </activity>
         <!-- For adding service(s) please check: https://wiki.qt.io/AndroidServices -->
+        <receiver android:name="com.demetrey.notification.NReceiver">
+        </receiver>
     </application>
 
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
