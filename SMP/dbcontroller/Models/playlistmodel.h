@@ -11,6 +11,7 @@
 
 /**
  * @brief The PlaylistModel class
+ * Модель представления данных плейлистов
  * Playlist view model
  */
 class PlaylistModel : public QSqlQueryModel

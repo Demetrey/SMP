@@ -14,6 +14,7 @@
 
 /**
  * @brief The MediaModel class
+ * Модель представления данных композиции
  * Composition Data Representation Model
  */
 class MediaModel : public QSqlQueryModel

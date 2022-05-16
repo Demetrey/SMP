@@ -11,6 +11,7 @@
 
 /**
  * @brief The UrlModel class
+ * Модель представления данных онлайн-ресурсов
  * URL sources presentation model
  */
 class UrlModel : public QSqlQueryModel

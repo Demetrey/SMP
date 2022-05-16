@@ -12,6 +12,7 @@ PlaylistDataModel::PlaylistDataModel(QSqlDatabase db, QObject *parent)
 
 /**
  * @brief Update Model
+ * Обновление модели
  * @param id - Playlist ID to display
  * @param search - String to search using the pattern "LIKE %search%", if not empty
  */

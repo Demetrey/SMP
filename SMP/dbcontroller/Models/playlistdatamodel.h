@@ -11,6 +11,7 @@
 
 /**
  * @brief The PlaylistDataModel class
+ * Модель представления данных композиций в плейлисте
  * Data view of audio files added to a playlist
  */
 class PlaylistDataModel : public MediaModel

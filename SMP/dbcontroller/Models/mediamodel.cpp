@@ -33,6 +33,7 @@ QHash<int, QByteArray> MediaModel::roleNames() const {
 
 /**
  * @brief Update model
+ * Обновление данных модели
  * Updating model data
  * @param search - String to search using the pattern "LIKE %search%", if not empty
  */
@@ -55,6 +56,7 @@ void MediaModel::updateModel(const QString search) {
 
 /**
  * @brief Get ID
+ * Получение ID
  * @param rowIndex - Row index to get ID
  * @return ID
  */

@@ -11,6 +11,7 @@
 
 /**
  * @brief The PlayQueueModel class
+ * Модель представления данных очереди
  * Replay queue data representation model
  */
 class PlayQueueModel : public MediaModel
