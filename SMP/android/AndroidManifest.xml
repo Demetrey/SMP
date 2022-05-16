@@ -54,7 +54,7 @@
                           application still try to draw after
                           "applicationStateChanged(Qt::ApplicationSuspended)"
                           signal is sent! -->
-            <meta-data android:name="android.app.background_running" android:value="false"/>
+            <meta-data android:name="android.app.background_running" android:value="true"/>
             <!-- Background running -->
             <!-- auto screen scale factor -->
             <meta-data android:name="android.app.auto_screen_scale_factor" android:value="false"/>
@@ -70,8 +70,14 @@
             <!-- extract android style -->
         </activity>
         <!-- For adding service(s) please check: https://wiki.qt.io/AndroidServices -->
-        <receiver android:name="com.demetrey.notification.NReceiver">
-        </receiver>
+        <receiver android:name="com.demetrey.notification.NReceiver"></receiver>
+
+        <service android:process=":qt" android:name="com.demetrey.audiofocus.AFReceiver">
+            <meta-data android:name="android.app.background_running" android:value="true"/>
+            <meta-data android:name="android.app.arguments" android:value="-service"/>
+            <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
+        </service>
+
     </application>
 
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

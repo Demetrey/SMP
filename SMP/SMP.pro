@@ -18,6 +18,8 @@ SOURCES += \
         PlaybackController/runnable/inserttoqueuetask.cpp \
         PlaybackController/runnable/removefromqueuetask.cpp \
         PlaybackController/runnable/shufflequeue.cpp \
+        afcontroller/afcontroller.cpp \
+        afcontroller/afworker.cpp \
         dbcontroller/Models/mediamodel.cpp \
         dbcontroller/Models/playlistdatamodel.cpp \
         dbcontroller/Models/playlistmodel.cpp \
@@ -72,6 +74,8 @@ HEADERS += \
     PlaybackController/runnable/inserttoqueuetask.h \
     PlaybackController/runnable/removefromqueuetask.h \
     PlaybackController/runnable/shufflequeue.h \
+    afcontroller/afcontroller.h \
+    afcontroller/afworker.h \
     dbcontroller/Interfaces/IBaseController.h \
     dbcontroller/Interfaces/ICompositionController.h \
     dbcontroller/Interfaces/IPlaybackQueueController.h \
@@ -190,6 +194,8 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
+    android/src/com/demetrey/audiofocus/AFFunctions.java \
+    android/src/com/demetrey/audiofocus/AFReceiver.java \
     android/src/com/demetrey/getpath/PathUtil.java \
     android/src/com/demetrey/notification/NController.java \
     android/src/com/demetrey/notification/NFunctions.java \

@@ -42,6 +42,8 @@
 
 #include "notificationcontroller/nworker.h"
 
+#include "afcontroller/afworker.h"
+
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
     QThreadPool::globalInstance()->setMaxThreadCount(MAX_THREAD_COUNT);
@@ -87,6 +89,8 @@ int main(int argc, char *argv[]) {
         if(resultHash["android.permission.WRITE_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied)
             return 0;
     }
+
+    //AFController afController;
 #endif
 
 
@@ -155,6 +159,7 @@ int main(int argc, char *argv[]) {
 
 #ifdef Q_OS_ANDROID
     NWorker nWorker(&kernelPresenter, &playQController, &compositionPresenter);
+    AFWorker afWorker(&kernelPresenter);
 #endif
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
