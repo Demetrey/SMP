@@ -26,7 +26,7 @@ Settings::Settings(PlayQueueController *pqController,
     connect(this->kPresenter, &KernelPresenter::VolumeChanged,
             this, &Settings::onKernelChanged);
     connect(this->kPresenter, &KernelPresenter::eqChanged,
-            this, &Settings::onKernelChanged);
+            this, &Settings::onEqChanged);
 
     connect(this->pqController, &PlayQueueController::CurrentPlayIdChanged,
             this, &Settings::onPQChanged);

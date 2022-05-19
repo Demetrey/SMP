@@ -3,13 +3,11 @@ import QtQuick.Controls 2.15
 
 Dialog {
     id: enterNameDialog
-    //anchors.centerIn: parent
     title: titleText
     standardButtons: Dialog.Ok | Dialog.Cancel
     focus: true
     implicitWidth: parent.width
     implicitHeight: parent.height
-
 
     property string titleText: qsTr("Title text") + qmlTranslator.EmptyString
     property var selectedIds: []
@@ -63,6 +61,7 @@ Dialog {
                 text: (model.artist + " :: " + model.album).substr(0, parent.width / font.pointSize)
             }
 
+            // selected or not
             CheckBox {
                 id: selectedBox
                 anchors.right: parent.right

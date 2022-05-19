@@ -5,6 +5,7 @@ import QtGraphicalEffects 1.0
 
 import kernelState 1.0
 
+// Страница воспроизведения
 Item {
     id: basePlayPage
     anchors.fill: parent
@@ -17,7 +18,7 @@ Item {
         flow: (width > height ? GridLayout.LeftToRight : GridLayout.TopToBottom)
         anchors.margins: marginSize
 
-        // Cover art
+        // Cover art (обложка альбома)
         Item {
             id: vizBase
             Layout.fillWidth: true
@@ -25,7 +26,7 @@ Item {
 
             property int vizCount: 75
 
-            // Load image or visualizer
+            // Load image or visualizer (загрузка обложки или визуализатора)
             Loader {
                 id: imgLoader
                 anchors.fill: parent
@@ -38,6 +39,7 @@ Item {
                 }
             }
 
+            // Событие загрузки
             MouseArea {
                 anchors.fill: parent
                 onClicked: {

@@ -1,6 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 2.15
 
+// Форма эквалайзера
 Item {
     anchors.fill: parent
     anchors.margins: 5
@@ -12,6 +13,7 @@ Item {
         anchors.fill: parent
         spacing: 10
 
+        // Реверберация
         Item {
             id: reverbItem
             width: parent.width
@@ -26,6 +28,7 @@ Item {
                 anchors.bottom: parent.bottom
                 width: 100
                 font.pixelSize: 15
+                color: themePresenter.Textcolor
             }
 
             Text {
@@ -37,6 +40,7 @@ Item {
                 anchors.bottom: parent.bottom
                 width: 60
                 font.pixelSize: 15
+                color: themePresenter.Textcolor
             }
 
             Slider {
@@ -55,6 +59,7 @@ Item {
             }
         }
 
+        // Баланс
         Item {
             id: balanceItem
             width: parent.width
@@ -69,6 +74,7 @@ Item {
                 anchors.bottom: parent.bottom
                 width: 100
                 font.pixelSize: 15
+                color: themePresenter.Textcolor
             }
 
             Text {
@@ -80,6 +86,7 @@ Item {
                 anchors.bottom: parent.bottom
                 width: 60
                 font.pixelSize: 15
+                color: themePresenter.Textcolor
             }
 
             Slider {
@@ -98,6 +105,7 @@ Item {
             }
         }
 
+        // Настройки эквалайзера
         ListView {
             id: eqValues
             anchors.topMargin: 20

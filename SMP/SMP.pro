@@ -105,6 +105,7 @@ HEADERS += \
     filegetter/androidgetter.h \
     filegetter/filegetter.h \
     filegetter/getfilestask.h \
+    main.h \
     mimetyper/FileTypes.h \
     mimetyper/mimetyper.h \
     notificationcontroller/notificationcontroller.h \

@@ -415,6 +415,7 @@ void PlayQueueController::setIsShuffled(bool newIsShuffled)
 
 void PlayQueueController::settingsSet(int id, bool isFile, bool isShuffled) {
     setIsFile(isFile);
+    setIsShuffled(isShuffled);
     setCurrentPlayId(id);
     queueModel->updateModel(isShuffled);
     updateIndex();

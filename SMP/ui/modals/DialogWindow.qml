@@ -7,7 +7,7 @@ Dialog {
     anchors.centerIn: parent
     title: titleText
     standardButtons: Dialog.Ok | Dialog.Cancel
-    implicitWidth: parent.width / 2
+    implicitWidth: !isAndroid ? parent.width / 2 : parent.width
     focus: true
 
     // Текст диалогового окна

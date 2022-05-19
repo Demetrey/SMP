@@ -7,47 +7,15 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-
 #include <QLocale>
 #include <QTranslator>
-
 #include <QThreadPool>
-
 #include <QQuickStyle>
 
-#include "Kernel/kernelstate.h"
-#include "Kernel/kernel.h"
-#include "presenters/kernelpresenter.h"
-#include "presenters/imagepresenter.h"
-
-#include "dbcontroller/compositioncontroller.h"
-#include "dbcontroller/playlistcontroller.h"
-#include "dbcontroller/queuecontroller.h"
-
-#include "dbcontroller/Models/mediamodel.h"
-#include "dbcontroller/Models/playlistdatamodel.h"
-#include "dbcontroller/Models/playlistmodel.h"
-#include "dbcontroller/Models/playqueuemodel.h"
-#include "dbcontroller/Models/urlmodel.h"
-
-#include "PlaybackController/playqueuecontroller.h"
-#include "filegetter/filegetter.h"
-
-#include "presenters/themepresenter.h"
-#include "presenters/compositionpresenter.h"
-#include "PlaybackController/cyclestate.h"
-#include "playlisttaskcontroller/playlisttaskcontroller.h"
-
-#include "translator/qmltranslator.h"
-
-#include "notificationcontroller/nworker.h"
-
-#include "afcontroller/afworker.h"
-
-#include "settings/settings.h"
+#include "main.h"
 
 int main(int argc, char *argv[]) {
-    const int MAX_THREAD_COUNT = 10;
+    const int MAX_THREAD_COUNT = 5;
     QThreadPool::globalInstance()->setMaxThreadCount(MAX_THREAD_COUNT);
 
     QString connectionName = "main";
@@ -59,13 +27,11 @@ int main(int argc, char *argv[]) {
             QSharedPointer<MediaModel>(new MediaModel(dbc.getDB()));
     auto urlModel =
             QSharedPointer<UrlModel>(new UrlModel(dbc.getDB()));
-
     // playlist model
     auto playlistModel =
             QSharedPointer<PlaylistModel>(new PlaylistModel(dbc.getDB()));
     auto playlistDataModel =
             QSharedPointer<PlaylistDataModel>(new PlaylistDataModel(dbc.getDB()));
-
     // queue model
     auto queueModel =
             QSharedPointer<PlayQueueModel>(new PlayQueueModel(dbc.getDB()));
@@ -95,9 +61,7 @@ int main(int argc, char *argv[]) {
     //AFController afController;
 #endif
 
-
     QApplication app(argc, argv);
-
     QQuickStyle::setStyle("Material");
 
     QTranslator translator;
@@ -118,54 +82,44 @@ int main(int argc, char *argv[]) {
 
     QQmlApplicationEngine engine;
 
-    // set context properties
     Kernel _kernel;
     IKernel *kernel = &_kernel;
     KernelPresenter kernelPresenter(nullptr, kernel);
     kernel->initialize();
+    ImagePresenter *imPresenter = new ImagePresenter();
+    CompositionPresenter compositionPresenter;
+    PlayQueueController playQController(kernel, queueModel, urlModel, &compositionPresenter, imPresenter);
+    ThemePresenter themePresenter;
+    FileGetter fileGetter;
+    CompositionController compositionController(connectionName);
+    PlaylistController playlistController(connectionName);
+    PlaylistTaskController pTaskController;
+    QmlTranslator qmlTranslator;
+    Settings settings(&playQController, &kernelPresenter, &qmlTranslator, &themePresenter);
+
+#ifdef Q_OS_ANDROID
+    NWorker nWorker(&kernelPresenter, &playQController, &compositionPresenter);
+    AFWorker afWorker(&kernelPresenter);
+#endif
+
     engine.rootContext()->setContextProperty("kernelPresenter", &kernelPresenter);
     engine.rootContext()->setContextProperty("iKernel", kernel);
-    ImagePresenter *imPresenter = new ImagePresenter();
     engine.rootContext()->setContextProperty("imagePresenter", imPresenter);
     engine.addImageProvider("imgPresenter", imPresenter);
-
-
-    CompositionPresenter compositionPresenter;
     engine.rootContext()->setContextProperty("compositionPresenter", &compositionPresenter);
-
-    PlayQueueController playQController(kernel, queueModel, urlModel, &compositionPresenter, imPresenter);
-
     engine.rootContext()->setContextProperty("mediaModel", mediaModel.get());
     engine.rootContext()->setContextProperty("urlModel", urlModel.get());
     engine.rootContext()->setContextProperty("playlistModel", playlistModel.get());
     engine.rootContext()->setContextProperty("playlistDataModel", playlistDataModel.get());
     engine.rootContext()->setContextProperty("queueModel", queueModel.get());
     engine.rootContext()->setContextProperty("playQController", &playQController);
-
-    ThemePresenter themePresenter;
     engine.rootContext()->setContextProperty("themePresenter", &themePresenter);
-
-    FileGetter fileGetter;
     engine.rootContext()->setContextProperty("fileGetter", &fileGetter);
-
-    CompositionController compositionController(connectionName);
-    PlaylistController playlistController(connectionName);
     engine.rootContext()->setContextProperty("compositionController", &compositionController);
     engine.rootContext()->setContextProperty("playlistController", &playlistController);
-
-    PlaylistTaskController pTaskController;
     engine.rootContext()->setContextProperty("pTaskController", &pTaskController);
-
-    QmlTranslator qmlTranslator;
     engine.rootContext()->setContextProperty("qmlTranslator", &qmlTranslator);
-
-    Settings settings(&playQController, &kernelPresenter, &qmlTranslator, &themePresenter);
     settings.loadSettings();
-
-#ifdef Q_OS_ANDROID
-    NWorker nWorker(&kernelPresenter, &playQController, &compositionPresenter);
-    AFWorker afWorker(&kernelPresenter);
-#endif
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

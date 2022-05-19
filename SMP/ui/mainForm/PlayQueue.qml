@@ -7,9 +7,11 @@ import CycleState 1.0
 
 import "../scripts/AdditionalFunctions.js" as AFunc
 
+// Очередь воспроизведения
 Item {
     anchors.fill: parent
 
+    // Перемешивание, зацикливание
     Rectangle {
         id: topSide
         color: themePresenter.Background
@@ -22,6 +24,7 @@ Item {
         RowLayout {
             anchors.fill: parent
 
+            // Перемешивание
             Button {
                 Layout.fillWidth: true
                 Layout.minimumWidth: 40
@@ -65,6 +68,7 @@ Item {
                 }
             }
 
+            // Зацикливание
             Button {
                 Layout.fillWidth: true
                 Layout.minimumWidth: 40
@@ -110,6 +114,7 @@ Item {
         }
     }
 
+    // Очередь
     ListView {
         id: playQueueList
         anchors.top: topSide.bottom
@@ -119,6 +124,7 @@ Item {
         anchors.topMargin: 10
         model: queueModel
 
+        // Описание делегата
         delegate: Rectangle {
             width: playQueueList.width
             height: 50
@@ -126,10 +132,11 @@ Item {
                        themePresenter.Listitemselected :
                        themePresenter.Listitem
 
+            // Текстовые поля ограничены максимальным размером формы
+            // Номер П/П
             Text {
                 id: indexText
                 text: index + 1
-                //anchors.verticalCenter: parent.verticalCenter
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
@@ -138,8 +145,10 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
+                color: themePresenter.Textcolor
             }
 
+            // Название
             Text {
                 id: nameText
                 anchors.left: indexText.right
@@ -152,6 +161,7 @@ Item {
                 color: themePresenter.Textcolor
             }
 
+            // Исполнитель и альбом
             Text {
                 anchors.left: nameText.left
                 anchors.top: nameText.bottom
@@ -162,6 +172,7 @@ Item {
                 text: (model.artist + " :: " + model.album).substr(0, parent.width / font.pointSize)
             }
 
+            // Обработка клика
             MouseArea {
                 id: fillArea
                 anchors.fill: parent
@@ -179,6 +190,7 @@ Item {
                 }
             }
 
+            // Поле вызова контекстного меню
             Image {
                 id: moreImg
                 anchors.top: parent.top
@@ -215,7 +227,7 @@ Item {
         ScrollBar.vertical: ScrollBar {}
     }
 
-    // context menu
+    // context menu (контекстное меню)
     Menu {
         id: mediaContextMenu
 

@@ -146,6 +146,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
+                color: themePresenter.Textcolor
             }
 
             Text {
