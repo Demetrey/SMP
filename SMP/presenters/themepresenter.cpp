@@ -35,8 +35,13 @@ void ThemePresenter::updateThemeList() {
  * @param index - index of theme
  */
 void ThemePresenter::setTheme(int index) {
-    if (themes.size() - 1 < index)
-        return;
+    if (themes.size() - 1 < index) {
+        if (themes.size() > 0) {
+            index = 0;
+        }
+        else
+            return;
+    }
     QStringList colors = themeController->getColors(themes.at(index));
     qDebug() << colors;
     setBaseTheme(colors.at(0));

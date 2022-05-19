@@ -104,6 +104,7 @@ QList<int> KernelPresenter::getEqCenters() {
 
 void KernelPresenter::setEqValue(int center, double value) {
     kernel->setEqValue(center, value);
+    emit eqChanged();
 }
 
 int KernelPresenter::getCurrentPosition() {

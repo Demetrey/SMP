@@ -44,6 +44,8 @@
 
 #include "afcontroller/afworker.h"
 
+#include "settings/settings.h"
+
 int main(int argc, char *argv[]) {
     const int MAX_THREAD_COUNT = 10;
     QThreadPool::globalInstance()->setMaxThreadCount(MAX_THREAD_COUNT);
@@ -156,6 +158,9 @@ int main(int argc, char *argv[]) {
 
     QmlTranslator qmlTranslator;
     engine.rootContext()->setContextProperty("qmlTranslator", &qmlTranslator);
+
+    Settings settings(&playQController, &kernelPresenter, &qmlTranslator, &themePresenter);
+    settings.loadSettings();
 
 #ifdef Q_OS_ANDROID
     NWorker nWorker(&kernelPresenter, &playQController, &compositionPresenter);

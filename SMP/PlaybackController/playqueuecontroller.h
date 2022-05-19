@@ -57,6 +57,7 @@ public:
     void setCurrentSycle(const CycleState::Cycle &newCurrentSycle);
     bool IsShuffled() const;
     void setIsShuffled(bool newIsShuffled);
+    void settingsSet(int id, bool isFile, bool isShuffled);
 
 public slots:
     void createQueue(int id);       // Создать очередь из плейлиста или медиатеки

@@ -137,10 +137,4 @@ Item {
         ListElement {sampleRateF: 176400}
         ListElement {sampleRateF: 192000}
     }
-
-    ListModel {
-        id: languages
-        ListElement {lang: "en"}
-        ListElement {lang: "ru"}
-    }
 }

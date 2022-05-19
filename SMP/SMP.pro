@@ -55,6 +55,7 @@ SOURCES += \
         presenters/kernelpresenter.cpp \
         presenters/themepresenter.cpp \
         readers/xmlloader.cpp \
+        settings/settings.cpp \
         tagreader/taggetter.cpp \
         tagreader/tagreader.cpp \
         themes/themecontroller.cpp \
@@ -115,6 +116,7 @@ HEADERS += \
     presenters/kernelpresenter.h \
     presenters/themepresenter.h \
     readers/xmlloader.h \
+    settings/settings.h \
     tagreader/itagreader.h \
     tagreader/taggetter.h \
     tagreader/tagreader.h \

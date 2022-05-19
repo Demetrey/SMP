@@ -165,6 +165,7 @@ void PlayQueueController::play(int index) {
         QString path = queueModel->data(queueModel->index(index, 0), queueModel->pathRole).toString();
         if (!path.isNull() && !path.isEmpty()) {
             setIsFile(true);
+
             kernel->play(path, m_IsFile);
             setCurrentPlayId(queueModel->getId(index));
             setCurrentPlayIndex(index);
@@ -410,4 +411,13 @@ void PlayQueueController::setIsShuffled(bool newIsShuffled)
         return;
     m_IsShuffled = newIsShuffled;
     emit IsShuffledChanged();
+}
+
+void PlayQueueController::settingsSet(int id, bool isFile, bool isShuffled) {
+    setIsFile(isFile);
+    setCurrentPlayId(id);
+    queueModel->updateModel(isShuffled);
+    updateIndex();
+    play(m_CurrentPlayIndex);
+    kernel->pause();
 }

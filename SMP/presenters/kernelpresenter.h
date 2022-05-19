@@ -73,6 +73,7 @@ signals:
     void ReverbChanged(int);
     void BalanceChanged(int);
     void StatementChanged();
+    void eqChanged();
 
     void CurrentTimeChanged();
 
