@@ -17,7 +17,8 @@ NWorker::NWorker(KernelPresenter *kp, PlayQueueController *pqc,
 }
 
 void NWorker::updateNotification() {
-    nController.notificate(cp->Title(), kp->Statement() != KernelState::State::Play);
+    nController.notificate(cp->Title() + "/" + cp->Artisr(),
+                           kp->Statement() != KernelState::State::Play);
 }
 
 void NWorker::pausePlay() {

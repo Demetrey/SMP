@@ -22,4 +22,7 @@
         <file>IMAGES/controlls/more_vert.svg</file>
         <file>IMAGES/controlls/more_horiz.svg</file>
     </qresource>
+    <qresource prefix="/ico">
+        <file>IMAGES/icon.ico</file>
+    </qresource>
 </RCC>

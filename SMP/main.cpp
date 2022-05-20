@@ -63,6 +63,7 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
     QQuickStyle::setStyle("Material");
+    app.setWindowIcon(QIcon(":/ico/IMAGES/icon.ico"));
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

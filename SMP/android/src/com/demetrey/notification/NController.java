@@ -10,7 +10,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.R;
-
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class NController
 {
@@ -50,10 +51,20 @@ public class NController
             prevIntent.putExtra("info", "previous");
             PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context, 3, prevIntent, 0);
 
+            String[] notifyData = string.split("\\/");
+            String title;
+            String text;
+            if (notifyData.length > 1) {
+                title = notifyData[0];
+                text = notifyData[1];
+            } else {
+                title = "Playing music";
+                text = string;
+            }
 
             m_builder.setSmallIcon(icon)
-                    .setContentTitle("Playing music")
-                    .setContentText(string)
+                    .setContentTitle(title) //"Playing music"
+                    .setContentText(text) //string
                     .setStyle(new Notification.MediaStyle()
                                     .setShowActionsInCompactView(1)
                     )
@@ -62,6 +73,12 @@ public class NController
                     .addAction(R.drawable.ic_media_next, "Next", nextPendingIntent)
                     .setSound(null)
                     .setVibrate(null);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                Bitmap img = BitmapFactory.decodeResource(context.getResources(),
+                                                          context.getApplicationInfo().icon);
+                m_builder.setLargeIcon(img);
+            }
 
             m_notificationManager.notify(0, m_builder.build());
         } catch (Exception e) {
