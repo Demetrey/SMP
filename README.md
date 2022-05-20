@@ -22,13 +22,13 @@ AIFF, APE, ALAC, FLAC, XM, IT, S3M, MOD, UMX, FLAC, MIDI, OPUS
 
 MS Windows / Linux:
 
-<img title="" src="file:///D:/gits/SMP_code/SMP/Screenshots/WinLin1.png" alt="Интерфейс приложения для MS Windows и Linux" data-align="center" width="300">
+<img title="" src="/Screenshots/WinLin1.png" alt="Интерфейс приложения для MS Windows и Linux" data-align="center" width="300">
 
-<img title="" src="file:///D:/gits/SMP_code/SMP/Screenshots/WinLin2.png" alt="Интерфейс на Windows/Linux" data-align="center" width="300">
+<img title="" src="/Screenshots/WinLin2.png" alt="Интерфейс на Windows/Linux" data-align="center" width="300">
 
-<img title="" src="file:///D:/gits/SMP_code/SMP/Screenshots/Android1.jpg" alt="Интерфейс Android" data-align="center" width="145">
+<img title="" src="/Screenshots/Android1.jpg" alt="Интерфейс Android" data-align="center" width="145">
 
-<img title="" src="file:///D:/gits/SMP_code/SMP/Screenshots/Android2.jpg" alt="Интерфейс Android" data-align="center" width="145">
+<img title="" src="/Screenshots/Android2.jpg" alt="Интерфейс Android" data-align="center" width="145">
 
 **Описание решения**
 
