@@ -13,6 +13,7 @@ class AFController : public QObject
 public:
     explicit AFController(QObject *parent = nullptr);
     static AFController *instance() { return afInstance; }
+    void AFRequest();
 
 signals:
     void isafGain();

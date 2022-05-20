@@ -13,6 +13,7 @@ AFWorker::AFWorker(KernelPresenter *kPresenter,
     connect(afController.instance(), SIGNAL(isafLossTransientCanDuck()), this, SLOT(onIsafLossTransientCanDuck()));
     connect(afController.instance(), SIGNAL(isafCorrect()), this, SLOT(onIsafCorrect()));
     connect(afController.instance(), SIGNAL(isafFailed()), this, SLOT(onIsafFailed()));
+    connect(this->kPresenter, SIGNAL(StatementChanged()), this, SLOT(onPlay()));
 }
 
 void AFWorker::onIsafGain() {
@@ -32,6 +33,12 @@ void AFWorker::onIsafGain() {
         kPresenter->setVolume(backVolume);
         backVolume = 0;
         break;
+    }
+}
+
+void AFWorker::onPlay() {
+    if (kPresenter->Statement() == KernelState::State::Play) {
+        afController.AFRequest();
     }
 }
 

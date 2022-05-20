@@ -17,23 +17,26 @@ public class AFReceiver extends QtService {
     final static String LOG_TAG = "MY_SERVICE";
     static boolean isAudioFocusGranted = false;
     static AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener;
+    static AudioManager am;
 
     public static void startService(Context context) {
         context.startService(new Intent(context, AFReceiver.class));
         createAFListener();
-        requestAudioFocus(context);
+        //requestAudioFocus(context);
         Log.i(LOG_TAG, "START SERVICE");
+        am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        releaseAudioFocus();
     }
 
+    // Вызывать при play
     public static void requestAudioFocus(Context context) {
         //Если аудиофокус не получен
         if (!isAudioFocusGranted) {
-            AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             int result = am.requestAudioFocus(mOnAudioFocusChangeListener,
                     // Use the music stream.
                     AudioManager.STREAM_MUSIC,
@@ -50,6 +53,11 @@ public class AFReceiver extends QtService {
                 Log.i(LOG_TAG, "NOT Get AF");
             }
         }
+    }
+
+    public static void releaseAudioFocus() {
+        isAudioFocusGranted = false;
+        am.abandonAudioFocus(mOnAudioFocusChangeListener);
     }
 
     private static void createAFListener() {
@@ -69,6 +77,7 @@ public class AFReceiver extends QtService {
                     case AudioManager.AUDIOFOCUS_LOSS:
                         Log.i(LOG_TAG, "AUDIOFOCUS_LOSS");
                         AFFunctions.afLoss();
+                        releaseAudioFocus();
                         // Другое приложение воспроизводить что-то большое
                         // pause playback
                         break;
@@ -77,6 +86,7 @@ public class AFReceiver extends QtService {
                         // Требуется приостановить воспроизведение
                         Log.i(LOG_TAG, "AUDIOFOCUS_LOSS_TRANSIENT");
                         AFFunctions.afLossTransient();
+                        releaseAudioFocus();
                         break;
                     case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
                         // Другое приложение воспроизводит что-то небольшое

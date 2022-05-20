@@ -26,6 +26,7 @@ private slots:
     void onIsafLossTransientCanDuck();
     void onIsafCorrect();
     void onIsafFailed();
+    void onPlay();
 
 private:
     enum AFStates {

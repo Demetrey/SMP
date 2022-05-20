@@ -67,4 +67,11 @@ AFController::AFController(QObject *parent) : QObject(parent) {
                                               QtAndroid::androidActivity().object());
 }
 
+void AFController::AFRequest() {
+    QAndroidJniObject::callStaticMethod<void>("com/demetrey/audiofocus/AFReceiver",
+                                              "requestAudioFocus",
+                                              "(Landroid/content/Context;)V",
+                                              QtAndroid::androidActivity().object());
+}
+
 #endif
