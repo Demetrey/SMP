@@ -15,6 +15,11 @@
 #include "dbcontroller/queuecontroller.h"
 #include "dbcontroller/Models/playqueuemodel.h"
 
+/**
+ * @brief The ShuffleQueue class
+ * Перемешивание очереди воспроизведения в другом потоке
+ * Shuffling the play queue in another thread
+ */
 class ShuffleQueue : public QObject, public QRunnable
 {
     Q_OBJECT

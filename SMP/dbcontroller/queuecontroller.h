@@ -11,6 +11,13 @@
 #include "Interfaces/IPlaybackQueueController.h"
 #include "Tables/playbackqueue.h"
 
+/**
+ * @brief The QueueController class
+ * Контроллер доступа к данным очереди воспроизведения.
+ * Предоставляет методы для работы с данными очереди воспроизведения.
+ * Data access controller for playback queue.
+ * Provides methods for working with play queue data.
+ */
 class QueueController : public IPlaybackQueueController
 {
     Q_OBJECT

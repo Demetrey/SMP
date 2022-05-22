@@ -22,7 +22,7 @@
 
 /**
  * @brief The GetFilesTask class
- *
+ * Задача добавления файлов в БД для выполнения в отдельном потоке
  * Adding data of received files with received paths to the database
  * Designed to run on a separate thread
  */

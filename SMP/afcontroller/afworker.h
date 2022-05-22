@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #ifndef AFWORKER_H
 #define AFWORKER_H
 
@@ -9,7 +15,15 @@
 #include "presenters/kernelpresenter.h"
 #include "PlaybackController/playqueuecontroller.h"
 
-
+/**
+ * @brief The AFWorker class
+ *
+ * Класс предназначен для взаимодействия с объектами C++ при обработке событий
+ * аудиофокуса
+ *
+ * The class is designed to interact with C++ objects when handling audio focus
+ * events
+ */
 class AFWorker : public QObject
 {
     Q_OBJECT

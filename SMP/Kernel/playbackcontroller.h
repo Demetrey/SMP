@@ -11,6 +11,13 @@
 #include <QDebug>
 #include <bass.h>
 
+/**
+ * @brief The PlaybackController class
+ * Класс управления воспроизведением.
+ * Предоставляет методы для управления воспроизведением.
+ * Playback control class.
+ * Provides methods to control playback.
+ */
 class PlaybackController : public QObject
 {
     Q_OBJECT

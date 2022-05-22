@@ -12,6 +12,11 @@
 #include <QDebug>
 #include <bass.h>
 
+/**
+ * @brief The Initializer class
+ * Класс инициализации устройств и потоков воспроизведения
+ * Device and playback stream initialization class
+ */
 class Initializer : public QObject
 {
     Q_OBJECT

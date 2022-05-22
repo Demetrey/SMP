@@ -17,6 +17,11 @@
 
 #include "dbcontroller/dbnames.h"
 
+/**
+ * @brief The Album class
+ * Класс реализует работу с таблицей URL_AUDIO
+ * The class implements work with the URL_AUDIO table
+ */
 class UrlAudio
 {
 public:

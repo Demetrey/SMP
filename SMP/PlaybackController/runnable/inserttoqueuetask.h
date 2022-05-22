@@ -12,6 +12,11 @@
 
 #include "dbcontroller/queuecontroller.h"
 
+/**
+ * @brief The InsertToQueueTask class
+ * Добавление композиции в очередь в другом потоке
+ * Adding a composition to a queue on another thread
+ */
 class InsertToQueueTask : public QObject, public QRunnable
 {
     Q_OBJECT

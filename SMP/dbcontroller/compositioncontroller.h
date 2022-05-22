@@ -15,6 +15,14 @@
 #include "Tables/composition.h"
 #include "Tables/urlaudio.h"
 
+/**
+ * @brief The CompositionController class
+ * Класс - контроллер доступа к записям композиций.
+ * Представляет методы для добавления, удаления, изменения данных композиций и
+ * URL-источников.
+ * Class - controller of access to composition records.
+ * Represents methods for adding, removing, modifying song data and URL sources.
+ */
 class CompositionController
         : public ICompositionController
 {

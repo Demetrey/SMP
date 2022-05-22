@@ -20,8 +20,8 @@
 /**
  * @brief The BaseManyToMany class
  * Базовый класс, реализующий работу в бд с таблицами со связью М:М
- * The class implements work with tables with a many-to-many relationship within
- * the framework of the implemented database
+ * The base class that implements work in the database with tables with M:M
+ * relationship
  */
 class BaseManyToMany
 {

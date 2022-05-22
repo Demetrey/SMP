@@ -16,7 +16,7 @@ Initializer::~Initializer() {
 
 /**
  * @brief Device initialization
- *
+ * Инициализация устройств воспроизведения
  * Initializes an output device
  *
  * @param device - output device number (-1 - default)
@@ -35,7 +35,7 @@ bool Initializer::initDevice(int device, int freq) {
 
 /**
  * @brief Device activation
- *
+ * Смена устройства воспроизведения
  * Specifying an output device
  *
  * @param device - output device number
@@ -48,7 +48,7 @@ void Initializer::setDevice(int device) {
 
 /**
  * @brief File initialization
- *
+ * Установка воспроизведения файла
  * File playback initialization
  *
  * @param fileWay - path to file
@@ -59,7 +59,7 @@ void Initializer::initFile(const char *fileWay) {
 
 /**
  * @brief URL initialization
- *
+ * Установка воспроизведения URL
  * Initiating playback by URL
  *
  * @param url - url for playback (HTTP, HTTPS, FTP protocols)
@@ -70,7 +70,7 @@ void Initializer::initUrl(const char *url) {
 
 /**
  * @brief Initializer::freeStream
- *
+ * Освобождение потока воспроизведения
  * Force release of a playback stream
  */
 void Initializer::freeStream() {
@@ -82,7 +82,7 @@ void Initializer::freeStream() {
 
 /**
  * @brief Device information
- *
+ * Получение списка доступных устройств воспроизведения
  * Search for connected output devices for further use
  *
  * @return QMap of connected devices with name and number
@@ -115,7 +115,7 @@ float Initializer::getChannelFreq() {
 
 /**
  * @brief Releasing resources
- *
+ * Освободление ресурсов активных устройств воспроизведения
  * Releasing resources for active playback devices
  */
 void Initializer::freeDevices() {

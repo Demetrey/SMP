@@ -12,6 +12,15 @@
 #include "Tables/playlist.h"
 #include "Tables/playlistcomposition.h"
 
+/**
+ * @brief The PlaylistController class
+ * Контроллер доступа к данным плейлистов.
+ * Предоставляет методы для добавления, удаления, изменения данных плейлистов,
+ * в том числе их содержимого.
+ * Controller for accessing playlist data.
+ * Provides methods for adding, removing, modifying playlist data, including
+ * their content.
+ */
 class PlaylistController : public IPlaylistController
 {
     Q_OBJECT

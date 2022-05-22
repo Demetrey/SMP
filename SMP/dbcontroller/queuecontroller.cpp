@@ -39,6 +39,9 @@ void QueueController::updateQueueNumbers(const int idComposition, const int numb
     playQueue->updateNumber(idComposition, number);
 }
 
+/**
+ * @brief Clear queue
+ */
 void QueueController::clearQueue() {
     playQueue->clear();
 }

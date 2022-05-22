@@ -9,6 +9,11 @@
 
 #include "playlistcomposition.h"
 
+/**
+ * @brief The Album class
+ * Класс реализует работу с таблицей PLAYLIST_COMPOSITION (idPlaylist 0)
+ * The class implements work with the PLAYLIST_COMPOSITION table (idPlaylist 0)
+ */
 class PlaybackQueue : private PlaylistComposition
 {
 public:

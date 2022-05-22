@@ -14,6 +14,11 @@
 
 #include "FileTypes.h"
 
+/**
+ * @brief The MimeTyper class
+ * Класс для определения формата аудифоайла
+ * Class for checking audio file format
+ */
 class MimeTyper
 {
 public:

@@ -13,7 +13,7 @@ AndroidGetter::AndroidGetter() {
 
 /**
  * @brief getAbsolutePath
- *
+ * Получение абосолютных путей по URL на Android
  * Getting absolute paths of files by URI
  *
  * @param files - List of file URIs

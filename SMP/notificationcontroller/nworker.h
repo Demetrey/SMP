@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #ifndef NWORKER_H
 #define NWORKER_H
 
@@ -9,6 +15,11 @@
 #include "PlaybackController/playqueuecontroller.h"
 #include "presenters/compositionpresenter.h"
 
+/**
+ * @brief The NWorker class
+ * Класс для работы с уведомлениями из C++
+ * Class for working with notifications from C++
+ */
 class NWorker : public QObject
 {
     Q_OBJECT

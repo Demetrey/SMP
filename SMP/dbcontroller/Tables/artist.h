@@ -9,6 +9,11 @@
 
 #include "base/basetable.h"
 
+/**
+ * @brief The Album class
+ * Класс реализует работу с таблицей ARTIST
+ * The class implements work with the ARTIST table
+ */
 class Artist : public BaseTable
 {
 public:

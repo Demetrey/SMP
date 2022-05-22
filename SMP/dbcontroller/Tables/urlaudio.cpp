@@ -11,6 +11,11 @@ UrlAudio::UrlAudio(QString &connectionName) {
     tableName = QString(URL_AUDIO);
 }
 
+/**
+ * @brief Adding an Audio Source
+ * @param data - [URL, name]
+ * @return id of the added source
+ */
 int UrlAudio::insert(const QVariantList &data) {
     int id = getId(data);
     if (id != -1)
@@ -29,6 +34,10 @@ int UrlAudio::insert(const QVariantList &data) {
     return query.lastInsertId().toInt();
 }
 
+/**
+ * @brief Delete audio source
+ * @param id - resource id
+ */
 void UrlAudio::remove(const int id) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "DELETE FROM " + tableName + " WHERE id = "
@@ -40,6 +49,11 @@ void UrlAudio::remove(const int id) {
     }
 }
 
+/**
+ * @brief Update data
+ * @param id - resource id
+ * @param data - [URL, name]
+ */
 void UrlAudio::update(const int id, const QVariantList &data) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "UPDATE " + tableName +
@@ -54,6 +68,11 @@ void UrlAudio::update(const int id, const QVariantList &data) {
     }
 }
 
+/**
+ * @brief Get id by data
+ * @param data - [URL, name]
+ * @return resource id
+ */
 int UrlAudio::getId(const QVariantList &data) const {
     int id = -1;
     QSqlQuery query(QSqlDatabase::database(connectionName));

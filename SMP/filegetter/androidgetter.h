@@ -20,7 +20,8 @@
 
 /**
  * @brief The AndroidGetter class
- *
+ * Работает только на Android
+ * Работа со списком путей файлов на Android
  * Working with a list of files on Android
  * Designed for Android only
  */

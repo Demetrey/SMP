@@ -7,6 +7,11 @@
 #include <QAndroidJniEnvironment>
 #include <QDebug>
 
+/**
+ * @brief The NotificationController class
+ * Класс реализации вывода медиауведомлений для Android
+ * Android Media Notification Implementation Class
+ */
 class NotificationController : public QObject
 {
     Q_OBJECT

@@ -30,6 +30,13 @@
 
 #include "cyclestate.h"
 
+/**
+ * @brief The PlayQueueController class
+ * Класс вызова выполнения задач с очередью воспроизведения, контроля
+ * текущего файла воспроизведения
+ * Task execution call class with playback queue, control
+ * current playback file
+ */
 class PlayQueueController : public QObject
 {
     Q_OBJECT

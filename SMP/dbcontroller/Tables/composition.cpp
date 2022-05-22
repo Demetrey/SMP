@@ -11,6 +11,11 @@ Composition::Composition(QString &connectionName) {
     this->tableName = QString(COMPOSITION);
 }
 
+/**
+ * @brief Insert composition
+ * @param data - [path, title, year, album id]
+ * @return id of the added composition
+ */
 int Composition::insert(const QVariantList &data) const {
     int id = getId(data);
     if (id != -1)
@@ -31,6 +36,10 @@ int Composition::insert(const QVariantList &data) const {
     return query.lastInsertId().toInt();
 }
 
+/**
+ * @brief Delete composition
+ * @param id - composion id
+ */
 void Composition::remove(const int id) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "DELETE FROM " + tableName + " WHERE id = "
@@ -42,6 +51,11 @@ void Composition::remove(const int id) {
     }
 }
 
+/**
+ * @brief Update composition
+ * @param id - composition id
+ * @param data - [path, title, year, album id]
+ */
 void Composition::update(const int id, const QVariantList &data) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "UPDATE " + tableName +
@@ -59,6 +73,11 @@ void Composition::update(const int id, const QVariantList &data) {
     }
 }
 
+/**
+ * @brief Get composition id
+ * @param data - [path, title, year, album id]
+ * @return composition id
+ */
 int Composition::getId(const QVariantList &data) const {
     int id = -1;
     QSqlQuery query(QSqlDatabase::database(connectionName));
@@ -82,6 +101,11 @@ int Composition::getId(const QVariantList &data) const {
     return id;
 }
 
+/**
+ * @brief Get composition data
+ * @param id - cjmposition id
+ * @return [path, title, year, album id]
+ */
 QVariantList Composition::getData(const int id) const {
     QVariantList result;
     QSqlQuery querySelect(QSqlDatabase::database(connectionName));
@@ -101,6 +125,12 @@ QVariantList Composition::getData(const int id) const {
     return result;
 }
 
+/**
+ * @brief Get album count
+ * The number of songs in the album that contains the song with the specified id
+ * @param id - composition id
+ * @return number of songs in the album
+ */
 int Composition::getAlbumCount(const int id) const {
     int count = -1;
     QSqlQuery query(QSqlDatabase::database(connectionName));

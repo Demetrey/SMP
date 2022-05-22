@@ -1,9 +1,22 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #ifndef IKERNEL_H
 #define IKERNEL_H
 
 #include <QObject>
 #include "kernelstate.h"
 
+/**
+ * @brief The IKernel class
+ * Интерфейс ядра воспроизведения приложения
+ * Описывает все необходимые методы класса ядра
+ * Application playback core interface
+ * Describes all the necessary methods of the kernel class
+ */
 class IKernel : public QObject {
 public:
     virtual ~IKernel() {};

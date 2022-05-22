@@ -18,6 +18,11 @@
 
 #include "dbnames.h"
 
+/**
+ * @brief The DBConnect class
+ * Установка соединения с БД
+ * Establishing a database connection
+ */
 class DBConnect
 {
 public:

@@ -11,11 +11,21 @@ PlaybackQueue::PlaybackQueue(QString &connectionName)
     this->rows.append("number");
 }
 
+/**
+ * @brief Insert composition to queue
+ * @param idComposition - composition id
+ * @return true - true - success, false - failure
+ */
 bool PlaybackQueue::insert(const int idComposition) {
     QVariantList data = {idComposition, idQueue};
     return PlaylistComposition::insert(data);
 }
 
+/**
+ * @brief Update queue number
+ * @param idComposition - composition id
+ * @param num - new number
+ */
 void PlaybackQueue::updateNumber(const int idComposition, const int num) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "UPDATE " + tableName
@@ -30,6 +40,10 @@ void PlaybackQueue::updateNumber(const int idComposition, const int num) {
     }
 }
 
+/**
+ * @brief Remove composition from queue
+ * @param idComosition - composition id
+ */
 void PlaybackQueue::remove(const int idComosition) {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "DELETE FROM " + tableName + " WHERE " + rows[1] + " = "
@@ -41,6 +55,9 @@ void PlaybackQueue::remove(const int idComosition) {
     }
 }
 
+/**
+ * @brief Clear queue
+ */
 void PlaybackQueue::clear() {
     QSqlQuery query(QSqlDatabase::database(connectionName));
     QString queryText = "DELETE FROM " + tableName + " WHERE " + rows[1] + " = "

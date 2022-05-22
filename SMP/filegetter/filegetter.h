@@ -14,6 +14,12 @@
 
 #include "getfilestask.h"
 
+/**
+ * @brief The FileGetter class
+ * Класс, реализующий выбор файлов и добавление записей о композициях в БД
+ * A class that implements the selection of files and adding records about
+ * compositions to the database
+ */
 class FileGetter : public QObject
 {
     Q_OBJECT

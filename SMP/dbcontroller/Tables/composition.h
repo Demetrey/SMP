@@ -18,6 +18,11 @@
 
 #include "dbcontroller/dbnames.h"
 
+/**
+ * @brief The Album class
+ * Класс реализует работу с таблицей COMPOSITION
+ * The class implements work with the COMPOSITION table
+ */
 class Composition
 {
 public:

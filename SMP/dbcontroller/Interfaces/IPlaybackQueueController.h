@@ -13,6 +13,11 @@
 #include <QList>
 #include <QSqlDatabase>
 
+/**
+ * @brief The IPlaybackQueueController class
+ * Интерфейс для котнроллера работы с очередью воспроизведения
+ * Interface for the playback queue controller
+ */
 class IPlaybackQueueController : public QObject {
 public slots:
     virtual void insertToQueue(const int id) = 0;

@@ -21,6 +21,11 @@
 #include "kernelstate.h"
 #include "readers/xmlloader.h"
 
+/**
+ * @brief The Kernel class
+ * Реализация интерфейса IKernel
+ * Implementing the IKernel Interface
+ */
 class Kernel : public IKernel
 {
     Q_OBJECT

@@ -14,6 +14,15 @@
 #include <bass.h>
 #include "readers/xmlloader.h"
 
+/**
+ * @brief The PlaybackParameters class
+ * Класс параметров воспроивзедения.
+ * Предоставляет набор методов для установки допустимых параметров
+ * воспроизведения для достижения определенных аудиоэффетов.
+ * Playback options class.
+ * Provides a set of methods for setting valid playback parameters to achieve
+ * specific audio effects.
+ */
 class PlaybackParameters : public QObject
 {
     Q_OBJECT

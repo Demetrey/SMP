@@ -13,6 +13,11 @@
 #include <QList>
 #include <QSqlDatabase>
 
+/**
+ * @brief The IPlaylistController class
+ * Интерфейс для контроллера рабты с плейлистами
+ * Playlist controller interface
+ */
 class IPlaylistController : public QObject {
 public slots:
     virtual void createPlaylist(const QString& name) = 0;

@@ -12,6 +12,11 @@
 
 #include "dbcontroller/queuecontroller.h"
 
+/**
+ * @brief The RemoveFromQueueTask class
+ * Удаление композиции из очереди в другом потоке
+ * Removing a composition from a queue in another thread
+ */
 class RemoveFromQueueTask : public QObject, public QRunnable
 {
     Q_OBJECT

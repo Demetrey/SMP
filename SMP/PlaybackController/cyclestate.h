@@ -13,6 +13,11 @@ class CycleState : public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief The Cycle enum
+     * Перечисление состояний зацикливания очереди воспроизведения
+     * Enumeration of looping states of the playback queue
+     */
     enum class Cycle : int {
         CycleNo,
         CycleQueue,

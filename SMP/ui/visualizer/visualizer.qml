@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 import QtQuick 2.12
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4

@@ -14,6 +14,11 @@
 #include <QSqlDatabase>
 #include "tagreader/tagstructs.h"
 
+/**
+ * @brief The ICompositionController class
+ * Интерфейс для контроллера работы контроллера композиций
+ * Interface for the controller operation of the composition controller
+ */
 class ICompositionController : public QObject {
 public slots:
     virtual void insertComposition(const QString& path, const Tags* tags) = 0;

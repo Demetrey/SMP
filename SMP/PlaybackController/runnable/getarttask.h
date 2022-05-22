@@ -13,6 +13,11 @@
 
 #include "tagreader/tagreader.h"
 
+/**
+ * @brief The GetArtTask class
+ * Получение обложки композиции в отдельном потоке
+ * Getting the cover art of a composition in a separate thread
+ */
 class GetArtTask : public QObject, public QRunnable
 {
     Q_OBJECT

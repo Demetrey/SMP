@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #ifndef AFCONTROLLER_H
 #define AFCONTROLLER_H
 
@@ -7,6 +13,15 @@
 #include <QAndroidJniEnvironment>
 #include <QDebug>
 
+/**
+ * @brief The AFController class
+ *
+ * Класс предназначен для обработки событий, возникающих при работе с
+ * аудиофокусом для устройств на базе Android.
+ *
+ * The class is designed to handle events that occur when working with autofocus
+ * for Android devices.
+ */
 class AFController : public QObject
 {
     Q_OBJECT

@@ -9,6 +9,11 @@
 
 #include "base/basemanytomany.h"
 
+/**
+ * @brief The Album class
+ * Класс реализует работу с таблицей PLAYLIST_COMPOSITION
+ * The class implements work with the PLAYLIST_COMPOSITION table
+ */
 class PlaylistComposition : public BaseManyToMany
 {
 public:

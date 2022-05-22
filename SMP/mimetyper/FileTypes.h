@@ -13,6 +13,11 @@ class FileTypes : public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief The FileType enum
+     * Доступные форматы аудиофайлов
+     * Available audio file formats
+     */
     enum class FileType : int {
         Unknown,
         Mpeg,

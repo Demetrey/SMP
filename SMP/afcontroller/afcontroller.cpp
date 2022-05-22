@@ -1,39 +1,71 @@
+/*
+ * Copyright (c) 2022, Dmitry Fomin.
+ * This program is distributed under the terms of
+ * the GNU General Public License v3.0 (GPL-3.0).
+ */
+
 #include "afcontroller.h"
 
 #ifdef Q_OS_ANDROID
 
+/**
+ * @brief afGain
+ * Обработка события возвращения аудиофокуса приложению
+ * Handling the audio focus return event to the application
+ */
 static void afGain(JNIEnv * /*env*/, jobject /*obj*/) {
-    // отслеживание нажатия кнопки play в уведомлении
     emit AFController::instance()->isafGain();
     qDebug() << "onAFGain";
 }
 
+/**
+ * @brief afLoss
+ * Обработка события потери аудиофокуса
+ * Handling the audio focus loss event
+ */
 static void afLoss(JNIEnv * /*env*/, jobject /*obj*/) {
-    // отслеживание нажатия кнопки play в уведомлении
     emit AFController::instance()->isafLoss();
     qDebug() << "onAFLose";
 }
 
+/**
+ * @brief afLossTransient
+ * Обработка события кратковременной потери аудиофокуса
+ * Handling the momentary loss of audio focus event
+ */
 static void afLossTransient(JNIEnv * /*env*/, jobject /*obj*/) {
-    // отслеживание нажатия кнопки play в уведомлении
     emit AFController::instance()->isafLossTransient();
     qDebug() << "onAFLossTransient";
 }
 
+/**
+ * @brief afLossTransientCanDuck
+ * Обработка события потери аудиофокуса на кратковременное воспроизведение звука
+ * другим приложением
+ * Handling the audio focus loss event for a momentary audio playback by another
+ * application
+ */
 static void afLossTransientCanDuck(JNIEnv * /*env*/, jobject /*obj*/) {
-    // отслеживание нажатия кнопки play в уведомлении
     emit AFController::instance()->isafLossTransientCanDuck();
     qDebug() << "onAFLossTransientCanDuck";
 }
 
+/**
+ * @brief afCorrect
+ * Обработка события корректного получения аудиофокуса
+ * Handling the correctly received audio focus event
+ */
 static void afCorrect(JNIEnv * /*env*/, jobject /*obj*/) {
-    // отслеживание нажатия кнопки play в уведомлении
     emit AFController::instance()->isafCorrect();
     qDebug() << "onAFCorrect";
 }
 
+/**
+ * @brief afFailed
+ * Обработка события ошибки получения аудиофокуса
+ * Handling the Audio Focus Getting Error Event
+ */
 static void afFailed(JNIEnv * /*env*/, jobject /*obj*/) {
-    // отслеживание нажатия кнопки play в уведомлении
     emit AFController::instance()->isafFailed();
     qDebug() << "onAFFailed";
 }
@@ -41,7 +73,6 @@ static void afFailed(JNIEnv * /*env*/, jobject /*obj*/) {
 AFController *AFController::afInstance = nullptr;
 
 AFController::AFController(QObject *parent) : QObject(parent) {
-
     afInstance = this;
 
     //регистрация функций в jni
@@ -67,6 +98,11 @@ AFController::AFController(QObject *parent) : QObject(parent) {
                                               QtAndroid::androidActivity().object());
 }
 
+/**
+ * @brief AFController::AFRequest
+ * Запрос аудиофокуса
+ * Audio focus request
+ */
 void AFController::AFRequest() {
     QAndroidJniObject::callStaticMethod<void>("com/demetrey/audiofocus/AFReceiver",
                                               "requestAudioFocus",
@@ -74,4 +110,4 @@ void AFController::AFRequest() {
                                               QtAndroid::androidActivity().object());
 }
 
-#endif
+#endif //Q_OS_ANDROID

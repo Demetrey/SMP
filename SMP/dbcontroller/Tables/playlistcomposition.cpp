@@ -13,6 +13,11 @@ PlaylistComposition::PlaylistComposition(QString &connectionName) :
     this->rows.append("idPlaylist");
 }
 
+/**
+ * @brief Remove from playlist
+ * @param idPlaylist - playlist id
+ * @param idComposition - composition id
+ */
 void PlaylistComposition::removeFromPlaylist(const int idPlaylist,
                                              const int idComposition) {
     QSqlQuery query(QSqlDatabase::database(connectionName));

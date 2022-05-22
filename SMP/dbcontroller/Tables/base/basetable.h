@@ -18,6 +18,11 @@
 
 #include "dbcontroller/dbnames.h"
 
+/**
+ * @brief The BaseTable class
+ * Базовый класс, реализующий работу с однотипными таблицами БД
+ * The base class that implements work with the same type of database tables
+ */
 class BaseTable
 {
 public:
